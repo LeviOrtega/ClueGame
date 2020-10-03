@@ -13,7 +13,11 @@ public class TestBoard {
 		this.columnNum = columnNum;
 		
 		board = new TestBoardCell[rowNum][columnNum];
-		
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				board[i][j] = new TestBoardCell(i, j);
+			}
+		}
 	}
 	
 	public TestBoardCell getCell(int row, int col) {

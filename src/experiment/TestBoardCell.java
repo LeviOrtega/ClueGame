@@ -1,18 +1,24 @@
 package experiment;
 
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 
-public class TestBoardCell {
+public class TestBoardCell{
 	
 	private int row;
 	private int column;
+	private boolean occupied;
+	private boolean inRoom;
 	private Set<TestBoardCell> adjList;
 	
-	private TestBoardCell(int row, int column) {
+	public TestBoardCell(int row, int column) {
 		this.row = row;
 		this.column = column;
-		this.adjList = new TreeSet<TestBoardCell>();
+		this.adjList = new HashSet<TestBoardCell>();
+	}
+	
+	public Set<TestBoardCell> getAdjList(){
+		return adjList;
 	}
 	
 	public void setRoom(boolean partOfRoom) {
@@ -31,5 +37,12 @@ public class TestBoardCell {
 	public boolean isOccupied() {
 		return false;
 	}
-	
+
+	public int getRow() {
+		return row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
 }
