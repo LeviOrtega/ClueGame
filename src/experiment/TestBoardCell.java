@@ -3,8 +3,7 @@ package experiment;
 import java.util.Set;
 import java.util.HashSet;
 
-public class TestBoardCell{
-	
+public class TestBoardCell {
 	private int row;
 	private int column;
 	private boolean occupied;
