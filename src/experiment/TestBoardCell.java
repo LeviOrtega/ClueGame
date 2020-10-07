@@ -19,7 +19,7 @@ public class TestBoardCell {
 	
 	public void calcAdjList() {
 		// up down left right
-		
+		/*
 		if (this.row - 1 >= 0) {
 			adjList.add(TestBoard.getCell(this.row - 1, this.column));
 		}
@@ -31,7 +31,9 @@ public class TestBoardCell {
 		}
 		if ((this.column + 1) <= TestBoard.getColLen() - 1) {
 			adjList.add(TestBoard.getCell(this.row, column + 1));
+			
 		}
+		*/
 		
 	}
 	
