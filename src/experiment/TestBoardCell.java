@@ -14,6 +14,25 @@ public class TestBoardCell {
 		this.row = row;
 		this.column = column;
 		this.adjList = new HashSet<TestBoardCell>();
+		calcAdjList();
+	}
+	
+	public void calcAdjList() {
+		// up down left right
+		
+		if (this.row - 1 >= 0) {
+			adjList.add(TestBoard.getCell(this.row - 1, this.column));
+		}
+		if ((this.row + 1) <= TestBoard.getRowLen() - 1) {
+			adjList.add(TestBoard.getCell(this.row + 1, this.column));
+		}
+		if (this.column - 1 >= 0) {
+			adjList.add(TestBoard.getCell(this.row, this.column-1));
+		}
+		if ((this.column + 1) <= TestBoard.getColLen() - 1) {
+			adjList.add(TestBoard.getCell(this.row, column + 1));
+		}
+		
 	}
 	
 	public Set<TestBoardCell> getAdjList(){
