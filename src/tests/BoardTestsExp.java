@@ -19,6 +19,7 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testAdjacency() {
+		// Creating 4 TestBoardCell objects and testing adjacency
 		TestBoardCell cell1 = board.getCell(0, 0);
 		Set<TestBoardCell> testList = cell1.getAdjList();
 		
@@ -46,7 +47,7 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testNormalTarget() {
-		//tests for a 4x4 board
+		// Tests for a normal 4x4 board
 		TestBoardCell test1 = board.getCell(0,0);
 		TestBoardCell test2 = board.getCell(3,3);
 		
@@ -66,11 +67,10 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testMixedTargets() {
+		// Tests a board with spaces designated as either occupied or marked as a specific room
 		board.getCell(1, 1).setOccupied(true);
 		board.getCell(2, 2).setRoom(true);
 		board.generateBoardAdjList();
-		//board.clearTargets();
-		
 		
 		board.calcTargets(board.getCell(0, 1), 2);
 		

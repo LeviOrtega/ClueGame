@@ -10,7 +10,7 @@ public class TestBoard {
 	private Set<TestBoardCell> visited;
 	private Set<TestBoardCell> targets;
 	
-	public TestBoard(int rowNum, int columnNum) {
+	public TestBoard(int rowNum, int columnNum) { // Constructor
 		this.rowNum = rowNum;
 		this.columnNum = columnNum;
 		
@@ -20,14 +20,14 @@ public class TestBoard {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				board[i][j] = new TestBoardCell(i, j);
-				//System.out.println(board[i][j].getRow() + " " + board[i][j].getColumn());
 			}
 		}
-		
 		generateBoardAdjList();
 	}
 
 	public void generateBoardAdjList() {
+		// Iterates through each index of 2D array to create comprehensive adjacency list
+		// Called in TestBoard() constructor
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				calcAdjList(getCell(i,j));
@@ -39,12 +39,9 @@ public class TestBoard {
 		return board[row][col];
 	}
 	
-
-	
 	public void calcAdjList(TestBoardCell tbc) {
-		// up down left right
-		
-		if (tbc.getRow() - 1 >= 0) {
+		// Up, down, left, right
+		if (tbc.getRow() - 1 >= 0) { 
 			tbc.addToAdjList(getCell(tbc.getRow() - 1, tbc.getColumn()));
 		}
 		if ((tbc.getRow() + 1) <= this.rowNum - 1) {
@@ -58,7 +55,6 @@ public class TestBoard {
 		}
 	}
 	
-	
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
 		visited.add(startCell);
 		
@@ -69,6 +65,7 @@ public class TestBoard {
 					targets.add(tbc);
 				}
 				else {
+					// Recursive call to calcTargets() until path length reaches 1
 					calcTargets(tbc, pathLength -1);
 				}
 				visited.remove(tbc);
