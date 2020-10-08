@@ -71,11 +71,6 @@ public class BoardTestsExp {
 		board.getCell(1, 1).setOccupied(true);
 		board.getCell(2, 2).setRoom(true);
 		board.generateBoardAdjList();
-<<<<<<< HEAD
-=======
-		//board.clearTargets();
-		
->>>>>>> 73dc183a527dbf4b278fcb8d5dbdd7e1d6e1cad6
 		
 		board.calcTargets(board.getCell(0, 1), 2);
 		
