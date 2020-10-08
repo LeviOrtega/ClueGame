@@ -39,8 +39,6 @@ public class TestBoard {
 		return board[row][col];
 	}
 	
-
-	
 	public void calcAdjList(TestBoardCell tbc) {
 		// Up, down, left, right
 		if (tbc.getRow() - 1 >= 0) { 
@@ -56,7 +54,6 @@ public class TestBoard {
 			tbc.addToAdjList(getCell(tbc.getRow(), tbc.getColumn() + 1));
 		}
 	}
-	
 	
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
 		visited.add(startCell);
