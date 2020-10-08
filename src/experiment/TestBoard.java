@@ -75,7 +75,6 @@ public class TestBoard {
 			}
 		}
 		visited.remove(startCell);
-		
 	}
 
 	public void clearTargets() {
