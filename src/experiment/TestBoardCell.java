@@ -16,8 +16,14 @@ public class TestBoardCell {
 		this.adjList = new HashSet<TestBoardCell>();
 	}
 	
+
+	
 	public Set<TestBoardCell> getAdjList(){
 		return adjList;
+	}
+	
+	public void addToAdjList(TestBoardCell tbc) {
+		adjList.add(tbc);
 	}
 	
 	public void setRoom(boolean partOfRoom) {
