@@ -17,8 +17,9 @@ public class BoardTestsExp {
 		board = new TestBoard(4, 4);
 	}
 	
-	//@Test
+	@Test
 	public void testAdjacency() {
+		// Creating 4 TestBoardCell objects and testing adjacency
 		TestBoardCell cell1 = board.getCell(0, 0);
 		Set<TestBoardCell> testList = cell1.getAdjList();
 		
@@ -46,7 +47,7 @@ public class BoardTestsExp {
 	
 	@Test
 	public void testNormalTarget() {
-		//tests for a 4x4 board
+		// Tests for a normal 4x4 board
 		TestBoardCell test1 = board.getCell(0,0);
 		TestBoardCell test2 = board.getCell(3,3);
 		
@@ -54,27 +55,30 @@ public class BoardTestsExp {
 		Set<TestBoardCell> target = board.getTargets();
 		assertTrue(target.contains(board.getCell(0, 1)));
 		assertTrue(target.contains(board.getCell(1, 0)));
+		board.clearTargets();
 		
 		board.calcTargets(test2, 2);
 		target = board.getTargets();
 		assertTrue(target.contains(board.getCell(2, 2)));
 		assertTrue(target.contains(board.getCell(1, 3)));
 		assertTrue(target.contains(board.getCell(3, 1)));
+		board.clearTargets();
 	}
 	
-	//@Test
+	@Test
 	public void testMixedTargets() {
+		// Tests a board with spaces designated as either occupied or marked as a specific room
 		board.getCell(1, 1).setOccupied(true);
 		board.getCell(2, 2).setRoom(true);
+		board.generateBoardAdjList();
 		
-		TestBoardCell cell = board.getCell(0, 1);
-		board.calcTargets(cell, 2);
+		board.calcTargets(board.getCell(0, 1), 2);
 		
 		Set<TestBoardCell> targets = board.getTargets();
 		
 		assertEquals(3, targets.size());
-		assertTrue(targets.contains(board.getCell(0, 1)));
-		assertFalse(!targets.contains(board.getCell(1, 1)));
-		assertFalse(!targets.contains(board.getCell(2, 2)));
+		assertTrue(targets.contains(board.getCell(1, 0)));
+		assertFalse(targets.contains(board.getCell(1, 1)));
+		assertFalse(targets.contains(board.getCell(2, 2)));
 	}
 }
