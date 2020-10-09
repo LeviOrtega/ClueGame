@@ -8,19 +8,34 @@ import clueGame.BoardCell;
 public class BoardCell {
 	private int row;
 	private int column;
+	private char initial;
+	private DoorDirection doorDirection;
+	private boolean roomLabel;
+	private boolean roomCenter;
+	private char secretPassage;
 	private boolean occupied;
 	private boolean inRoom;
 	private Set<BoardCell> adjList;
 	
-	public BoardCell(int row, int column) { // Constructor
+	public BoardCell(int row, int column, char initial) { // Constructor
 		this.row = row;
 		this.column = column;
+		this.initial = initial;
 		this.adjList = new HashSet<BoardCell>();
 	}
 	
 	public Set<BoardCell> getAdjList(){
 		return adjList;
 	}
+	
+	public boolean isDoorway() {
+		return false;
+	}
+	
+	public DoorDirection getDoorDirection() {
+		return this.doorDirection;
+	}
+	
 	
 	public void addToAdjList(BoardCell bc) {
 		if (bc.isOccupied() == false && bc.isRoom() == false) {
@@ -56,4 +71,23 @@ public class BoardCell {
 	public int getColumn() {
 		return column;
 	}
+
+	public boolean isRoomCenter() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isLabel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public char getSecretPassage() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+
+
 }
