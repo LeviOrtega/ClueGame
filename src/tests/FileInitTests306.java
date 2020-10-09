@@ -1,5 +1,4 @@
 package tests;
-
 /*
  * This program tests that config files are loaded properly.
  */
@@ -51,11 +50,12 @@ public class FileInitTests306 {
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
-		assertEquals(NUM_ROWS, board.getNumRows());
-		assertEquals(NUM_COLUMNS, board.getNumColumns());
+		assertEquals(NUM_ROWS, board.getNumColumns());
+	}
+
+	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus
 	// two cells that are not a doorway.
 	// These cells are white on the planning spreadsheet
-	}
 	@Test
 	public void FourDoorDirections() {
 		BoardCell cell = board.getCell(8, 7);
@@ -83,8 +83,9 @@ public class FileInitTests306 {
 		for (int row = 0; row < board.getNumRows(); row++)
 			for (int col = 0; col < board.getNumColumns(); col++) {
 				BoardCell cell = board.getCell(row, col);
-				if (cell.isDoorway())
+				if (cell.isDoorway()) {
 					numDoors++;
+				}	
 			}
 		Assert.assertEquals(17, numDoors);
 	}

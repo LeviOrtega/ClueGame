@@ -17,6 +17,8 @@ public class BoardCell {
 	private boolean inRoom;
 	private Set<BoardCell> adjList;
 	
+
+
 	public BoardCell(int row, int column, char initial) { // Constructor
 		this.row = row;
 		this.column = column;
@@ -27,7 +29,6 @@ public class BoardCell {
 	public Set<BoardCell> getAdjList(){
 		return adjList;
 	}
-	
 	public boolean isDoorway() {
 		return false;
 	}
@@ -35,7 +36,6 @@ public class BoardCell {
 	public DoorDirection getDoorDirection() {
 		return this.doorDirection;
 	}
-	
 	
 	public void addToAdjList(BoardCell bc) {
 		if (bc.isOccupied() == false && bc.isRoom() == false) {
