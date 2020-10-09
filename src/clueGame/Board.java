@@ -17,7 +17,7 @@ public class Board {
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	
-	private Board() {}
+	private Board() {initialize();}
 
 	public static Board getInstance() {
 		return theInstance;
@@ -29,25 +29,25 @@ public class Board {
 	
 	public Room getRoom(BoardCell cell) {
 		
-		return null;
+		return new Room();
 	}
 	
 	public Room getRoom(Character c) {
 		
-		return null;
+		return new Room();
 	}
 	
 	public void initialize() {
 		/*
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
-		board = new BoardCell[rowNum][columnNum];
+		board = new BoardCell[numRows][numColumns];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				board[i][j] = new BoardCell(i, j);
+				board[i][j] = new BoardCell(i, j, ' ');
 			}
-		}
-		generateBoardAdjList();*/
+		}*/
+		//generateBoardAdjList();
 	}
 
 	public void generateBoardAdjList() {
@@ -61,7 +61,7 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int col) {
-		return null;
+		return new BoardCell(0,0, ' ');
 		//return board[row][col];
 	}
 	
