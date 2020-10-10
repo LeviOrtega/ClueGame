@@ -50,7 +50,7 @@ public class FileInitTests306 {
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
-		assertEquals(NUM_ROWS, board.getNumColumns());
+		assertEquals(NUM_ROWS, board.getNumRows());
 	}
 
 	// Test a doorway in each direction (RIGHT/LEFT/UP/DOWN), plus

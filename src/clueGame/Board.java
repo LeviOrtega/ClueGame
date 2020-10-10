@@ -1,7 +1,11 @@
 package clueGame;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import clueGame.BoardCell;
@@ -13,42 +17,164 @@ public class Board {
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private BoardCell[][] board;
+	private String[][] boardString;
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	
-	private Board() {initialize();}
+	private Board() {}
 
 	public static Board getInstance() {
 		return theInstance;
 	}
 
 	public void setConfigFiles(String csv, String txt) {
-		
+		this.setupConfigFile = txt;
+		this.layoutConfigFile = csv;
 	}
 
 	public Room getRoom(BoardCell cell) {
+		return roomMap.get(cell.getInitial());
 		
-		return new Room();
 	}
 	
 	public Room getRoom(Character c) {
 		
-		return new Room();
+		return roomMap.get(c);
 	}
 	
 	public void initialize() {
-		/*
+		roomMap = new HashMap<Character, Room>();
+		loadLayoutConfig();
+		loadSetupConfig();
+		
+		
+		
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
-		board = new BoardCell[numRows][numColumns];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				board[i][j] = new BoardCell(i, j, ' ');
+				board[i][j] = new BoardCell(i, j, boardString[i][j].charAt(0));
+				generateBoardCellType(board[i][j]);
 			}
-<<<<<<< HEAD
 		}
-		generateBoardAdjList();*/
+		
+		generateBoardAdjList();
+	}
+	
+	public void generateBoardCellType(BoardCell bc) {
+		int row = bc.getRow();
+		int col = bc.getColumn();
+		String bcString = boardString[row][col];
+		if (bcString.length() > 1) {			// we only want to evaluate strings with two or more chars, they are the doors, centers, etc.
+			Character lastChar = bcString.charAt(bcString.length() -1);
+		
+			switch (lastChar) {
+				case 'v': {
+					bc.setDoorDirection(DoorDirection.DOWN);
+					bc.setDoorway(true);
+					break;
+				}
+				case '>': {
+					bc.setDoorDirection(DoorDirection.RIGHT);
+					bc.setDoorway(true);
+					break;
+				}
+				case '<': {
+					bc.setDoorDirection(DoorDirection.LEFT);
+					bc.setDoorway(true);
+					break;
+				}
+				case '^': {
+					bc.setDoorDirection(DoorDirection.UP);
+					bc.setDoorway(true);
+					break;
+				}
+				case '*':{
+					roomMap.get(bc.getInitial()).setCenterCell(bc);
+					bc.setRoomCenter(true);
+					bc.setRoom(true);
+					break;
+				}
+				case '#': {
+					roomMap.get(bc.getInitial()).setLabelCell(bc);
+					bc.setRoomLabel(true);
+					bc.setRoom(true);
+					break;
+				}
+				default: {
+					bc.setSecretPassage(lastChar);
+					break;
+				}
+			}
+		}
+	
+	}
+	
+	public void loadSetupConfig() {
+		try {
+			File setup = new File("data/" + setupConfigFile);
+			Scanner sc = new Scanner(setup);
+		
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				
+				if (!(line.split(" ")[0].equals("//"))) {
+					String[] roomInfo = line.split(", ");
+					Room room = new Room(roomInfo[1]);
+					roomMap.put(roomInfo[2].charAt(0), room);
+					/*
+					 for (String s: roomInfo) {
+						System.out.println(s);
+					}
+					 */
+				}
+			}
+			sc.close();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File, " + setupConfigFile + " could not be opened.");
+		}
+		
+		
+		
+		
+	}
+
+	public void loadLayoutConfig() {
+		int colLen = 0;
+		int rowLen = 0;
+		
+		try {
+			File layout = new File("data/" + layoutConfigFile);
+			Scanner sc = new Scanner(layout);
+			String in = sc.nextLine();
+			String[] column = in.split(",");
+			colLen = column.length;
+			rowLen = 1;		//because we used the sc.nextLine() before, we are now down one row
+			while (sc.hasNextLine()) {
+				rowLen ++;
+				sc.nextLine();
+			}
+			
+			sc.close();
+			board = new BoardCell[rowLen][colLen];
+			boardString = new String[rowLen][colLen];
+			
+			int i = 0;
+			sc = new Scanner(layout);
+			while (sc.hasNextLine()) {
+				boardString[i] = sc.nextLine().split(",");		// .split returns our row of strings for boardString
+				i++;
+			}
+			sc.close();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File " + layoutConfigFile + " cannot be opened.");
+		}
+		
+		this.numColumns = colLen;
+		this.numRows = rowLen;
 	}
 
 	public void generateBoardAdjList() {
@@ -62,7 +188,7 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int col) {
-		return new BoardCell(0,0, ' ');
+		return board[row][col];
 		//return board[row][col];
 	}
 	
@@ -110,22 +236,11 @@ public class Board {
 	}
 
 	public int getNumColumns() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.numColumns;
 	}
 
 	public int getNumRows() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.numRows;
 	}
 	
-	public void loadSetupConfig() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void loadLayoutConfig() {
-		// TODO Auto-generated method stub
-		
-	}
 }
