@@ -1,19 +1,14 @@
-@Author: Anthony Desiato
-@Author: Levi Ortega
-
 // Rooms and room cards
 Room, Saloon, S
-Room, General Store, GS
+Room, General Store, G
 Room, Bank, B
-Room, Hitching Post, HP
+Room, Hitching Post, P
 Room, Jail, J
-Room, Gunsmith, G
-Room, Sheriff's Office, SO
+Room, Noose, N
+Room, Law, L
 Room, Outhouse, O
 Room, Hotel, H
 
 // Other spaces on board
 Space, Unused, X
 Space, Road, R
-
-
