@@ -17,11 +17,7 @@ public class BoardCell {
 	private boolean inRoom;
 	private Set<BoardCell> adjList;
 	
-<<<<<<< HEAD
-=======
 
-
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 	public BoardCell(int row, int column, char initial) { // Constructor
 		this.row = row;
 		this.column = column;
@@ -32,10 +28,7 @@ public class BoardCell {
 	public Set<BoardCell> getAdjList(){
 		return adjList;
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
+
 	public boolean isDoorway() {
 		return false;
 	}
@@ -44,10 +37,6 @@ public class BoardCell {
 		return this.doorDirection;
 	}
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 	public void addToAdjList(BoardCell bc) {
 		if (bc.isOccupied() == false && bc.isRoom() == false) {
 			// TestBoardCell object added to adjacency list iff spot is not occupied or a marked room
@@ -97,8 +86,4 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	
-
-
 }

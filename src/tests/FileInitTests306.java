@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 package tests;
 /*
  * This program tests that config files are loaded properly.

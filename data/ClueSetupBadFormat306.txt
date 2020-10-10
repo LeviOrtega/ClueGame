@@ -2,11 +2,11 @@
 Room, Conservatory, C
 Room, Kitchen, K
 Room, Ballroom, B
-Room, Billiard room, R
+Room, Billiard Room, R
 Room, Library, L
 Room, Study, S
-Rom, Dining Room, D
-Room, Lounge, O
+Room, Dining Room, D
+Rom, Lounge, O
 Room, Hall, H
 // other spaces on board
 Space, Unused, X

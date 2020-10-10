@@ -26,15 +26,12 @@ public class Board {
 	public void setConfigFiles(String csv, String txt) {
 		
 	}
-	
-<<<<<<< HEAD
-=======
+
 	public Room getRoom(BoardCell cell) {
 		
 		return new Room();
 	}
 	
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 	public Room getRoom(Character c) {
 		
 		return new Room();
@@ -52,10 +49,6 @@ public class Board {
 <<<<<<< HEAD
 		}
 		generateBoardAdjList();*/
-=======
-		}*/
-		//generateBoardAdjList();
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 	}
 
 	public void generateBoardAdjList() {
@@ -125,9 +118,7 @@ public class Board {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-<<<<<<< HEAD
-=======
-
+	
 	public void loadSetupConfig() {
 		// TODO Auto-generated method stub
 		
@@ -137,7 +128,4 @@ public class Board {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
->>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 }
