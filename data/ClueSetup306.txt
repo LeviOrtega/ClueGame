@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Rooms and room cards
 Room, Conservatory, C
 Room, Kitchen, K
@@ -12,34 +11,3 @@ Room, Hall, H
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
-=======
-<<<<<<< HEAD
-// Rooms and room cards
-Room, Conservatory, C
-Room, Kitchen, K
-Room, Ballroom, B
-Room, Billiard Room, R
-Room, Library, L
-Room, Study, S
-Room, Dining Room, D
-Room, Lounge, O
-Room, Hall, H
-// other spaces on board
-Space, Unused, X
-Space, Walkway, W
-=======
-// Rooms and room cards
-Room, Conservatory, C
-Room, Kitchen, K
-Room, Ballroom, B
-Room, Billiard Room, R
-Room, Library, L
-Room, Study, S
-Room, Dining Room, D
-Room, Lounge, O
-Room, Hall, H
-// other spaces on board
-Space, Unused, X
-Space, Walkway, W
->>>>>>> 351eecd8834ba2037bf0641b40a27fcacee84af2
->>>>>>> 2c8638180767079f24e52a4774ca26a4b9bef56a

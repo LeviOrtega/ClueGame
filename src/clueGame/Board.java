@@ -17,7 +17,7 @@ public class Board {
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	
-	private Board() {}
+	private Board() {initialize();}
 
 	public static Board getInstance() {
 		return theInstance;
@@ -27,22 +27,35 @@ public class Board {
 		
 	}
 	
+<<<<<<< HEAD
+=======
+	public Room getRoom(BoardCell cell) {
+		
+		return new Room();
+	}
+	
+>>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 	public Room getRoom(Character c) {
 		
-		return null;
+		return new Room();
 	}
 	
 	public void initialize() {
 		/*
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
-		board = new BoardCell[rowNum][columnNum];
+		board = new BoardCell[numRows][numColumns];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				board[i][j] = new BoardCell(i, j);
+				board[i][j] = new BoardCell(i, j, ' ');
 			}
+<<<<<<< HEAD
 		}
 		generateBoardAdjList();*/
+=======
+		}*/
+		//generateBoardAdjList();
+>>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 	}
 
 	public void generateBoardAdjList() {
@@ -56,7 +69,7 @@ public class Board {
 	}
 	
 	public BoardCell getCell(int row, int col) {
-		return null;
+		return new BoardCell(0,0, ' ');
 		//return board[row][col];
 	}
 	
@@ -103,13 +116,28 @@ public class Board {
 		return targets;
 	}
 
-	public int getNumRows() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	public int getNumColumns() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public int getNumRows() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+<<<<<<< HEAD
+=======
+
+	public void loadSetupConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void loadLayoutConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+>>>>>>> a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 }
