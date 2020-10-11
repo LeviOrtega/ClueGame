@@ -44,7 +44,7 @@ class FileInitTests {
 		assertEquals("Bank", board.getRoom('B').getName() );
 		assertEquals("Hitching Post", board.getRoom('P').getName() );
 		assertEquals("Jail", board.getRoom('J').getName() );
-		assertEquals("Noose", board.getRoom('N').getName() );
+		assertEquals("Trading Stable", board.getRoom('T').getName() );
 		assertEquals("Law", board.getRoom('L').getName() );
 		assertEquals("Outhouse", board.getRoom('O').getName() );
 		assertEquals("Hotel", board.getRoom('H').getName() );
@@ -91,7 +91,7 @@ class FileInitTests {
 					numDoors++;
 				}	
 			}
-		Assert.assertEquals(13, numDoors);
+		Assert.assertEquals(12, numDoors);
 	}
 
 	// Test a few room cells to ensure the room initial is correct.
@@ -118,7 +118,7 @@ class FileInitTests {
 		cell = board.getCell(15, 3);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
-		assertEquals( room.getName(), "General Store" ) ;
+		assertEquals( room.getName(), "Trading Stable" ) ;
 		assertTrue( cell.isRoomCenter() );
 		assertTrue( room.getCenterCell() == cell );
 		

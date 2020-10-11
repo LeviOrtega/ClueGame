@@ -4,11 +4,10 @@ Room, General Store, G
 Room, Bank, B
 Room, Hitching Post, P
 Room, Jail, J
-Room, Noose, N
+Room, Trading Stable, T
 Room, Law, L
 Room, Outhouse, O
 Room, Hotel, H
-
 // Other spaces on board
 Space, Unused, X
 Space, Road, R
