@@ -36,6 +36,7 @@ public class ExceptionTests306 {
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayoutBadRoom306.csv", "ClueSetup306.txt");
 		board.loadSetupConfig();
+		//this will throw error
 		board.loadLayoutConfig();
 	}
 
