@@ -78,7 +78,6 @@ class FileInitTests {
 		cell = board.getCell(18, 14);
 		assertFalse(cell.isDoorway());
 	}
-	
 
 	// Test that we have the correct number of doors
 	@Test
@@ -145,8 +144,5 @@ class FileInitTests {
 		assertEquals( room.getName(), "Unused" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
-		
 	}
-
 }
-

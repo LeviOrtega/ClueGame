@@ -1,6 +1,5 @@
 package clueGame;
 
-
 public class BadConfigFormatException extends RuntimeException {
 
 	private String message;
@@ -13,10 +12,7 @@ public class BadConfigFormatException extends RuntimeException {
 		this.message = message;
 	}
 	
-	
 	public String getMessage() {
 		return this.message;
 	}
-	
-	
 }

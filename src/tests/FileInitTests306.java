@@ -141,7 +141,5 @@ public class FileInitTests306 {
 		assertEquals( room.getName(), "Unused" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
-		
 	}
-
 }
