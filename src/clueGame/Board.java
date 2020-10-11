@@ -46,7 +46,6 @@ public class Board {
 	}
 
 	public void initialize() throws BadConfigFormatException{
-		roomMap = new HashMap<Character, Room>();
 		loadSetupConfig();
 		loadLayoutConfig();
 		this.targets = new HashSet<BoardCell>();
@@ -111,6 +110,7 @@ public class Board {
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException{			// txt file loader
+		roomMap = new HashMap<Character, Room>();
 		try {
 			File setup = new File("data/" + setupConfigFile);
 			Scanner sc = new Scanner(setup);
@@ -143,8 +143,6 @@ public class Board {
 	public void loadLayoutConfig() throws BadConfigFormatException {		// CSV file loader
 		int colLen = 0;
 		int rowLen = 0;
-
-
 		try {
 			File layout = new File("data/" + layoutConfigFile);
 			Scanner sc = new Scanner(layout);
@@ -178,9 +176,9 @@ public class Board {
 
 		for (int i = 0; i < boardString.length; i++) {
 			for (int j = 0; j < boardString[0].length; j++) {
-				System.out.println(roomMap.get(boardString[i][j].charAt(0)));
+				
 				if (roomMap.get(boardString[i][j].charAt(0)) == null) {
-					System.out.println("hello");
+					//System.out.println("hello");
 					throw new BadConfigFormatException(layoutConfigFile + " has incorrect rooms");
 				}
 			}
