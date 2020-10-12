@@ -164,12 +164,12 @@ public class Board {
 				b++;
 			}
 			sc.close();
+			
+			checkRooms();
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("File " + layoutConfigFile + " cannot be opened.");
 		}
-
-		checkRooms();
 
 		this.numColumns = colLen;
 		this.numRows = rowLen;
