@@ -104,6 +104,21 @@ public class Board {
 			}
 			}
 		}
+		else {	// else only one character, space card or room card
+			String type = roomMap.get(bcString.charAt(0)).getCardType();
+			switch (type) {
+			case ROOM: {
+				bc.setRoom(true);
+				break;
+			}
+			case SPACE: {
+				if (!(bcString.charAt(0) == 'X')) {		// x is universal to unused space, other boards use different chars for walkways
+					bc.setPath(true);
+				}
+				break;
+			}
+			}
+		}
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
@@ -123,6 +138,7 @@ public class Board {
 						throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
 					}
 					Room room = new Room(roomInfo[1]);
+					room.setCardType(roomInfo[0]);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
 					roomMap.put(roomInfo[2].charAt(0), room);
 				}
 			}
@@ -164,7 +180,7 @@ public class Board {
 				b++;
 			}
 			sc.close();
-			
+
 			checkRooms();
 		}
 		catch(FileNotFoundException e) {
@@ -177,7 +193,7 @@ public class Board {
 
 	public void checkRooms() throws BadConfigFormatException {
 		// check if csv file had correct characters
-		
+
 		for (int i = 0; i < boardString.length; i++) {
 			for (int j = 0; j < boardString[0].length; j++) {
 				// if the first char is given to roomMap as a key, and it returns null, roomMap does not have that value
@@ -199,10 +215,6 @@ public class Board {
 		}
 	}
 
-	public BoardCell getCell(int row, int col) {
-		return board[row][col];
-	}
-
 	public void calcAdjList(BoardCell bc) {
 		// Up, down, left, right
 		if (bc.getRow() - 1 >= 0) { 
@@ -217,6 +229,14 @@ public class Board {
 		if ((bc.getColumn() + 1) <= this.numColumns - 1) {
 			bc.addToAdjList(getCell(bc.getRow(), bc.getColumn() + 1));
 		}
+	}
+
+	public Set<BoardCell> getAdjList(int row, int col){
+		return getCell(row, col).getAdjList();
+	}
+
+	public BoardCell getCell(int row, int col) {
+		return board[row][col];
 	}
 
 	public void calcTargets(BoardCell startCell, int pathLength) {

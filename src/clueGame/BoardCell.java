@@ -16,6 +16,7 @@ public class BoardCell {
 	private boolean occupied;
 	private boolean inRoom;
 	private boolean isDoorway;
+	private boolean isPath;
 	private Set<BoardCell> adjList;
 	
 	public BoardCell(int row, int column, char initial) { // Constructor
@@ -102,6 +103,14 @@ public class BoardCell {
 	
 	public void setDoorway(boolean isDoorway) {
 		this.isDoorway = isDoorway;
+	}
+	
+	public boolean isPath() {
+		return this.isPath;
+	}
+	
+	public void setPath(boolean isPath) {
+		this.isPath = isPath;
 	}
 	
 	public Set<BoardCell> getAdjList() {
