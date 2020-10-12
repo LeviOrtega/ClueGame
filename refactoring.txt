@@ -1,0 +1,3 @@
+Diff was not working, and we don't know how to pull an old version to show you this. Here is the link to the commit in our GitHub. 
+
+https://github.com/LeviOrtega/ClueGame/commit/53c8cc5b4707cf932d2549c0c6a89c0b885e3d5c
