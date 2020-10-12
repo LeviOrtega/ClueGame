@@ -1,3 +1,302 @@
+Git pushes and commits done by Levi Ortega because the pulls on Anthonys system would corrupt his data when we had to make changes to our .csv files and .txt files. 
+
+
+commit a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Oct 9 11:05:06 2020 -0600
+
+    Tests all pass
+
+commit 54e031a85eba0b97cbd88914ce7c34b347209821
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 18:48:02 2020 -0600
+
+    fixed data
+
+commit 5404762bc3a5def401f19fc27efb8aff3e4a7224
+Merge: 374ce82 470140f
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 18:40:49 2020 -0600
+
+    Fix
+
+commit 374ce82bf27556cf572192978506c79e230e6849
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 18:35:39 2020 -0600
+
+    Added needed methods
+
+commit 470140f15540e93886dd75d4efb067d5efa6e98c
+Merge: eb5338b 351eecd
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Thu Oct 8 18:11:07 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+
+commit eb5338b6f4f0925765d75b0a83e743e83a91e5f7
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Thu Oct 8 18:09:39 2020 -0600
+
+    Final commit for Thursday 10/8
+    Saving progress, will finish creating skeletons tomorrow.
+
+commit 351eecd8834ba2037bf0641b40a27fcacee84af2
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 18:04:07 2020 -0600
+
+    Skeleton classes
+
+commit 739bf377085d1399996a5f1d19fd29cf4d401f53
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 17:30:04 2020 -0600
+
+    Pull fix
+
+commit 5b127e318410fd2b43af5fd14187db3d6ff23056
+Merge: be1b094 2c86381
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Thu Oct 8 17:29:16 2020 -0600
+
+    Pull fix
+
+commit be1b0940a6ba5e058a3ca51135c83223b37adc8a
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Thu Oct 8 17:26:43 2020 -0600
+
+    Pull fix
+
+commit 2c8638180767079f24e52a4774ca26a4b9bef56a
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 17:22:02 2020 -0600
+
+    Added data and new tests
+
+commit 7e93bc32e9c3d7b8f874128e59ad76b42f37a443
+Merge: 1250f71 15797e4
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 17:00:15 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/Clue into main
+
+commit 1250f71eab96535d4a163607dfcef92c81b63bfb
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 8 16:59:48 2020 -0600
+
+    Pull fix
+
+commit 15797e4cdafb3711123de0fc2f1e74d9b35efb9f
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Wed Oct 7 22:32:53 2020 -0600
+
+    Fixing previous commit errors, adding last comments
+
+commit 49be8d06a64b61f121e17c6b95591448c34d7df1
+Merge: a8c2fe9 73dc183
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Wed Oct 7 22:24:21 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+
+commit a8c2fe960eac73d9a9dbfaa80d1e036ad5904bae
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Wed Oct 7 22:22:51 2020 -0600
+
+    Spacing fixed in TestBoard.java.
+
+commit 8ba1249636bf7653c7141c5f6bf7fe59ac528064
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Wed Oct 7 22:17:59 2020 -0600
+
+    Added final comments to describe method functionality.
+    All tests pass.
+    addToAdjList() function includes logic within its own if statement to test if TestBoardCell object is useable.
+
+commit 73dc183a527dbf4b278fcb8d5dbdd7e1d6e1cad6
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 7 22:02:49 2020 -0600
+
+    Finished
+
+commit 2f0bd67b58e9ae32757bb7bc7ca8f4a34f7b81cd
+Merge: 57f9f6a 6dd8bce
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 7 20:53:54 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/Clue into main
+
+commit 57f9f6a5e35390591e5a63e7c1b8e9fe02fb062c
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 7 20:53:50 2020 -0600
+
+    Sync
+
+commit b1507c48745cc9c5096683ca34bffd2446e88681
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 7 20:53:17 2020 -0600
+
+    Sync
+
+commit 6dd8bce5e171d5a2fc5ba4581e1acd01f4e09034
+Merge: 35360b0 9d6a81d
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Wed Oct 7 20:51:24 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+    Updated testAdjacency() to correctly initialize TestBoardCell objects.
+    Updated calcAdjList() to take TBC object as a parameter.
+
+commit 35360b087ae0b648c4c52fe78d6ea49f0ada7dcf
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Wed Oct 7 20:46:44 2020 -0600
+
+    Modified calcAdjList() to take TestBoardCell object as parameter.
+    Modified testAdjacency(), now initializes TestBoardCell objects correctly to pass tests.
+
+commit 9d6a81d235012222633fa2fd25fac590af035603
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Oct 6 18:24:43 2020 -0600
+
+    Push fix
+
+commit d8e82c3f726c0fc959293aa6cbe15f5ede0cddda
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Oct 6 18:23:16 2020 -0600
+
+    Need to move adjCalc to testBoard class
+
+commit 8319d981ed2831d730442de9222a67681b6fa934
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 3 17:29:16 2020 -0600
+
+    Final Commit, made all tests fail in BoardTestsExp.java.
+
+commit 356df36b2ce999236f5cc3a80c3152e3a1c68eec
+Merge: 366c2f4 7b3532a
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 3 17:04:29 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+
+commit 366c2f4a47c763e4898c25983dac12eba5b2bd2d
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 3 17:03:08 2020 -0600
+
+    Fixing commit problems.
+
+commit b0b5575c99c3348920b821c0a6ac6991d7d1f84c
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 3 16:59:13 2020 -0600
+
+    Saving changes to README and src code
+
+commit 7b3532aaf57afd741714abc7ae93feac6c49852b
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 3 16:57:13 2020 -0600
+
+    finalized first tests for adjList
+
+commit 79375e7d801ec77b6d5b2b43265b518dff5908ad
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 3 16:10:04 2020 -0600
+
+    Added methods within TestBoard class.
+
+commit cc9cb48ab7c920a24221c87729fbb7bbee02cfae
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 3 15:51:57 2020 -0600
+
+    Finalized skeleton for TestBoardCell
+
+commit a9fbfdec10e0319c767a5e954117da7e6c92f712
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 3 15:43:16 2020 -0600
+
+    Created TestBoardCell, TestBoard and BoardTestsExp classes.
+
+commit 9bc414980da5a82e01dd9be9e12186ad95d9ad6e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 3 15:26:21 2020 -0600
+
+    Changed project name
+
+commit 26c31e7affdd0854a01c939ac7af7bd4293d493e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 3 15:12:44 2020 -0600
+
+    Initial commit for Levi Ortega
+
+commit 90f16d1c86980566e21eccb3952d26854b0059f4
+Author: Levi Ortega <65995415+LeviOrtega@users.noreply.github.com>
+Date:   Sat Oct 3 15:08:56 2020 -0600
+
+    Initial commit
+commit 53c8cc5b4707cf932d2549c0c6a89c0b885e3d5c
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Oct 11 17:46:40 2020 -0600
+
+    refactored
+
+commit 3616b0dcd7f3ea521a7e2b96c842474b0b4a3e31
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Oct 11 17:20:08 2020 -0600
+
+    All tests pass
+
+commit 69d7f3dc4249a91e70bdbf323a1bc3133cefb201
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Oct 11 16:45:55 2020 -0600
+
+    Only one exception tests fail
+
+commit d9f024f0041bb7c82daa99bbf7d0ff3c95884b2c
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 10 18:28:12 2020 -0600
+
+    All tests but exception class pass
+
+commit 5a40e4a7ff3edc33477a69d4840718d3fc130cba
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 10 17:43:08 2020 -0600
+
+    Finished init 306 tests
+
+commit f62309f7a2892ff88e34480c1bfddfe80859da3f
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 10 15:19:16 2020 -0600
+
+    Fixing data folder
+
+commit 148f5e77381844f016a3b28b7f099a9d7021a87b
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 10 15:05:16 2020 -0600
+
+    Fixed our files
+
+commit e35fd61c3185ad7c09ea01da5827727796850cfe
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Oct 10 14:03:55 2020 -0600
+
+    Added our files
+
+commit cce7d02d68731607969a2048b6057ba82728aca7
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 10 13:42:18 2020 -0600
+
+    Added personalized data files.
+
+commit baa26489698b28cb7eabdcfe14e711ea5a53e323
+Merge: 70fce1c a1cbdcc
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 10 13:28:49 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+
+commit 70fce1c96753993d1aa4534815ba2d20127c327d
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sat Oct 10 13:24:51 2020 -0600
+
+    Updating game data
+
 commit a1cbdccee21bb4e1a28b939eb126599a1bcd2ba1
 Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Fri Oct 9 11:05:06 2020 -0600

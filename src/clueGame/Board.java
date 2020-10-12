@@ -177,6 +177,7 @@ public class Board {
 
 	public void checkRooms() throws BadConfigFormatException {
 		// check if csv file had correct characters
+		
 		for (int i = 0; i < boardString.length; i++) {
 			for (int j = 0; j < boardString[0].length; j++) {
 				// if the first char is given to roomMap as a key, and it returns null, roomMap does not have that value
