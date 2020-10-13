@@ -16,6 +16,7 @@ public class BoardCell {
 	private boolean occupied;
 	private boolean inRoom;
 	private boolean isDoorway;
+	private boolean isPath;
 	private Set<BoardCell> adjList;
 	
 	public BoardCell(int row, int column, char initial) { // Constructor
@@ -26,14 +27,16 @@ public class BoardCell {
 	}
 	
 	public void addToAdjList(BoardCell bc) {
-		if (bc.isOccupied() == false && bc.isRoom() == false) {
+		adjList.add(bc);
+		
+		/*if (bc.isOccupied() == false && bc.isRoom() == false) {
 			// TestBoardCell object added to adjacency list iff spot is not occupied or a marked room
 			adjList.add(bc);
 		}
 		else {
 			// TestBoardCell object is otherwise removed (not applicable in adjacency list)
 			this.adjList.remove(bc);
-		}
+		}*/
 	}
 	
 	public int getRow() {
@@ -102,6 +105,14 @@ public class BoardCell {
 	
 	public void setDoorway(boolean isDoorway) {
 		this.isDoorway = isDoorway;
+	}
+	
+	public boolean isPath() {
+		return this.isPath;
+	}
+	
+	public void setPath(boolean isPath) {
+		this.isPath = isPath;
 	}
 	
 	public Set<BoardCell> getAdjList() {

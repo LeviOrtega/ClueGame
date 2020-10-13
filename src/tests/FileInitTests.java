@@ -97,7 +97,7 @@ class FileInitTests {
 	@Test
 	public void testRooms() {
 		// just test a standard room location
-		BoardCell cell = board.getCell( 3, 22);
+		BoardCell cell = board.getCell(3, 22);
 		Room room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Bank" ) ;
