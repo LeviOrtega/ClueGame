@@ -210,25 +210,38 @@ public class Board {
 		// Called in TestBoard() constructor
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				calcAdjList(getCell(i,j));
+				calcAdjListBounds(getCell(i,j));
 			}
 		}
 	}
 
-	public void calcAdjList(BoardCell bc) {
+	public void calcAdjListBounds(BoardCell boardCell) {
 		// Up, down, left, right
-		if (bc.getRow() - 1 >= 0) { 
-			bc.addToAdjList(getCell(bc.getRow() - 1, bc.getColumn()));
+		if (boardCell.getRow() - 1 >= 0) { 
+			calcAdjListLogic(getCell(boardCell.getRow() - 1, boardCell.getColumn()), boardCell);
 		}
-		if ((bc.getRow() + 1) <= this.numRows - 1) {
-			bc.addToAdjList(getCell(bc.getRow() + 1, bc.getColumn()));
+		if ((boardCell.getRow() + 1) <= this.numRows - 1) {
+			calcAdjListLogic(getCell(boardCell.getRow() + 1, boardCell.getColumn()), boardCell);
 		}
-		if (bc.getColumn() - 1 >= 0) {
-			bc.addToAdjList(getCell(bc.getRow(), bc.getColumn() - 1));
+		if (boardCell.getColumn() - 1 >= 0) {
+			calcAdjListLogic(getCell(boardCell.getRow(), boardCell.getColumn() - 1), boardCell);
 		}
-		if ((bc.getColumn() + 1) <= this.numColumns - 1) {
-			bc.addToAdjList(getCell(bc.getRow(), bc.getColumn() + 1));
+		if ((boardCell.getColumn() + 1) <= this.numColumns - 1) {
+			calcAdjListLogic(getCell(boardCell.getRow(), boardCell.getColumn() + 1), boardCell);
 		}
+	}
+	
+	public void calcAdjListLogic(BoardCell adjCell, BoardCell boardCell) {
+
+		
+		/*if (bc.isOccupied() == false && bc.isRoom() == false) {
+			// TestBoardCell object added to adjacency list iff spot is not occupied or a marked room
+			adjList.add(bc);
+		}
+		else {
+			// TestBoardCell object is otherwise removed (not applicable in adjacency list)
+			this.adjList.remove(bc);
+		}*/
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col){

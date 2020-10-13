@@ -26,18 +26,6 @@ public class BoardCell {
 		this.adjList = new HashSet<BoardCell>();
 	}
 	
-	public void addToAdjList(BoardCell bc) {
-		adjList.add(bc);
-		
-		/*if (bc.isOccupied() == false && bc.isRoom() == false) {
-			// TestBoardCell object added to adjacency list iff spot is not occupied or a marked room
-			adjList.add(bc);
-		}
-		else {
-			// TestBoardCell object is otherwise removed (not applicable in adjacency list)
-			this.adjList.remove(bc);
-		}*/
-	}
 	
 	public int getRow() {
 		return row;
