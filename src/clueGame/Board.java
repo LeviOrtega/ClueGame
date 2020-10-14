@@ -115,6 +115,9 @@ public class Board {
 				if (!(bcString.charAt(0) == 'X')) {		// x is universal to unused space, other boards use different chars for walkways
 					bc.setPath(true);
 				}
+				else {
+					bc.setUnused(true);
+				}
 				break;
 			}
 			}
@@ -232,7 +235,35 @@ public class Board {
 	}
 	
 	public void calcAdjListLogic(BoardCell adjCell, BoardCell boardCell) {
-
+		if (adjCell.isUnused()) {		// we never want to add unused cells to adj list
+			return;
+		}
+		
+		if (boardCell.isDoorway()) {
+			if (adjCell == findCellAtDoorDirection(boardCell)) {
+				// now we want to get room that adjcell is in
+				adjCell = roomMap.get(adjCell.getInitial()).getCenterCell(); // get room at adjCell initial, then get the rooms center cell 
+				boardCell.addAdj(adjCell);
+				return;
+			}
+		}
+		
+		if (boardCell.isPath() && adjCell.isPath()) {
+			if (!(adjCell.isOccupied())) {
+				boardCell.addAdj(adjCell);
+			}
+			else {
+				// remove the occupied cell from adj list if it was already in adjList before
+				boardCell.removeAdj(adjCell);
+			}
+			return;
+		}
+		
+		if (boardCell.isRoom() && boardCell.isRoomCenter()) {
+			
+		}
+		
+		
 		
 		/*if (bc.isOccupied() == false && bc.isRoom() == false) {
 			// TestBoardCell object added to adjacency list iff spot is not occupied or a marked room
@@ -242,6 +273,32 @@ public class Board {
 			// TestBoardCell object is otherwise removed (not applicable in adjacency list)
 			this.adjList.remove(bc);
 		}*/
+	}
+	
+	public BoardCell findCellAtDoorDirection(BoardCell boardCell) {
+		DoorDirection dd = boardCell.getDoorDirection();
+		
+		// this function is dependent on the csv file being formatted correctly, i,e no doors to non rooms
+		switch (dd) {
+		case UP:{
+			return getCell(boardCell.getRow() - 1, boardCell.getColumn());
+		}
+			
+		case DOWN:{
+			return getCell(boardCell.getRow() + 1, boardCell.getColumn());
+		}
+			
+		case LEFT:{
+			return getCell(boardCell.getRow(), boardCell.getColumn() - 1);
+		}
+			
+		case RIGHT:{
+			return getCell(boardCell.getRow(), boardCell.getColumn() + 1);
+		}
+		default:
+			// this should never happen
+			return boardCell;
+		}
 	}
 
 	public Set<BoardCell> getAdjList(int row, int col){

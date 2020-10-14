@@ -17,6 +17,7 @@ public class BoardCell {
 	private boolean inRoom;
 	private boolean isDoorway;
 	private boolean isPath;
+	private boolean isUnused;
 	private Set<BoardCell> adjList;
 	
 	public BoardCell(int row, int column, char initial) { // Constructor
@@ -99,11 +100,29 @@ public class BoardCell {
 		return this.isPath;
 	}
 	
+	public boolean isUnused() {
+		return this.isUnused;
+	}
+	
 	public void setPath(boolean isPath) {
 		this.isPath = isPath;
 	}
 	
+	public void setUnused(boolean isUnused) {
+		this.isUnused = isUnused;
+	}
+	
 	public Set<BoardCell> getAdjList() {
 		return adjList;
+	}
+	
+	public void addAdj(BoardCell adjCell) {
+		adjList.add(adjCell);
+	}
+	
+	public void removeAdj(BoardCell adjCell) {
+		if (adjList.contains(adjCell)) {
+			adjList.remove(adjCell);
+		}
 	}
 }
