@@ -1,14 +1,19 @@
 package clueGame;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Room {
 	private String name;
 	private String cardType;
 	private char secretRoom;
 	private BoardCell centerCell;
 	private BoardCell labelCell;
+	private Set<BoardCell> doorList;
 	
 	public Room(String name) {
 		this.name = name;
+		doorList = new HashSet<BoardCell>();
 	}
 	
 	public String getCardType() {
@@ -46,5 +51,14 @@ public class Room {
 	
 	public void setSecretRoom(char c) {
 		this.secretRoom = c;
+	}
+	
+	public void addDoor(BoardCell doorCell) {
+		this.doorList.add(doorCell);
+	}
+
+	
+	public Set<BoardCell> getDoorList(){
+		return this.doorList;
 	}
 }

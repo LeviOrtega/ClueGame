@@ -27,7 +27,6 @@ public class BoardCell {
 		this.adjList = new HashSet<BoardCell>();
 	}
 	
-	
 	public int getRow() {
 		return row;
 	}

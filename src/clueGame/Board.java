@@ -51,55 +51,70 @@ public class Board {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				board[i][j] = new BoardCell(i, j, boardString[i][j].charAt(0));
+			}
+		}
+		
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
 				generateBoardCellType(board[i][j]);
 			}
 		}
 		generateBoardAdjList();
+		//System.out.println("Done init");
 	}
 
-	public void generateBoardCellType(BoardCell bc) {
-		int row = bc.getRow();
-		int col = bc.getColumn();
+	public void generateBoardCellType(BoardCell boardCell) {
+		int row = boardCell.getRow();
+		int col = boardCell.getColumn();
 		String bcString = boardString[row][col];
 		if (bcString.length() > 1) {	// we only want to evaluate strings with two or more chars, they are the doors, centers, etc.
-			Character lastChar = bcString.charAt(bcString.length() -1);
+			Character lastChar = bcString.charAt(bcString.length() - 1);
 
 			switch (lastChar) {
 			// First four cases correspond to the enumerated types which represent door directions
 			case 'v': {
-				bc.setDoorDirection(DoorDirection.DOWN);
-				bc.setDoorway(true);
+				boardCell.setDoorDirection(DoorDirection.DOWN);
+				boardCell.setDoorway(true);
+				boardCell.setPath(true);
+				addDoorToRoom(boardCell);
 				break;
 			}
 			case '>': {
-				bc.setDoorDirection(DoorDirection.RIGHT);
-				bc.setDoorway(true);
+				boardCell.setDoorDirection(DoorDirection.RIGHT);
+				boardCell.setDoorway(true);
+				boardCell.setPath(true);
+				addDoorToRoom(boardCell);
 				break;
 			}
 			case '<': {
-				bc.setDoorDirection(DoorDirection.LEFT);
-				bc.setDoorway(true);
+				boardCell.setDoorDirection(DoorDirection.LEFT);
+				boardCell.setDoorway(true);
+				boardCell.setPath(true);
+				addDoorToRoom(boardCell);
 				break;
 			}
 			case '^': {
-				bc.setDoorDirection(DoorDirection.UP);
-				bc.setDoorway(true);
+				boardCell.setDoorDirection(DoorDirection.UP);
+				boardCell.setDoorway(true);
+				boardCell.setPath(true);
+				addDoorToRoom(boardCell);
 				break;
 			}
 			case '*':{
-				roomMap.get(bc.getInitial()).setCenterCell(bc);
-				bc.setRoomCenter(true);
-				bc.setRoom(true);
+				roomMap.get(boardCell.getInitial()).setCenterCell(boardCell);
+				boardCell.setRoomCenter(true);
+				boardCell.setRoom(true);
 				break;
 			}
 			case '#': {
-				roomMap.get(bc.getInitial()).setLabelCell(bc);
-				bc.setRoomLabel(true);
-				bc.setRoom(true);
+				roomMap.get(boardCell.getInitial()).setLabelCell(boardCell);
+				boardCell.setRoomLabel(true);
+				boardCell.setRoom(true);
 				break;
 			}
 			default: {
-				bc.setSecretPassage(lastChar);
+				boardCell.setSecretPassage(lastChar);
+				roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
 				break;
 			}
 			}
@@ -108,20 +123,25 @@ public class Board {
 			String type = roomMap.get(bcString.charAt(0)).getCardType();
 			switch (type) {
 			case ROOM: {
-				bc.setRoom(true);
+				boardCell.setRoom(true);
 				break;
 			}
 			case SPACE: {
 				if (!(bcString.charAt(0) == 'X')) {		// x is universal to unused space, other boards use different chars for walkways
-					bc.setPath(true);
+					boardCell.setPath(true);
 				}
 				else {
-					bc.setUnused(true);
+					boardCell.setUnused(true);
 				}
 				break;
 			}
 			}
 		}
+	}
+	
+	public void addDoorToRoom(BoardCell doorCell) {
+		BoardCell roomCell = findCellAtDoorDirection(doorCell);
+		roomMap.get(roomCell.getInitial()).addDoor(doorCell);
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
@@ -260,19 +280,29 @@ public class Board {
 		}
 		
 		if (boardCell.isRoom() && boardCell.isRoomCenter()) {
+			// if boardCell is center room, get room initial to find room, then get rooms list of all connecting doors and check if 
+			// the door is occupied, if not, add it to the center rooms adj list
+			Room roomOfCenter = roomMap.get(boardCell.getInitial());
 			
+			for (BoardCell doorCell : roomOfCenter.getDoorList()) {
+				if (!(doorCell.isOccupied())) {  
+					// add cell if occupied
+					boardCell.addAdj(doorCell);
+				}
+				else {                           
+					// remove cell if not
+					boardCell.removeAdj(doorCell);
+				}
+			}
+			
+			if (roomMap.get(roomOfCenter.getSecretRoom()) != null) {		// the room with boardCell HAS a secret room
+				// if there IS a secret room, add the center cell of the secret passage room to the adj list of our boardCell
+				boardCell.addAdj(roomMap.get(roomOfCenter.getSecretRoom()).getCenterCell());
+			}
+			return;
 		}
 		
-		
-		
-		/*if (bc.isOccupied() == false && bc.isRoom() == false) {
-			// TestBoardCell object added to adjacency list iff spot is not occupied or a marked room
-			adjList.add(bc);
-		}
-		else {
-			// TestBoardCell object is otherwise removed (not applicable in adjacency list)
-			this.adjList.remove(bc);
-		}*/
+	
 	}
 	
 	public BoardCell findCellAtDoorDirection(BoardCell boardCell) {

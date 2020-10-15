@@ -29,7 +29,7 @@ public class BoardAdjTargetTest {
 	public void testAdjacenciesRooms() {
 		// we want to test a couple of different rooms.
 		// Test jail which only has one door
-		Set<BoardCell> testList = board.getAdjList(3, 4);
+		Set<BoardCell> testList = board.getAdjList(3, 5);
 		assertEquals(1, testList.size());
 		assertTrue(testList.contains(board.getCell(6, 8)));
 		
@@ -49,7 +49,7 @@ public class BoardAdjTargetTest {
 	@Test
 	public void testAdjacencyDoor() {
 		Set<BoardCell> testList = board.getAdjList(6, 4);
-		assertEquals(2, testList.size());
+		assertEquals(3, testList.size());
 		assertTrue(testList.contains(board.getCell(7, 2)));			// jail center
 		assertTrue(testList.contains(board.getCell(6, 5)));
 		assertTrue(testList.contains(board.getCell(7, 4)));
