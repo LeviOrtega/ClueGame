@@ -53,7 +53,7 @@ public class Board {
 				board[i][j] = new BoardCell(i, j, boardString[i][j].charAt(0));
 			}
 		}
-		
+
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				generateBoardCellType(board[i][j]);
@@ -138,7 +138,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 	public void addDoorToRoom(BoardCell doorCell) {
 		BoardCell roomCell = findCellAtDoorDirection(doorCell);
 		roomMap.get(roomCell.getInitial()).addDoor(doorCell);
@@ -253,12 +253,12 @@ public class Board {
 			calcAdjListLogic(getCell(boardCell.getRow(), boardCell.getColumn() + 1), boardCell);
 		}
 	}
-	
+
 	public void calcAdjListLogic(BoardCell adjCell, BoardCell boardCell) {
 		if (adjCell.isUnused()) {		// we never want to add unused cells to adj list
 			return;
 		}
-		
+
 		if (boardCell.isDoorway()) {
 			if (adjCell == findCellAtDoorDirection(boardCell)) {
 				// now we want to get room that adjcell is in
@@ -267,7 +267,7 @@ public class Board {
 				return;
 			}
 		}
-		
+
 		if (boardCell.isPath() && adjCell.isPath()) {
 			if (!(adjCell.isOccupied())) {
 				boardCell.addAdj(adjCell);
@@ -278,12 +278,12 @@ public class Board {
 			}
 			return;
 		}
-		
+
 		if (boardCell.isRoom() && boardCell.isRoomCenter()) {
 			// if boardCell is center room, get room initial to find room, then get rooms list of all connecting doors and check if 
 			// the door is occupied, if not, add it to the center rooms adj list
 			Room roomOfCenter = roomMap.get(boardCell.getInitial());
-			
+
 			for (BoardCell doorCell : roomOfCenter.getDoorList()) {
 				if (!(doorCell.isOccupied())) {  
 					// add cell if occupied
@@ -294,34 +294,34 @@ public class Board {
 					boardCell.removeAdj(doorCell);
 				}
 			}
-			
+
 			if (roomMap.get(roomOfCenter.getSecretRoom()) != null) {		// the room with boardCell HAS a secret room
 				// if there IS a secret room, add the center cell of the secret passage room to the adj list of our boardCell
 				boardCell.addAdj(roomMap.get(roomOfCenter.getSecretRoom()).getCenterCell());
 			}
 			return;
 		}
-		
-	
+
+
 	}
-	
+
 	public BoardCell findCellAtDoorDirection(BoardCell boardCell) {
 		DoorDirection dd = boardCell.getDoorDirection();
-		
+
 		// this function is dependent on the csv file being formatted correctly, i,e no doors to non rooms
 		switch (dd) {
 		case UP:{
 			return getCell(boardCell.getRow() - 1, boardCell.getColumn());
 		}
-			
+
 		case DOWN:{
 			return getCell(boardCell.getRow() + 1, boardCell.getColumn());
 		}
-			
+
 		case LEFT:{
 			return getCell(boardCell.getRow(), boardCell.getColumn() - 1);
 		}
-			
+
 		case RIGHT:{
 			return getCell(boardCell.getRow(), boardCell.getColumn() + 1);
 		}
@@ -340,27 +340,47 @@ public class Board {
 	}
 
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		visited.add(startCell);
+		if (visited.size() == 0) {
+			targets.clear();
+			generateBoardAdjList();
+		}
 
-		for (BoardCell tbc: startCell.getAdjList()) {
-			if (!(visited.contains(tbc))) {
-				visited.add(tbc);
-				if (pathLength == 1) {
-					targets.add(tbc);
+		if (pathLength == 0) {
+			targets.add(startCell);
+			return;
+		}
+
+
+		visited.add(startCell);
+		if (startCell.isRoomCenter()) {
+			if (visited.size() == 1) {
+				for (BoardCell tbc: startCell.getAdjList()) {
+					if (tbc.isDoorway()) {
+						calcTargets(tbc, pathLength -1);
+					}
+					else if (tbc.isRoomCenter()){
+						targets.add(tbc);
+					}
 				}
-				else {
+			}
+			else {
+				targets.add(startCell);
+			}
+		}
+		else {
+			for (BoardCell tbc: startCell.getAdjList()) {
+				if (!(visited.contains(tbc))) {
+					visited.add(tbc);
 					// Recursive call to calcTargets() until path length reaches 1
 					calcTargets(tbc, pathLength -1);
+
+					visited.remove(tbc);
 				}
-				visited.remove(tbc);
 			}
 		}
 		visited.remove(startCell);
 	}
 
-	public void clearTargets() {
-		targets.clear();
-	}
 
 	public Set<BoardCell> getTargets(){
 		return targets;
