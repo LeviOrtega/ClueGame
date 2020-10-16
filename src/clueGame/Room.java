@@ -37,7 +37,6 @@ public class Room {
 	}
 
 	public BoardCell getLabelCell() {
-		// TODO Auto-generated method stub
 		return this.labelCell;
 	}
 	

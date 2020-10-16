@@ -44,6 +44,7 @@ public class Board {
 	}
 
 	public void initialize() throws BadConfigFormatException {
+		// Initializes board by creating new cells
 		loadSetupConfig();
 		loadLayoutConfig();
 		this.targets = new HashSet<BoardCell>();
@@ -59,6 +60,7 @@ public class Board {
 				generateBoardCellType(board[i][j]);
 			}
 		}
+		// Generates adjacency list
 		generateBoardAdjList();
 		//System.out.println("Done init");
 	}
@@ -131,6 +133,7 @@ public class Board {
 					boardCell.setPath(true);
 				}
 				else {
+					//else, the boardCell is an unused type
 					boardCell.setUnused(true);
 				}
 				break;
@@ -140,83 +143,14 @@ public class Board {
 	}
 
 	public void addDoorToRoom(BoardCell doorCell) {
+		// Rooms have a set of connected doors, we want to add each door connected to their associated rooms
 		BoardCell roomCell = findCellAtDoorDirection(doorCell);
 		roomMap.get(roomCell.getInitial()).addDoor(doorCell);
 	}
 
-	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
-		roomMap = new HashMap<Character, Room>();
-		try {
-			File setup = new File("data/" + setupConfigFile);
-			Scanner sc = new Scanner(setup);
-
-			// this loop goes through each line of setup .txt, grabs data, and checks if file is formatted correctly
-			while (sc.hasNextLine()) {
-				String line = sc.nextLine();
-				// check if not comment lines
-				if (!(line.split(" ")[0].equals("//"))) {
-					// split the line string into an array of strings to use for rooms
-					String[] roomInfo = line.split(", ");
-					if (!(roomInfo[0].equals(SPACE)) && !(roomInfo[0].equals(ROOM))) {
-						throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
-					}
-					Room room = new Room(roomInfo[1]);
-					room.setCardType(roomInfo[0]);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
-					roomMap.put(roomInfo[2].charAt(0), room);
-				}
-			}
-			sc.close();
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("File, " + setupConfigFile + " could not be opened.");
-		}
-	}
-
-	public void loadLayoutConfig() throws BadConfigFormatException {  // CSV file loader
-		int colLen = 0;
-		int rowLen = 0;
-		try {
-			File layout = new File("data/" + layoutConfigFile);
-			Scanner sc = new Scanner(layout);
-			String in = sc.nextLine();
-			String[] column = in.split(",");
-			colLen = column.length;
-			rowLen = 1;		// Because we used the sc.nextLine() before, we are now down one row.
-			// this loop checks if csv file is formatted correctly with number of columns and gives us our row length
-			while (sc.hasNextLine()) {
-				rowLen ++;
-				String[] colCheck = sc.nextLine().split(",");	// calls sc.nextLine() and gives a string of len of col for checking to see if all cols are same length
-				if (colCheck.length != colLen) {
-					throw new BadConfigFormatException(layoutConfigFile + " does not have correctly formated columns.");
-				}
-			}
-
-			sc.close();
-			board = new BoardCell[rowLen][colLen];
-			// we use a boardString later in generateBoardCellType() to check if a cell is a door, room. etc.
-			boardString = new String[rowLen][colLen];
-
-			int b = 0;
-			sc = new Scanner(layout);
-			while (sc.hasNextLine()) {
-				boardString[b] = sc.nextLine().split(",");	 // .split returns our row of strings for boardString
-				b++;
-			}
-			sc.close();
-
-			checkRooms();
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("File " + layoutConfigFile + " cannot be opened.");
-		}
-
-		this.numColumns = colLen;
-		this.numRows = rowLen;
-	}
 
 	public void checkRooms() throws BadConfigFormatException {
 		// check if csv file had correct characters
-
 		for (int i = 0; i < boardString.length; i++) {
 			for (int j = 0; j < boardString[0].length; j++) {
 				// if the first char is given to roomMap as a key, and it returns null, roomMap does not have that value
@@ -331,59 +265,129 @@ public class Board {
 		}
 	}
 
-	public Set<BoardCell> getAdjList(int row, int col){
-		return getCell(row, col).getAdjList();
-	}
-
-	public BoardCell getCell(int row, int col) {
-		return board[row][col];
-	}
-
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		if (visited.size() == 0) {
+		if (visited.size() == 0) { // prepare calcTargets by getting adjLists and clearing prev targets
 			targets.clear();
 			generateBoardAdjList();
 		}
 
 		if (pathLength == 0) {
+			// if we reach the end of our pathlength, add the cell into our targets.
 			targets.add(startCell);
 			return;
 		}
 
 
-		visited.add(startCell);
+		visited.add(startCell);		// add every cell in visited
 		if (startCell.isRoomCenter()) {
-			if (visited.size() == 1) {
+			if (visited.size() == 1) {		// if we start off in a room, visited will only contain the room center cell
 				for (BoardCell tbc: startCell.getAdjList()) {
-					if (tbc.isDoorway()) {
+					if (tbc.isDoorway()) {		// call this function with doors
 						calcTargets(tbc, pathLength -1);
 					}
 					else if (tbc.isRoomCenter()){
-						targets.add(tbc);
+						targets.add(tbc);		// add secret passage room to targets 
 					}
 				}
 			}
 			else {
-				targets.add(startCell);
+				targets.add(startCell);		// else, if the size is not 1, then we have landed in the room and only want to jump there
 			}
 		}
-		else {
+		else {	// if not a room center, then deal with it normally 
 			for (BoardCell tbc: startCell.getAdjList()) {
 				if (!(visited.contains(tbc))) {
 					visited.add(tbc);
-					// Recursive call to calcTargets() until path length reaches 1
+					// Recursive call to calcTargets() until path length reaches 0
 					calcTargets(tbc, pathLength -1);
 
 					visited.remove(tbc);
 				}
 			}
 		}
-		visited.remove(startCell);
+		visited.remove(startCell);		// always remove cell from visited 
 	}
 
+	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
+		roomMap = new HashMap<Character, Room>();
+		try {
+			File setup = new File("data/" + setupConfigFile);
+			Scanner sc = new Scanner(setup);
+
+			// this loop goes through each line of setup .txt, grabs data, and checks if file is formatted correctly
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				// check if not comment lines
+				if (!(line.split(" ")[0].equals("//"))) {
+					// split the line string into an array of strings to use for rooms
+					String[] roomInfo = line.split(", ");
+					if (!(roomInfo[0].equals(SPACE)) && !(roomInfo[0].equals(ROOM))) {
+						throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
+					}
+					Room room = new Room(roomInfo[1]);
+					room.setCardType(roomInfo[0]);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
+					roomMap.put(roomInfo[2].charAt(0), room);
+				}
+			}
+			sc.close();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File, " + setupConfigFile + " could not be opened.");
+		}
+	}
+
+	public void loadLayoutConfig() throws BadConfigFormatException {  // CSV file loader
+		int colLen = 0;
+		int rowLen = 0;
+		try {
+			File layout = new File("data/" + layoutConfigFile);
+			Scanner sc = new Scanner(layout);
+			String in = sc.nextLine();
+			String[] column = in.split(",");
+			colLen = column.length;
+			rowLen = 1;		// Because we used the sc.nextLine() before, we are now down one row.
+			// this loop checks if csv file is formatted correctly with number of columns and gives us our row length
+			while (sc.hasNextLine()) {
+				rowLen ++;
+				String[] colCheck = sc.nextLine().split(",");	// calls sc.nextLine() and gives a string of len of col for checking to see if all cols are same length
+				if (colCheck.length != colLen) {
+					throw new BadConfigFormatException(layoutConfigFile + " does not have correctly formated columns.");
+				}
+			}
+
+			sc.close();
+			board = new BoardCell[rowLen][colLen];
+			// we use a boardString later in generateBoardCellType() to check if a cell is a door, room. etc.
+			boardString = new String[rowLen][colLen];
+
+			int b = 0;
+			sc = new Scanner(layout);
+			while (sc.hasNextLine()) {
+				boardString[b] = sc.nextLine().split(",");	 // .split returns our row of strings for boardString
+				b++;
+			}
+			sc.close();
+
+			checkRooms();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("File " + layoutConfigFile + " cannot be opened.");
+		}
+
+		this.numColumns = colLen;
+		this.numRows = rowLen;
+	}
 
 	public Set<BoardCell> getTargets(){
 		return targets;
+	}
+	
+	public Set<BoardCell> getAdjList(int row, int col){
+		return getCell(row, col).getAdjList();
+	}
+
+	public BoardCell getCell(int row, int col) {
+		return board[row][col];
 	}
 
 	public int getNumColumns() {
