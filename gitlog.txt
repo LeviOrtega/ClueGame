@@ -1,5 +1,46 @@
-Many of Git pushes and commits done by Levi Ortega because the pulls on Anthonys system would corrupt his data when we had to make changes to our .csv files and .txt files. We will ask in class how to fix this tomorrow
+commit 98cde89ec03a1cb87f2c7b655de12a0d8791f4cc
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Fri Oct 16 17:04:51 2020 -0600
 
+    Final commit.
+
+commit d3049243280ae58bac5154e7dd8862dfaf516b01
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 15 22:19:11 2020 -0600
+
+    All tests pass
+
+commit 58a616852e608c541c1e0dfb6cda52955d8153c3
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Oct 15 16:14:45 2020 -0600
+
+    All adj tests pass
+
+commit bee26e37a8cce269082170b42794b3f585df8ca3
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Oct 13 18:21:07 2020 -0600
+
+    Added more logic for adj cell calculations
+
+commit 3de8aee7cd25e3f32cc94a74b2d907a23ee7df53
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Tue Oct 13 17:37:12 2020 -0600
+
+    Moved calcAdjList to board class
+
+commit ecd9fb3648cdc15cd39bb78ae2b1855132947253
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Oct 13 17:26:38 2020 -0600
+
+    Added gitlog
+
+commit 8f235f42b9d340f20b9b53e7f9babcbf619c5f3e
+Merge: 4cdcdec a49b5f6
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Tue Oct 13 17:24:12 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+    Sync fix
 
 commit a49b5f6dd6457861b3e749ecf9c328f16420a40c
 Author: LeviOrtega <leviortega@mymail.mines.edu>
@@ -18,6 +59,20 @@ Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Mon Oct 12 17:39:38 2020 -0600
 
     Added functionality to generateBoardCellType to include all types of pieces. All boardCells know what they are before their adj lists are calculated
+
+commit 4cdcdecbdb1da391328e5e9316c6bb53620be92d
+Merge: 53906aa b035fbe
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Mon Oct 12 16:37:10 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+    Fix
+
+commit 53906aa7b90775d4d168456897fb4521b69c6b83
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Mon Oct 12 16:37:05 2020 -0600
+
+    Fix
 
 commit b035fbef61acec6887802ae413ef49fa8ea51824
 Author: LeviOrtega <leviortega@mymail.mines.edu>
@@ -43,6 +98,19 @@ Date:   Sun Oct 11 20:59:15 2020 -0600
 
     Fixed data file names, all tests run good individually
 
+commit 02e0378f689902f5e5b18c7c739b4d16b1722648
+Merge: ac4c493 53c8cc5
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sun Oct 11 17:53:01 2020 -0600
+
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+
+commit ac4c49311283eb8e2e115abe76f9dbbe82232bc6
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sun Oct 11 17:52:36 2020 -0600
+
+    Final commits
+
 commit 53c8cc5b4707cf932d2549c0c6a89c0b885e3d5c
 Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Sun Oct 11 17:46:40 2020 -0600
@@ -54,6 +122,12 @@ Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Sun Oct 11 17:20:08 2020 -0600
 
     All tests pass
+
+commit 5c82b2dac0b46dc070a6f6f024c6c14f25353975
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Sun Oct 11 16:48:13 2020 -0600
+
+    Overwriting some files
 
 commit 69d7f3dc4249a91e70bdbf323a1bc3133cefb201
 Author: LeviOrtega <leviortega@mymail.mines.edu>
