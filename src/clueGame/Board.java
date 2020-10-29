@@ -191,20 +191,9 @@ public class Board {
 			return;
 		}
 
-		if (checkIfDoor(adjCell, boardCell)) {
-			return;
-		}
+		if (checkIfDoor(adjCell, boardCell)) {return;}
 
-		if (boardCell.isPath() && adjCell.isPath()) {
-			if (!(adjCell.isOccupied())) {
-				boardCell.addAdj(adjCell);
-			}
-			else {
-				// remove the occupied cell from adj list if it was already in adjList before
-				boardCell.removeAdj(adjCell);
-			}
-			return;
-		}
+		if(checkIfPath(adjCell, boardCell)) {return;}
 
 		if (boardCell.isRoom() && boardCell.isRoomCenter()) {
 			// if boardCell is center room, get room initial to find room, then get rooms list of all connecting doors and check if 
@@ -230,6 +219,21 @@ public class Board {
 		}
 
 
+	}
+
+	// check if boardcell and adjcell are both path cells, if so, check if adjCell is occupied and handle accordingly
+	public boolean checkIfPath(BoardCell adjCell, BoardCell boardCell) {
+		if (boardCell.isPath() && adjCell.isPath()) {
+			if (!(adjCell.isOccupied())) {
+				boardCell.addAdj(adjCell);
+			}
+			else {
+				// remove the occupied cell from adj list if it was already in adjList before
+				boardCell.removeAdj(adjCell);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	// check if boardcell is door and if adj cell is the cell the door points to. If so, add the room's center cell adjcell is in
