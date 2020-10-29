@@ -66,56 +66,7 @@ public class Board {
 		int col = boardCell.getColumn();
 		String bcString = boardString[row][col];
 		if (bcString.length() > 1) {	// we only want to evaluate strings with two or more chars, they are the doors, centers, etc.
-			Character lastChar = bcString.charAt(bcString.length() - 1);
-
-			switch (lastChar) {
-			// First four cases correspond to the enumerated types which represent door directions
-			case 'v': {
-				boardCell.setDoorDirection(DoorDirection.DOWN);
-				boardCell.setDoorway(true);
-				boardCell.setPath(true);
-				addDoorToRoom(boardCell);
-				break;
-			}
-			case '>': {
-				boardCell.setDoorDirection(DoorDirection.RIGHT);
-				boardCell.setDoorway(true);
-				boardCell.setPath(true);
-				addDoorToRoom(boardCell);
-				break;
-			}
-			case '<': {
-				boardCell.setDoorDirection(DoorDirection.LEFT);
-				boardCell.setDoorway(true);
-				boardCell.setPath(true);
-				addDoorToRoom(boardCell);
-				break;
-			}
-			case '^': {
-				boardCell.setDoorDirection(DoorDirection.UP);
-				boardCell.setDoorway(true);
-				boardCell.setPath(true);
-				addDoorToRoom(boardCell);
-				break;
-			}
-			case '*':{
-				roomMap.get(boardCell.getInitial()).setCenterCell(boardCell);
-				boardCell.setRoomCenter(true);
-				boardCell.setRoom(true);
-				break;
-			}
-			case '#': {
-				roomMap.get(boardCell.getInitial()).setLabelCell(boardCell);
-				boardCell.setRoomLabel(true);
-				boardCell.setRoom(true);
-				break;
-			}
-			default: {
-				boardCell.setSecretPassage(lastChar);
-				roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
-				break;
-			}
-			}
+			determineSecondCharType(boardCell, bcString);
 		}
 		else {	// else only one character, space card or room card
 			String type = roomMap.get(bcString.charAt(0)).getCardType();
@@ -134,6 +85,62 @@ public class Board {
 				}
 				break;
 			}
+			}
+		}
+	}
+
+	/*
+	 *  if the cell at index of boardcell has more than one char, 
+	 *  it is a special char i,e door, room center, room label, secret room
+	 */
+	public void determineSecondCharType(BoardCell boardCell, String bcString) {
+		Character lastChar = bcString.charAt(bcString.length() - 1);
+		switch (lastChar) {
+		// First four cases correspond to the enumerated types which represent door directions
+		case 'v': {
+			boardCell.setDoorDirection(DoorDirection.DOWN);
+			boardCell.setDoorway(true);
+			boardCell.setPath(true);
+			addDoorToRoom(boardCell);
+			break;
+		}
+		case '>': {
+			boardCell.setDoorDirection(DoorDirection.RIGHT);
+			boardCell.setDoorway(true);
+			boardCell.setPath(true);
+			addDoorToRoom(boardCell);
+			break;
+		}
+		case '<': {
+			boardCell.setDoorDirection(DoorDirection.LEFT);
+			boardCell.setDoorway(true);
+			boardCell.setPath(true);
+			addDoorToRoom(boardCell);
+			break;
+		}
+		case '^': {
+			boardCell.setDoorDirection(DoorDirection.UP);
+			boardCell.setDoorway(true);
+			boardCell.setPath(true);
+			addDoorToRoom(boardCell);
+			break;
+		}
+		case '*':{
+			roomMap.get(boardCell.getInitial()).setCenterCell(boardCell);
+			boardCell.setRoomCenter(true);
+			boardCell.setRoom(true);
+			break;
+		}
+		case '#': {
+			roomMap.get(boardCell.getInitial()).setLabelCell(boardCell);
+			boardCell.setRoomLabel(true);
+			boardCell.setRoom(true);
+			break;
+		}
+		default: {
+			boardCell.setSecretPassage(lastChar);
+			roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
+			break;
 			}
 		}
 	}
@@ -187,17 +194,10 @@ public class Board {
 
 	// Handle all logic for a cell and its adjacent cell. Should a boardcell add an adj cell to its adj list
 	public void calcAdjListLogic(BoardCell adjCell, BoardCell boardCell) {
-		if (adjCell.isUnused()) {		// we never want to add unused cells to adj list
-			return;
-		}
-
-		if (checkIfDoor(adjCell, boardCell)) {return;}
-
-		if(checkIfPath(adjCell, boardCell)) {return;}
-
-		if (checkIfRoomCenter(boardCell)) {return;}
-
-
+		if (adjCell.isUnused()) {return;}		// we never want to add unused cells to adj list
+		else if (checkIfDoor(adjCell, boardCell)) {return;}
+		else if(checkIfPath(adjCell, boardCell)) {return;}
+		else if (checkIfRoomCenter(boardCell)) {return;}
 	}
 
 	/*
