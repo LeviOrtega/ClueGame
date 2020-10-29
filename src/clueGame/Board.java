@@ -30,18 +30,6 @@ public class Board {
 		return theInstance;
 	}
 
-	public void setConfigFiles(String csv, String txt) {
-		this.setupConfigFile = txt;
-		this.layoutConfigFile = csv;
-	}
-
-	public Room getRoom(BoardCell cell) {
-		return roomMap.get(cell.getInitial());
-	}
-
-	public Room getRoom(Character c) {
-		return roomMap.get(c);
-	}
 
 	public void initialize() throws BadConfigFormatException {
 		// Initializes board by creating new cells
@@ -55,6 +43,7 @@ public class Board {
 			}
 		}
 
+		
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				generateBoardCellType(board[i][j]);
@@ -62,7 +51,7 @@ public class Board {
 		}
 		// Generates adjacency list
 		generateBoardAdjList();
-		//System.out.println("Done init");
+		
 	}
 
 	public void generateBoardCellType(BoardCell boardCell) {
@@ -396,5 +385,18 @@ public class Board {
 
 	public int getNumRows() {
 		return this.numRows;
+	}
+	
+	public void setConfigFiles(String csv, String txt) {
+		this.setupConfigFile = txt;
+		this.layoutConfigFile = csv;
+	}
+
+	public Room getRoom(BoardCell cell) {
+		return roomMap.get(cell.getInitial());
+	}
+
+	public Room getRoom(Character c) {
+		return roomMap.get(c);
 	}
 }
