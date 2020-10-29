@@ -1,3 +1,8 @@
+/*
+ * Driver class for clue game
+ */
+
+
 package clueGame;
 
 import java.io.File;
@@ -54,6 +59,8 @@ public class Board {
 		
 	}
 
+	
+	// Give each boardcell its type, door, center, label, etc.
 	public void generateBoardCellType(BoardCell boardCell) {
 		int row = boardCell.getRow();
 		int col = boardCell.getColumn();
@@ -131,6 +138,7 @@ public class Board {
 		}
 	}
 
+	
 	public void addDoorToRoom(BoardCell doorCell) {
 		// Rooms have a set of connected doors, we want to add each door connected to their associated rooms
 		BoardCell roomCell = findCellAtDoorDirection(doorCell);
@@ -177,18 +185,14 @@ public class Board {
 		}
 	}
 
+	// Handle all logic for a cell and its adjacent cell. Should a boardcell add an adj cell to its adj list
 	public void calcAdjListLogic(BoardCell adjCell, BoardCell boardCell) {
 		if (adjCell.isUnused()) {		// we never want to add unused cells to adj list
 			return;
 		}
 
-		if (boardCell.isDoorway()) {
-			if (adjCell == findCellAtDoorDirection(boardCell)) {
-				// now we want to get room that adjcell is in
-				adjCell = roomMap.get(adjCell.getInitial()).getCenterCell(); // get room at adjCell initial, then get the rooms center cell 
-				boardCell.addAdj(adjCell);
-				return;
-			}
+		if (checkIfDoor(adjCell, boardCell)) {
+			return;
 		}
 
 		if (boardCell.isPath() && adjCell.isPath()) {
@@ -228,6 +232,20 @@ public class Board {
 
 	}
 
+	// check if boardcell is door and if adj cell is the cell the door points to. If so, add the room's center cell adjcell is in
+	public boolean checkIfDoor(BoardCell adjCell, BoardCell boardCell) {
+		if (boardCell.isDoorway()) {
+			if (adjCell == findCellAtDoorDirection(boardCell)) {
+				// now we want to get room that adjcell is in
+				adjCell = roomMap.get(adjCell.getInitial()).getCenterCell(); // get room at adjCell initial, then get the rooms center cell 
+				boardCell.addAdj(adjCell);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Given a boardcell that was determinded to be a door, return the cell it points to
 	public BoardCell findCellAtDoorDirection(BoardCell boardCell) {
 		DoorDirection dd = boardCell.getDoorDirection();
 
@@ -254,6 +272,7 @@ public class Board {
 		}
 	}
 
+	// Recursive function, within a pathlen find all possible targets given a start cell
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		if (visited.size() == 0) { // prepare calcTargets by getting adjLists and clearing prev targets
 			targets.clear();
@@ -297,6 +316,7 @@ public class Board {
 		visited.remove(startCell);		// always remove cell from visited 
 	}
 
+	
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
 		roomMap = new HashMap<Character, Room>();
 		try {

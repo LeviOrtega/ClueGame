@@ -1,3 +1,7 @@
+/*
+ * Exception to be thrown when setup files for game arent formatted correctly
+ */
+
 package clueGame;
 
 public class BadConfigFormatException extends RuntimeException {

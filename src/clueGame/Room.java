@@ -1,3 +1,7 @@
+/*
+ * Room objects hold information about individual rooms given from the setup files
+ */
+
 package clueGame;
 
 import java.util.HashSet;

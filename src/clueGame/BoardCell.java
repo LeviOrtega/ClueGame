@@ -1,3 +1,7 @@
+/*
+ * Individual cell in the game board  
+ */
+
 package clueGame;
 
 import java.util.HashSet;
