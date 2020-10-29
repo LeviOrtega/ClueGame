@@ -42,13 +42,14 @@ public class Board {
 		loadLayoutConfig();
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
+		// initialize board cell with indexes only
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				board[i][j] = new BoardCell(i, j, boardString[i][j].charAt(0));
 			}
 		}
 
-		
+		// give each board cell their type
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				generateBoardCellType(board[i][j]);
@@ -56,7 +57,6 @@ public class Board {
 		}
 		// Generates adjacency list
 		generateBoardAdjList();
-		
 	}
 
 	
@@ -308,12 +308,12 @@ public class Board {
 		visited.add(startCell);		// add every cell in visited
 		if (startCell.isRoomCenter()) {
 			if (visited.size() == 1) {		// if we start off in a room, visited will only contain the room center cell
-				for (BoardCell tbc: startCell.getAdjList()) {
-					if (tbc.isDoorway()) {		// call this function with doors
-						calcTargets(tbc, pathLength -1);
+				for (BoardCell targetBoardCell: startCell.getAdjList()) {
+					if (targetBoardCell.isDoorway()) {		// call this function with doors
+						calcTargets(targetBoardCell, pathLength -1);
 					}
-					else if (tbc.isRoomCenter()){
-						targets.add(tbc);		// add secret passage room to targets 
+					else if (targetBoardCell.isRoomCenter()){
+						targets.add(targetBoardCell);		// add secret passage room to targets 
 					}
 				}
 			}
@@ -322,13 +322,13 @@ public class Board {
 			}
 		}
 		else {	// if not a room center, then deal with it normally 
-			for (BoardCell tbc: startCell.getAdjList()) {
-				if (!(visited.contains(tbc))) {
-					visited.add(tbc);
+			for (BoardCell targetBoardCell: startCell.getAdjList()) {
+				if (!(visited.contains(targetBoardCell))) {
+					visited.add(targetBoardCell);
 					// Recursive call to calcTargets() until path length reaches 0
-					calcTargets(tbc, pathLength -1);
+					calcTargets(targetBoardCell, pathLength -1);
 
-					visited.remove(tbc);
+					visited.remove(targetBoardCell);
 				}
 			}
 		}
