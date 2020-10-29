@@ -69,22 +69,27 @@ public class Board {
 			determineSecondCharType(boardCell, bcString);
 		}
 		else {	// else only one character, space card or room card
-			String type = roomMap.get(bcString.charAt(0)).getCardType();
-			switch (type) {
-			case ROOM: {
-				boardCell.setRoom(true);
-				break;
+			determineFirstCharType(boardCell, bcString);
+		}
+	}
+
+	// if the cell at index of boardcell is only one char, boardCell is a room or a space
+	public void determineFirstCharType(BoardCell boardCell, String bcString) {
+		String type = roomMap.get(bcString.charAt(0)).getCardType();
+		switch (type) {
+		case ROOM: {
+			boardCell.setRoom(true);
+			break;
+		}
+		case SPACE: {
+			if (!(bcString.charAt(0) == 'X')) {		// x is universal to unused space, other boards use different chars for walkways
+				boardCell.setPath(true);
 			}
-			case SPACE: {
-				if (!(bcString.charAt(0) == 'X')) {		// x is universal to unused space, other boards use different chars for walkways
-					boardCell.setPath(true);
-				}
-				else {
-					//else, the boardCell is an unused type
-					boardCell.setUnused(true);
-				}
-				break;
+			else {
+				//else, the boardCell is an unused type
+				boardCell.setUnused(true);
 			}
+			break;
 			}
 		}
 	}
