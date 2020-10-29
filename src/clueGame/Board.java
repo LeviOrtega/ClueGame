@@ -195,6 +195,17 @@ public class Board {
 
 		if(checkIfPath(adjCell, boardCell)) {return;}
 
+		if (checkIfRoomCenter(boardCell)) {return;}
+
+
+	}
+
+	/*
+	 *  check if boardcell is a room center, if so, check all doors connected
+	 *  to see if they are occupied. Also check if the room has a secret room connected
+	 */
+	
+	public boolean checkIfRoomCenter(BoardCell boardCell) {
 		if (boardCell.isRoom() && boardCell.isRoomCenter()) {
 			// if boardCell is center room, get room initial to find room, then get rooms list of all connecting doors and check if 
 			// the door is occupied, if not, add it to the center rooms adj list
@@ -215,10 +226,9 @@ public class Board {
 				// if there IS a secret room, add the center cell of the secret passage room to the adj list of our boardCell
 				boardCell.addAdj(roomMap.get(roomOfCenter.getSecretRoom()).getCenterCell());
 			}
-			return;
+			return true;
 		}
-
-
+		return false;
 	}
 
 	// check if boardcell and adjcell are both path cells, if so, check if adjCell is occupied and handle accordingly
