@@ -19,7 +19,7 @@ public class Board {
 	private static Board theInstance = new Board();
 	private int numRows;
 	private int numColumns;
-	public final String ROOM = "Room";		// txt format card types
+	public final String ROOM = "Room";		// txt format room types
 	public final String SPACE = "Space";
 	private String layoutConfigFile;
 	private String setupConfigFile;
