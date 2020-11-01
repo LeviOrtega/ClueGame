@@ -8,6 +8,20 @@ Room, Trading Stable, T
 Room, Law, L
 Room, Outhouse, O
 Room, Hotel, H
+// Weapons and weapon cards
+Weapon, Revolver, R
+Weapon, Knife, K
+Weapon, Wire, W
+Weapon, Pistol, P
+Weapon, Brander, B
+Weapon, Noose, N
+// People and people cards
+People, Sheriff, S
+People, Harlet, H
+People, Cowboy, C
+People, Gunsmith, G
+People, Banker, B
+People, Outlaw, O
 // Other spaces on board
 Space, Unused, X
 Space, Road, R

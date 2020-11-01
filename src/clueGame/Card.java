@@ -10,5 +10,9 @@ public class Card {
 		this.cardType = cardType;
 	}
 	
-
+	public boolean equals(Card card) {
+		//TODO check equality of cards
+		return false;
+	}
+	
 }

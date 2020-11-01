@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 import clueGame.BoardCell;
 
@@ -19,6 +20,8 @@ public class Board {
 	private static Board theInstance = new Board();
 	private int numRows;
 	private int numColumns;
+	private int numPeople, numWeapons, numRooms; // numRooms != roomMap.size(). roomMap holds unused rooms
+	private Solution answer;
 	public final String ROOM = "Room";		// txt format room types
 	public final String SPACE = "Space";
 	private String layoutConfigFile;
@@ -26,8 +29,11 @@ public class Board {
 	private BoardCell[][] board;
 	private String[][] boardString;
 	private Map<Character, Room> roomMap;
+	private Set<Card> deck;
+	private Set<Card> deltCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	private Set<Player> players;
 
 	private Board() {}
 
@@ -42,6 +48,7 @@ public class Board {
 		loadLayoutConfig();
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
+		this.players = new HashSet<Player>();
 		// initialize board cell with indexes only
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -334,10 +341,16 @@ public class Board {
 		}
 		visited.remove(startCell);		// always remove cell from visited 
 	}
+	
+	public void deal() {
+		//TODO deal cards from deck to players
+	}
 
 	
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
 		roomMap = new HashMap<Character, Room>();
+		deck = new TreeSet<Card>();
+		deltCards = new TreeSet<Card>();
 		try {
 			File setup = new File("data/" + setupConfigFile);
 			Scanner sc = new Scanner(setup);
@@ -355,7 +368,7 @@ public class Board {
 						roomMap.put(roomInfo[2].charAt(0), room);
 					}
 					else {
-						throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
+						//throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
 					}
 					
 				}
@@ -441,4 +454,21 @@ public class Board {
 	public Room getRoom(Character c) {
 		return roomMap.get(c);
 	}
+	
+	public int getNumRooms() {
+		return this.numRooms;
+	}
+	
+	public int getNumPeople() {
+		return this.numPeople;
+	}
+	
+	public int getNumWeapons() {
+		return this.numWeapons;
+	}
+	
+	public int getNumPlayers() {
+		return this.players.size();
+	}
+	
 }
