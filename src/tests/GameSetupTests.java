@@ -2,10 +2,15 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Set;
+
+import clueGame.Card;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
+import clueGame.Solution;
 
 class GameSetupTests {
 
@@ -25,15 +30,32 @@ class GameSetupTests {
 		board.setConfigFiles("ClueLayout306.csv", "ClueSetup306.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
+		board.loadSetupConfig();
 	}
 
 	@Test
 	void testNumCards() {
-		board.loadSetupConfig();
-		
 		assertEquals(numWeapons, board.getNumWeapons());
 		assertEquals(numPeople, board.getNumPeople());
 		assertEquals(numRooms, board.getNumRooms());
+		
+	}
+	
+	@Test
+	void testSolution() {
+		Solution answer = board.getAnswer();
+		Set<Card> deck = board.getDeck();
+		Set<Card> deltCards = board.getDeltCards();
+		
+		
+		assertTrue(deltCards.contains(answer.getPerson()));
+		assertTrue(deltCards.contains(answer.getWeapon()));
+		assertTrue(deltCards.contains(answer.getRoom()));
+		assertFalse(deck.contains(answer.getPerson()));
+		assertFalse(deck.contains(answer.getWeapon()));
+		assertFalse(deck.contains(answer.getRoom()));
+		
+		
 		
 	}
 

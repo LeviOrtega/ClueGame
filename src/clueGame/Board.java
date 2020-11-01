@@ -49,6 +49,8 @@ public class Board {
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
 		this.players = new HashSet<Player>();
+		
+		deal();
 		// initialize board cell with indexes only
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -343,6 +345,7 @@ public class Board {
 	}
 	
 	public void deal() {
+		answer = new Solution(null, null, null);
 		//TODO deal cards from deck to players
 	}
 
@@ -469,6 +472,18 @@ public class Board {
 	
 	public int getNumPlayers() {
 		return this.players.size();
+	}
+	
+	public Solution getAnswer() {
+		return this.answer;
+	}
+	
+	public Set<Card> getDeck(){
+		return this.deck;
+	}
+	
+	public Set<Card> getDeltCards(){
+		return this.deltCards;
 	}
 	
 }
