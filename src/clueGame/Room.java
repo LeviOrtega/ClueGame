@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Room {
 	private String name;
-	private String cardType;
+	private String roomType;
 	private char secretRoom;
 	private BoardCell centerCell;
 	private BoardCell labelCell;
@@ -20,12 +20,12 @@ public class Room {
 		doorList = new HashSet<BoardCell>();
 	}
 	
-	public String getCardType() {
-		return cardType;
+	public String getRoomType() {
+		return roomType;
 	}
 
-	public void setCardType(String cardType) {
-		this.cardType = cardType;
+	public void setRoomType(String cardType) {
+		this.roomType = cardType;
 	}
 	
 	public String getName() {

@@ -75,7 +75,7 @@ public class Board {
 
 	// if the cell at index of boardcell is only one char, boardCell is a room or a space
 	public void determineFirstCharType(BoardCell boardCell, String bcString) {
-		String type = roomMap.get(bcString.charAt(0)).getCardType();
+		String type = roomMap.get(bcString.charAt(0)).getRoomType();
 		switch (type) {
 		case ROOM: {
 			boardCell.setRoom(true);
@@ -346,15 +346,18 @@ public class Board {
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				// check if not comment lines
-				if (!(line.split(" ")[0].equals("//"))) {
+				if (!(line.contains("//"))) {
 					// split the line string into an array of strings to use for rooms
 					String[] roomInfo = line.split(", ");
-					if (!(roomInfo[0].equals(SPACE)) && !(roomInfo[0].equals(ROOM))) {
+					if ((roomInfo[0].equals(SPACE)) || (roomInfo[0].equals(ROOM))) {
+						Room room = new Room(roomInfo[1]);
+						room.setRoomType(roomInfo[0]);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
+						roomMap.put(roomInfo[2].charAt(0), room);
+					}
+					else {
 						throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
 					}
-					Room room = new Room(roomInfo[1]);
-					room.setCardType(roomInfo[0]);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
-					roomMap.put(roomInfo[2].charAt(0), room);
+					
 				}
 			}
 			sc.close();
