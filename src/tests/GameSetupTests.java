@@ -30,8 +30,8 @@ class GameSetupTests {
 
 
 	
-	@BeforeEach
-	void setUp() {
+	@BeforeAll
+	static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
@@ -53,7 +53,7 @@ class GameSetupTests {
 	void testCorrectCardsDelt() {
 		int totalCards = NUM_WEAPONS + NUM_PEOPLE + NUM_ROOMS;
 		int averageCards = (totalCards - 3)/NUM_PLAYERS;
-		Set<Player> players = board.getPlayers();
+		ArrayList<Player> players = board.getPlayers();
 		
 		
 		assertEquals(NUM_CARDS, board.getDeck().size());
@@ -65,8 +65,8 @@ class GameSetupTests {
 			for (Card card: player.getHand()) {
 				cardCount++;
 			}
-			// if average cards is 2.5, average is 2 but some will get one more 
-			assertFalse(cardCount >= averageCards);
+			// if average cards is 3.5, average is 3 but some will get one more 
+			assertTrue(cardCount >= averageCards);
 			assertTrue(cardCount <= averageCards + 1);
 		}
 		
@@ -92,7 +92,7 @@ class GameSetupTests {
 	void testPlayerTypes() {
 		int humanCount = 0;
 		int compCount = 0;
-		Set<Player> players = board.getPlayers();
+		ArrayList<Player> players = board.getPlayers();
 		
 		for (Player player: players) {
 			PlayerType playerType = player.getPlayerType();
@@ -112,6 +112,22 @@ class GameSetupTests {
 		assertEquals(HUMAN_COUNT, humanCount);
 		assertEquals(COMPUTER_COUNT, compCount);
 		
+		
+	}
+	@Test
+	void testNoDuplicates() {
+		ArrayList<Player> players = board.getPlayers();
+		ArrayList<Card> usedCards = new ArrayList<>();
+		
+		assertEquals(NUM_PLAYERS, players.size());
+		
+		for(Player player: players) {
+			for (Card card: player.getHand()) {
+				
+				assertFalse(usedCards.contains(card));
+				usedCards.add(card);
+			}
+		}
 		
 	}
 

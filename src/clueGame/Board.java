@@ -8,6 +8,7 @@ package clueGame;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public class Board {
 	private Set<Card> deltCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
-	private Set<Player> players;
+	private ArrayList<Player> players;
 
 	private Board() {}
 
@@ -54,7 +55,7 @@ public class Board {
 		roomMap = new HashMap<Character, Room>();
 		deck = new ArrayList<Card>();
 		deltCards = new HashSet<Card>();
-		players = new HashSet<Player>();
+		players = new ArrayList<Player>();
 		numPeople = 0;
 		numWeapons = 0;
 		numRooms = 0;
@@ -359,13 +360,18 @@ public class Board {
 		Card[] answerCards = getThreeCards(null,null, null);
 		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
 		
-		while (deck.size() != deltCards.size()) {
-			for (Player player: players) {
-				Card[] playerCards = getThreeCards(null,null, null);
-				for (int i = 0; i < playerCards.length; i++) {
-					player.updateHand(playerCards[i]);
-				}
+		int playerIndex = 0;
+		for (int i = 0; i < deck.size(); i++) {
+			Card card = deck.get(i);
+			if (!(deltCards.contains(card))) {
+				players.get(playerIndex).updateHand(card);
+				deltCards.add(card);
+				playerIndex++;
+				playerIndex %= players.size();
 			}
+		}
+		for(Player player: players) {
+			System.out.println((player.getHand().toString()));
 		}
 		
 	}
@@ -584,7 +590,7 @@ public class Board {
 		return this.deltCards;
 	}
 
-	public Set<Player> getPlayers(){
+	public ArrayList<Player> getPlayers(){
 		return this.players;
 	}
 }

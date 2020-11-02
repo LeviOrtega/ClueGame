@@ -21,4 +21,8 @@ public class Card {
 		return this.cardType;
 	}
 	
+	public String toString() {
+		return this.cardName;
+	}
+	
 }

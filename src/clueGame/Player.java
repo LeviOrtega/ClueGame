@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,14 +17,14 @@ public abstract class Player {
 		this.name = name;
 		this.row = row;
 		this.column = column; 
-		this.hand = new TreeSet<>();
+		this.hand = new HashSet<>();
 	}
 	
 	public abstract PlayerType getPlayerType();
 
 
 	public void updateHand(Card card) {
-		//TODO add card to hand
+		hand.add(card);
 	}
 	
 	public void updatePosition(int row, int column) {
