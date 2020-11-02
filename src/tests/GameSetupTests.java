@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import clueGame.Card;
@@ -29,14 +30,15 @@ class GameSetupTests {
 
 
 	
-	@BeforeAll
-	static void setUp() {
+	@BeforeEach
+	void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
+		board.deal();
 	}
 
 	@Test
@@ -56,8 +58,6 @@ class GameSetupTests {
 		
 		assertEquals(NUM_CARDS, board.getDeck().size());
 		assertEquals(NUM_PLAYERS, players.size());
-		board.deal();
-		assertEquals(0, board.getDeck().size());
 		assertEquals(NUM_CARDS, board.getDeltCards().size());
 		
 		for (Player player: players) {
@@ -75,17 +75,16 @@ class GameSetupTests {
 	
 	@Test
 	void testSolution() {
-		board.deal();
 		Solution answer = board.getAnswer();
-		Set<Card> deck = board.getDeck();
+		ArrayList<Card> deck = board.getDeck();
 		Set<Card> deltCards = board.getDeltCards();
 		
-		assertTrue(deltCards.contains(answer.getPerson()));
+		assertTrue(deltCards.contains(answer.getPeople()));
 		assertTrue(deltCards.contains(answer.getWeapon()));
 		assertTrue(deltCards.contains(answer.getRoom()));
-		assertFalse(deck.contains(answer.getPerson()));
-		assertFalse(deck.contains(answer.getWeapon()));
-		assertFalse(deck.contains(answer.getRoom()));
+		assertTrue(deck.contains(answer.getPeople()));
+		assertTrue(deck.contains(answer.getWeapon()));
+		assertTrue(deck.contains(answer.getRoom()));
 		
 	}
 	

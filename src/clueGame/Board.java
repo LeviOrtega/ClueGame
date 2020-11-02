@@ -7,9 +7,12 @@ package clueGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -31,7 +34,7 @@ public class Board {
 	private BoardCell[][] board;
 	private String[][] boardString;
 	private Map<Character, Room> roomMap;
-	private Set<Card> deck;
+	private ArrayList<Card> deck;
 	private Set<Card> deltCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
@@ -49,7 +52,7 @@ public class Board {
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
 		roomMap = new HashMap<Character, Room>();
-		deck = new HashSet<Card>();
+		deck = new ArrayList<Card>();
 		deltCards = new HashSet<Card>();
 		players = new HashSet<Player>();
 		numPeople = 0;
@@ -352,11 +355,44 @@ public class Board {
 	}
 
 	public void deal() {
+		Collections.shuffle(deck);
+		Card[] cards = getThreeCards(null,null, null);
+		answer = new Solution(cards[0], cards[1], cards[2]);
 		
-		
-		
-		
-		answer = new Solution(new Card(), new Card(), new Card());
+	}
+
+	public Card[] getThreeCards(Card roomCard, Card weaponCard, Card peopleCard) {
+		Card[] cards = new Card[3];
+		for (Card card: deck) {
+			switch(card.getCardType()) {
+			case ROOM:{
+				if (roomCard == null && !(deltCards.contains(card))) {
+					roomCard = card;
+					cards[0] = card;
+					deltCards.add(card);
+				}
+				break;
+			}
+			case WEAPON:{
+				if (weaponCard == null && !(deltCards.contains(card))) {
+					weaponCard = card;
+					cards[1] = card;
+					deltCards.add(card);
+				}
+				break;
+			}
+			case PEOPLE:{
+				if (peopleCard == null && !(deltCards.contains(card))) {
+					peopleCard = card;
+					cards[2] = card;
+					deltCards.add(card);
+				}
+				break;
+			}
+			
+			}
+		}
+		return cards;
 		
 	}
 
@@ -530,7 +566,7 @@ public class Board {
 		return this.answer;
 	}
 
-	public Set<Card> getDeck(){
+	public ArrayList<Card> getDeck(){
 		return this.deck;
 	}
 

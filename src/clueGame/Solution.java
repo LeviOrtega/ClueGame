@@ -1,20 +1,20 @@
 package clueGame;
 
 public class Solution {
-	Card person, room, weapon;
+	Card people, room, weapon;
 	
-	public Solution(Card person, Card room, Card weapon) {
-		this.person = person;
+	public Solution(Card people, Card room, Card weapon) {
+		this.people = people;
 		this.room = room;
 		this.weapon = weapon;
 	}
 
-	public Card getPerson() {
-		return person;
+	public Card getPeople() {
+		return people;
 	}
 
-	public void setPerson(Card person) {
-		this.person = person;
+	public void setPeople(Card person) {
+		this.people = person;
 	}
 
 	public Card getRoom() {
