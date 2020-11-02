@@ -356,8 +356,17 @@ public class Board {
 
 	public void deal() {
 		Collections.shuffle(deck);
-		Card[] cards = getThreeCards(null,null, null);
-		answer = new Solution(cards[0], cards[1], cards[2]);
+		Card[] answerCards = getThreeCards(null,null, null);
+		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
+		
+		while (deck.size() != deltCards.size()) {
+			for (Player player: players) {
+				Card[] playerCards = getThreeCards(null,null, null);
+				for (int i = 0; i < playerCards.length; i++) {
+					player.updateHand(playerCards[i]);
+				}
+			}
+		}
 		
 	}
 
