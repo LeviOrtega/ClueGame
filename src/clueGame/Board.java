@@ -23,6 +23,9 @@ public class Board {
 	private Solution answer;
 	public final String ROOM = "Room";		// txt format room types
 	public final String SPACE = "Space";
+	public final String WEAPON = "Weapon";
+	public final String PEOPLE = "People";
+	public final String PLAYER_CHARACTER = "Cowboy";
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private BoardCell[][] board;
@@ -43,13 +46,18 @@ public class Board {
 
 	public void initialize() throws BadConfigFormatException {
 		// Initializes board by creating new cells
+		targets = new HashSet<BoardCell>();
+		visited = new HashSet<BoardCell>();
+		roomMap = new HashMap<Character, Room>();
+		deck = new HashSet<Card>();
+		deltCards = new HashSet<Card>();
+		players = new HashSet<Player>();
+		numPeople = 0;
+		numWeapons = 0;
+		numRooms = 0;
+		
 		loadSetupConfig();
 		loadLayoutConfig();
-		this.targets = new HashSet<BoardCell>();
-		this.visited = new HashSet<BoardCell>();
-		this.players = new HashSet<Player>();
-		
-		deal();
 		// initialize board cell with indexes only
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -67,7 +75,7 @@ public class Board {
 		generateBoardAdjList();
 	}
 
-	
+
 	// Give each boardcell its type, door, center, label, etc.
 	public void generateBoardCellType(BoardCell boardCell) {
 		int row = boardCell.getRow();
@@ -98,7 +106,7 @@ public class Board {
 				boardCell.setUnused(true);
 			}
 			break;
-			}
+		}
 		}
 	}
 
@@ -154,11 +162,11 @@ public class Board {
 			boardCell.setSecretPassage(lastChar);
 			roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
 			break;
-			}
+		}
 		}
 	}
 
-	
+
 	public void addDoorToRoom(BoardCell doorCell) {
 		// Rooms have a set of connected doors, we want to add each door connected to their associated rooms
 		BoardCell roomCell = findCellAtDoorDirection(doorCell);
@@ -217,7 +225,7 @@ public class Board {
 	 *  check if boardcell is a room center, if so, check all doors connected
 	 *  to see if they are occupied. Also check if the room has a secret room connected
 	 */
-	
+
 	public boolean checkIfRoomCenter(BoardCell boardCell) {
 		if (boardCell.isRoom() && boardCell.isRoomCenter()) {
 			// if boardCell is center room, get room initial to find room, then get rooms list of all connecting doors and check if 
@@ -342,17 +350,19 @@ public class Board {
 		}
 		visited.remove(startCell);		// always remove cell from visited 
 	}
-	
+
 	public void deal() {
+		
+		
+		
+		
 		answer = new Solution(new Card(), new Card(), new Card());
-		//TODO deal cards from deck to players
+		
 	}
 
-	
+
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
-		roomMap = new HashMap<Character, Room>();
-		deck = new HashSet<Card>();
-		deltCards = new HashSet<Card>();
+		
 		try {
 			File setup = new File("data/" + setupConfigFile);
 			Scanner sc = new Scanner(setup);
@@ -362,17 +372,7 @@ public class Board {
 				String line = sc.nextLine();
 				// check if not comment lines
 				if (!(line.contains("//"))) {
-					// split the line string into an array of strings to use for rooms
-					String[] roomInfo = line.split(", ");
-					if ((roomInfo[0].equals(SPACE)) || (roomInfo[0].equals(ROOM))) {
-						Room room = new Room(roomInfo[1]);
-						room.setRoomType(roomInfo[0]);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
-						roomMap.put(roomInfo[2].charAt(0), room);
-					}
-					else {
-						//throw new BadConfigFormatException(setupConfigFile + " does not have only " + SPACE + " or " + ROOM + " card types.");
-					}
-					
+					getCardTypes(line);
 				}
 			}
 			sc.close();
@@ -380,6 +380,59 @@ public class Board {
 		catch(FileNotFoundException e) {
 			System.out.println("File, " + setupConfigFile + " could not be opened.");
 		}
+	}
+
+	public void getCardTypes(String line) throws BadConfigFormatException {
+		// split the line string into an array of strings to use for rooms
+		String[] roomInfo = line.split(", ");
+		String type = roomInfo[0];
+		String name = roomInfo[1];
+		String key = roomInfo[2];
+		CardType cardType;
+		switch(type) {
+
+		case SPACE:{
+			Room room = new Room(name);
+			room.setRoomType(type);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
+			roomMap.put(key.charAt(0), room);
+			break;
+		}
+		case ROOM:{
+			Room room = new Room(name);
+			room.setRoomType(type);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
+			roomMap.put(key.charAt(0), room);
+			// Pass in upper case type to CardType to return enum value and give to card
+			cardType = CardType.valueOf(type.toUpperCase());
+			deck.add(new Card(name, cardType));
+			numRooms++;
+			break;
+		}
+		case WEAPON:{
+			cardType = CardType.valueOf(type.toUpperCase());
+			deck.add(new Card(name, cardType));
+			numWeapons++;
+			break;
+		}
+		case PEOPLE:{
+			cardType = CardType.valueOf(type.toUpperCase());
+			deck.add(new Card(name, cardType));
+			Player player;
+			if (name == PLAYER_CHARACTER) {
+				player = new HumanPlayer(name, 0,0, PlayerType.HUMAN);
+			}
+			else {
+				player = new ComputerPlayer(name,0,0,PlayerType.COMPUTER);
+			}
+			players.add(player);
+			numPeople++;
+			break;
+		}
+		default:
+			// if none of these f
+			throw new BadConfigFormatException(setupConfigFile + " does not have correct card types.");
+		}
+		
+		
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException {  // CSV file loader
@@ -427,7 +480,7 @@ public class Board {
 	public Set<BoardCell> getTargets(){
 		return targets;
 	}
-	
+
 	public Set<BoardCell> getAdjList(int row, int col){
 		return getCell(row, col).getAdjList();
 	}
@@ -443,7 +496,7 @@ public class Board {
 	public int getNumRows() {
 		return this.numRows;
 	}
-	
+
 	public void setConfigFiles(String csv, String txt) {
 		this.setupConfigFile = txt;
 		this.layoutConfigFile = csv;
@@ -456,35 +509,35 @@ public class Board {
 	public Room getRoom(Character c) {
 		return roomMap.get(c);
 	}
-	
+
 	public int getNumRooms() {
 		return this.numRooms;
 	}
-	
+
 	public int getNumPeople() {
 		return this.numPeople;
 	}
-	
+
 	public int getNumWeapons() {
 		return this.numWeapons;
 	}
-	
+
 	public int getNumPlayers() {
 		return this.players.size();
 	}
-	
+
 	public Solution getAnswer() {
 		return this.answer;
 	}
-	
+
 	public Set<Card> getDeck(){
 		return this.deck;
 	}
-	
+
 	public Set<Card> getDeltCards(){
 		return this.deltCards;
 	}
-	
+
 	public Set<Player> getPlayers(){
 		return this.players;
 	}
