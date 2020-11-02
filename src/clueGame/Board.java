@@ -462,7 +462,8 @@ public class Board {
 			cardType = CardType.valueOf(type.toUpperCase());
 			deck.add(new Card(name, cardType));
 			Player player;
-			if (name == PLAYER_CHARACTER) {
+			
+			if (name.equals(PLAYER_CHARACTER)) {
 				player = new HumanPlayer(name, 0,0, PlayerType.HUMAN);
 			}
 			else {
