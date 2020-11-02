@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
 
 import clueGame.BoardCell;
 
@@ -345,15 +344,15 @@ public class Board {
 	}
 	
 	public void deal() {
-		answer = new Solution(null, null, null);
+		answer = new Solution(new Card(), new Card(), new Card());
 		//TODO deal cards from deck to players
 	}
 
 	
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
 		roomMap = new HashMap<Character, Room>();
-		deck = new TreeSet<Card>();
-		deltCards = new TreeSet<Card>();
+		deck = new HashSet<Card>();
+		deltCards = new HashSet<Card>();
 		try {
 			File setup = new File("data/" + setupConfigFile);
 			Scanner sc = new Scanner(setup);
@@ -486,4 +485,7 @@ public class Board {
 		return this.deltCards;
 	}
 	
+	public Set<Player> getPlayers(){
+		return this.players;
+	}
 }

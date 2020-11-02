@@ -8,6 +8,7 @@ public abstract class Player {
 	private String name;
 	private Color color;
 	private Set<Card> hand;
+	protected PlayerType playerType;
 	protected int row;
 	protected int column;
 	
@@ -18,7 +19,7 @@ public abstract class Player {
 		this.hand = new TreeSet<>();
 	}
 	
-
+	public abstract PlayerType getPlayerType();
 
 
 	public void updateHand(Card card) {
@@ -28,6 +29,10 @@ public abstract class Player {
 	public void updatePosition(int row, int column) {
 		this.row = row;
 		this.column = column;
+	}
+	
+	public Set<Card> getHand(){
+		return this.hand;
 	}
 	
 }

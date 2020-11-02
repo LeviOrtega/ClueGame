@@ -7,4 +7,9 @@ public class ComputerPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public PlayerType getPlayerType() {
+		return this.playerType;
+	}
+
 }
