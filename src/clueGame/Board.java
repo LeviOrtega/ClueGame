@@ -40,7 +40,7 @@ public class Board {
 	private Set<Card> deltCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
-	
+
 
 	private Board() {}
 
@@ -61,7 +61,7 @@ public class Board {
 		numPeople = 0;
 		numWeapons = 0;
 		numRooms = 0;
-		
+
 		loadSetupConfig();
 		loadLayoutConfig();
 		// initialize board cell with indexes only
@@ -357,12 +357,13 @@ public class Board {
 		visited.remove(startCell);		// always remove cell from visited 
 	}
 
+	// deals cards from deck to players and 3 of each type of card to solution
 	public void deal() {
-		// use this method to shuffle deck each time. Dont need to test for random
+		// use this method to shuffle deck each time. Don't need to test for random
 		Collections.shuffle(deck);
-		Card[] answerCards = getThreeCards(null,null, null);
+		Card[] answerCards = getThreeCards();
 		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
-		
+
 		int playerIndex = 0;
 		for (int i = 0; i < deck.size(); i++) {
 			Card card = deck.get(i);
@@ -377,47 +378,46 @@ public class Board {
 		for(Player player: players) {
 			System.out.println((player.getHand().toString()));
 		}
-		*/
+		 */
 	}
-	// Given null cards, return the first 3 cards of each type and give it to solution 
-	public Card[] getThreeCards(Card roomCard, Card weaponCard, Card peopleCard) {
+	// return the first 3 cards of each type from deck and give it to solution 
+	public Card[] getThreeCards() {
 		Card[] cards = new Card[3];
 		for (Card card: deck) {
 			switch(card.getCardType()) {
 			case ROOM:{
-				if (roomCard == null && !(deltCards.contains(card))) {
-					roomCard = card;
+				// cards[0] is room card in array
+				if (cards[0] == null && !(deltCards.contains(card))) {
 					cards[0] = card;
 					deltCards.add(card);
 				}
 				break;
 			}
 			case WEAPON:{
-				if (weaponCard == null && !(deltCards.contains(card))) {
-					weaponCard = card;
+				// cards[1] is weapon card in array
+				if (cards[1] == null && !(deltCards.contains(card))) {
 					cards[1] = card;
 					deltCards.add(card);
 				}
 				break;
 			}
 			case PEOPLE:{
-				if (peopleCard == null && !(deltCards.contains(card))) {
-					peopleCard = card;
+				// cards[2] is people card in array
+				if (cards[2] == null && !(deltCards.contains(card))) {
 					cards[2] = card;
 					deltCards.add(card);
 				}
 				break;
 			}
-			
+
 			}
 		}
 		return cards;
-		
 	}
 
 
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
-		
+
 		try {
 			File setup = new File("data/" + setupConfigFile);
 			Scanner sc = new Scanner(setup);
@@ -472,7 +472,7 @@ public class Board {
 			cardType = CardType.valueOf(type.toUpperCase());
 			deck.add(new Card(name, cardType));
 			Player player;
-			
+
 			if (name.equals(PLAYER_CHARACTER)) {
 				player = new HumanPlayer(name, 0,0, PlayerType.HUMAN);
 			}
@@ -487,8 +487,8 @@ public class Board {
 			// if none of these f
 			throw new BadConfigFormatException(setupConfigFile + " does not have correct card types.");
 		}
-		
-		
+
+
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException {  // CSV file loader
