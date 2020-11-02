@@ -34,12 +34,13 @@ public class Board {
 	private String setupConfigFile;
 	private BoardCell[][] board;
 	private String[][] boardString;
-	private Map<Character, Room> roomMap;
 	private ArrayList<Card> deck;
+	private ArrayList<Player> players;
+	private Map<Character, Room> roomMap;
 	private Set<Card> deltCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
-	private ArrayList<Player> players;
+	
 
 	private Board() {}
 
@@ -56,6 +57,7 @@ public class Board {
 		deck = new ArrayList<Card>();
 		deltCards = new HashSet<Card>();
 		players = new ArrayList<Player>();
+		// for testing purposes we keep track of number of all card types
 		numPeople = 0;
 		numWeapons = 0;
 		numRooms = 0;
@@ -356,6 +358,7 @@ public class Board {
 	}
 
 	public void deal() {
+		// use this method to shuffle deck each time. Dont need to test for random
 		Collections.shuffle(deck);
 		Card[] answerCards = getThreeCards(null,null, null);
 		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
@@ -367,15 +370,16 @@ public class Board {
 				players.get(playerIndex).updateHand(card);
 				deltCards.add(card);
 				playerIndex++;
+				// bound playerIndex by its size. Allows for iterating through players arrayList
 				playerIndex %= players.size();
 			}
-		}
+		}/*
 		for(Player player: players) {
 			System.out.println((player.getHand().toString()));
 		}
-		
+		*/
 	}
-
+	// Given null cards, return the first 3 cards of each type and give it to solution 
 	public Card[] getThreeCards(Card roomCard, Card weaponCard, Card peopleCard) {
 		Card[] cards = new Card[3];
 		for (Card card: deck) {
