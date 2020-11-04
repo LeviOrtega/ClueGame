@@ -1,3 +1,137 @@
+// Pair programming, so Levi Committed for anthony 
+
+commit ced6594ac6ae6989406d74dc969b3b1ce20570cb
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 21:38:28 2020 -0700
+
+    refactoring
+
+commit 7432ee8bf75ea79f6a09c0a7404f798d6b2f857d
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 21:30:38 2020 -0700
+
+    All tests pass Anthony commit
+
+commit 6b9d7d50e4b4b86e87d8578cfb1db6b1186d8a90
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 21:26:57 2020 -0700
+
+    Added failing duplicates test
+
+commit 50d6f50d0f0ba5d48dc3a8c91f3a964b11917a89
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 20:31:10 2020 -0700
+
+    All tests pass
+
+commit f059744ae15197c8524b7a35b2a70894c278163a
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 20:27:05 2020 -0700
+
+    testCorrectCardsDelt passes Anthony commit
+
+commit fcff0b1cb3f9122fa9fb638d1d707b03593f6e60
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 20:19:21 2020 -0700
+
+    Test solutions passes
+
+commit de48e4507199a9ca49b0de27821b672c472e7e3e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 19:39:30 2020 -0700
+
+    NumCards test passed -Anthony sommit
+
+commit 1f634a548e6aee7d832d015ec5a475cf277fa9db
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 17:28:11 2020 -0700
+
+    Added failing player type test
+
+commit 1578ac84d3d6b36bafbfc30a40bc8490ad9f79bf
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 14:38:23 2020 -0700
+
+    Added failing solutions test
+
+commit d11a0af070fd31972d8a9f05ebc199232b4b66a3
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 14:19:02 2020 -0700
+
+    Added failing testNumCards
+
+commit 7dfbe425ac83158950b41e05e8e9d7a8a842a6a9
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 13:41:12 2020 -0700
+
+    Added player and card classes
+
+commit 46df63ba4027fc885fb3c27cb958646c6f1eb189
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 12:02:13 2020 -0700
+
+    Changed one line
+
+commit 8656db33baf2afb2728f74df7b04d8d271001453
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 1 12:01:43 2020 -0700
+
+    Testing out some stuff, nothing changed
+
+commit bc6638a4bf4fcca414f6cb6663bc112111a502b3
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 20:02:17 2020 -0600
+
+    Changed names of loop variables in calcTargets
+
+commit 53a7efd7442b8ad0615214d775d0f3c78d9e5a14
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:58:19 2020 -0600
+
+    Gave explinations to some of the loops in initialize
+
+commit 9b058a99863dc1e0432abff1f081d921454ecef1
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:55:20 2020 -0600
+
+    extracted method to determine the second char of special types from the generateBoardCellType method
+
+commit 49569940f9a3e1ff6efb2044100bc58f268df26e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:51:48 2020 -0600
+
+    extracted method to determine the second char of special types from the generateBoardCellType method
+
+commit a0c8c0605d2c683c6cef8aa17da2eabfeee5c7ac
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:45:20 2020 -0600
+
+    Extracted checkIfRoomCenter from calcAdjListLogic
+
+commit b82a037a3b5247070b3b97d3d3ecd8ba342fa97b
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:24:37 2020 -0600
+
+    Extracted checkIfPath funciton from calcAdjListLogic
+
+commit 0f334044cf5e7ada25235606ae944a0a2319de49
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:21:32 2020 -0600
+
+    Extracted if checkIfDoor statement from calcAdjListLogic
+
+commit c9c0e3efa9ba670261ad82b3755ea4348e3db08d
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:15:32 2020 -0600
+
+    Added comments for each class
+
+commit 3fca6215478008fb06dedaafd203ebf111cbad50
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Oct 28 19:08:54 2020 -0600
+
+    Added comments to funcitons
+
 commit 98cde89ec03a1cb87f2c7b655de12a0d8791f4cc
 Author: Anthony <adesiato@mymail.mines.edu>
 Date:   Fri Oct 16 17:04:51 2020 -0600

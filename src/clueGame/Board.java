@@ -331,6 +331,7 @@ public class Board {
 		if (startCell.isRoomCenter()) {
 			if (visited.size() == 1) {		// if we start off in a room, visited will only contain the room center cell
 				for (BoardCell targetBoardCell: startCell.getAdjList()) {
+					
 					if (targetBoardCell.isDoorway()) {		// call this function with doors
 						calcTargets(targetBoardCell, pathLength -1);
 					}
