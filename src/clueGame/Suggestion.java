@@ -8,6 +8,7 @@ public class Suggestion {
 		this.room = room;
 		this.weapon = weapon;
 	}
+	public Suggestion() {}
 
 	public Card getPeople() {
 		return people;

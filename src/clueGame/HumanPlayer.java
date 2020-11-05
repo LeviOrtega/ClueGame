@@ -15,7 +15,7 @@ public class HumanPlayer extends Player {
 	@Override
 	public Card disproveSuggestion(Suggestion suggestion) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Card();
 	}
 	
 	

@@ -81,7 +81,9 @@ public class Board {
 		generateBoardAdjList();
 	}
 	
-	
+	public Card handleSuggestion(Player player) {
+		return new Card();
+	}
 	
 	public boolean makeAccusation(Solution accusation) {
 		
@@ -609,5 +611,12 @@ public class Board {
 
 	public ArrayList<Player> getPlayers(){
 		return this.players;
+	}
+	
+	public void addPlayer(Player player) {
+		players.add(player);
+	}
+	public void removePlayer(Player player) {
+		players.remove(players.indexOf(player));
 	}
 }

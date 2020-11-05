@@ -9,6 +9,7 @@ public abstract class Player {
 	private String name;
 	private Color color;
 	private Set<Card> hand;
+	private Suggestion suggestion;
 	protected PlayerType playerType;
 	protected int row;
 	protected int column;
@@ -18,6 +19,7 @@ public abstract class Player {
 		this.row = row;
 		this.column = column; 
 		this.hand = new HashSet<>();
+		this.suggestion = new Suggestion();
 	}
 	
 	public abstract PlayerType getPlayerType();
@@ -27,6 +29,14 @@ public abstract class Player {
 
 	public void updateHand(Card card) {
 		hand.add(card);
+	}
+	
+	public void setSuggestion(Suggestion suggestion) {
+		this.suggestion = suggestion;
+	}
+	
+	public Suggestion getSuggestion() {
+		return this.suggestion;
 	}
 	
 	public void updatePosition(int row, int column) {
