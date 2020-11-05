@@ -22,6 +22,8 @@ public abstract class Player {
 		this.suggestion = new Suggestion();
 	}
 	
+	public abstract void selectTarget(int hardCodedRoll);
+	
 	public abstract PlayerType getPlayerType();
 	
 	public abstract Card disproveSuggestion(Suggestion suggestion);
@@ -39,6 +41,14 @@ public abstract class Player {
 		return this.suggestion;
 	}
 	
+	public int getRow() {
+		return row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
 	public void updatePosition(int row, int column) {
 		this.row = row;
 		this.column = column;

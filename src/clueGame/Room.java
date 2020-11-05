@@ -14,10 +14,19 @@ public class Room {
 	private BoardCell centerCell;
 	private BoardCell labelCell;
 	private Set<BoardCell> doorList;
+	private Card roomCard;
 	
 	public Room(String name) {
 		this.name = name;
 		doorList = new HashSet<BoardCell>();
+	}
+	
+	public Card getRoomCard() {
+		return this.roomCard;
+	}
+	
+	public void setRoomCard(Card roomCard) {
+		this.roomCard = roomCard;
 	}
 	
 	public String getRoomType() {

@@ -17,6 +17,12 @@ public class HumanPlayer extends Player {
 		// TODO Auto-generated method stub
 		return new Card();
 	}
+
+	@Override
+	public void selectTarget(int hardCodedRoll) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

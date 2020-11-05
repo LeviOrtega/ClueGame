@@ -81,6 +81,8 @@ public class Board {
 		generateBoardAdjList();
 	}
 	
+	
+	
 	public Card handleSuggestion(Player player) {
 		return new Card();
 	}
@@ -464,12 +466,14 @@ public class Board {
 			break;
 		}
 		case ROOM:{
-			Room room = new Room(name);
-			room.setRoomType(type);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
-			roomMap.put(key.charAt(0), room);
 			// Pass in upper case type to CardType to return enum value and give to card
 			cardType = CardType.valueOf(type.toUpperCase());
-			deck.add(new Card(name, cardType));
+			Card roomCard = new Card(name, cardType);
+			deck.add(roomCard);
+			Room room = new Room(name);
+			room.setRoomType(type);		// used in generateBoardCellType to check if first char of boardCell is a room or a space card type
+			room.setRoomCard(roomCard);
+			roomMap.put(key.charAt(0), room);
 			numRooms++;
 			break;
 		}
