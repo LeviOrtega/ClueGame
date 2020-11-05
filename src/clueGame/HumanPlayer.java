@@ -11,6 +11,12 @@ public class HumanPlayer extends Player {
 	public PlayerType getPlayerType() {
 		return this.playerType;
 	}
+
+	@Override
+	public Card disproveSuggestion(Suggestion suggestion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

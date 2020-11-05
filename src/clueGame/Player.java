@@ -21,6 +21,8 @@ public abstract class Player {
 	}
 	
 	public abstract PlayerType getPlayerType();
+	
+	public abstract Card disproveSuggestion(Suggestion suggestion);
 
 
 	public void updateHand(Card card) {
