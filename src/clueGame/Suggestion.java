@@ -2,12 +2,20 @@ package clueGame;
 
 public class Suggestion {
 	Card people, room, weapon;
-	
+
 	public Suggestion(Card people, Card room, Card weapon) {
 		this.people = people;
 		this.room = room;
 		this.weapon = weapon;
 	}
+
+	public boolean equals(Suggestion suggestion) {
+		return 
+				this.people.equals(suggestion.getPeople()) &&
+				this.room.equals(suggestion.getRoom()) &&
+				this.weapon.equals(suggestion.getWeapon());
+	}
+
 	public Suggestion() {}
 
 	public Card getPeople() {
@@ -33,5 +41,5 @@ public class Suggestion {
 	public void setWeapon(Card weapon) {
 		this.weapon = weapon;
 	}
-	
+
 }

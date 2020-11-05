@@ -8,6 +8,8 @@ public class ComputerPlayer extends Player {
 		
 	}
 	
+	
+	
 	@Override
 	public void selectTarget(int hardCodedRoll) {
 		
@@ -22,6 +24,13 @@ public class ComputerPlayer extends Player {
 	public Card disproveSuggestion(Suggestion suggestion) {
 		
 		return new Card();
+	}
+
+
+
+	@Override
+	public Suggestion createSuggestion() {
+		return new Suggestion(new Card(), new Card(), new Card());
 	}
 
 }

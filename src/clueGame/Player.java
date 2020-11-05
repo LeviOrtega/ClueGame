@@ -22,6 +22,8 @@ public abstract class Player {
 		this.suggestion = new Suggestion();
 	}
 	
+	public abstract Suggestion createSuggestion();
+	
 	public abstract void selectTarget(int hardCodedRoll);
 	
 	public abstract PlayerType getPlayerType();
