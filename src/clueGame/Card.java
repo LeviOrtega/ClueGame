@@ -13,12 +13,16 @@ public class Card {
 	public Card() {}
 	
 	public boolean equals(Card card) {
-		//TODO check equality of cards
-		return false;
+		return this.cardName == card.getCardName() && this.cardType == card.getCardType();
+
 	}
 	
 	public CardType getCardType() {
 		return this.cardType;
+	}
+	
+	public String getCardName() {
+		return this.cardName;
 	}
 	
 	public String toString() {

@@ -80,6 +80,14 @@ public class Board {
 		// Generates adjacency list
 		generateBoardAdjList();
 	}
+	
+	
+	
+	public boolean makeAccusation(Solution accusation) {
+		
+		
+		return false;
+	}
 
 
 	// Give each boardcell its type, door, center, label, etc.
@@ -581,6 +589,10 @@ public class Board {
 
 	public int getNumPlayers() {
 		return this.players.size();
+	}
+	
+	public void setAnswer(Solution answer) {
+		this.answer = answer;
 	}
 
 	public Solution getAnswer() {
