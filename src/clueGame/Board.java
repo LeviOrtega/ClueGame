@@ -84,14 +84,23 @@ public class Board {
 	
 	
 	public Card handleSuggestion(Player player) {
-		return new Card();
+		Suggestion playerSuggestion = player.getSuggestion();
+		for (Player gamePlayer: players) {
+			// do not want to handleSuggestion from player making suggestion
+			if (!(gamePlayer == player)) {
+				Card card = gamePlayer.disproveSuggestion(playerSuggestion);
+				if (card != null) {
+					return card;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	public boolean makeAccusation(Solution accusation) {
-		
-		
-		return false;
-	}
+		return this.answer.equals(accusation);
+		}
 
 
 	// Give each boardcell its type, door, center, label, etc.

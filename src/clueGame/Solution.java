@@ -8,6 +8,13 @@ public class Solution {
 		this.room = room;
 		this.weapon = weapon;
 	}
+	
+	public boolean equals(Solution solution) {
+		return 
+				this.people.equals(solution.getPeople()) &&
+				this.room.equals(solution.getRoom()) &&
+				this.weapon.equals(solution.getWeapon());
+	}
 
 	public Card getPeople() {
 		return people;

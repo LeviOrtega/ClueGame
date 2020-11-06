@@ -54,8 +54,24 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public Card disproveSuggestion(Suggestion suggestion) {
-
-		return new Card();
+		ArrayList<Card> disprovingCards = new ArrayList<>();
+		// find all cards in hand that suggestion has and add it do a list of possible disproving cards
+		if (this.hand.contains(suggestion.getPeople())) {
+			disprovingCards.add(suggestion.getPeople());
+		}
+		if (this.hand.contains(suggestion.getWeapon())) {
+			disprovingCards.add(suggestion.getWeapon());
+		}
+		if (this.hand.contains(suggestion.getRoom())) {
+			disprovingCards.add(suggestion.getRoom());
+		}
+		
+		if (disprovingCards.size() == 0) {
+			return null;
+		}
+		
+		Collections.shuffle(disprovingCards);
+		return disprovingCards.get(0);
 	}
 
 
@@ -95,8 +111,8 @@ public class ComputerPlayer extends Player {
 				break;
 			}
 		}
-
-		return new Suggestion(people, room, weapon);
+		this.suggestion = new Suggestion(people, room, weapon);
+		return this.suggestion;
 	}
 
 }

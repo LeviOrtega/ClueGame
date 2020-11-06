@@ -13,7 +13,7 @@ public class Card {
 	public Card() {}
 	
 	public boolean equals(Card card) {
-		return this.cardName == card.getCardName() && this.cardType == card.getCardType();
+		return this == card;
 
 	}
 	

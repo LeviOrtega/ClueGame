@@ -22,6 +22,31 @@ import clueGame.Suggestion;
 class GameSolutionTests {
 
 	private static Board board;
+	private static Card[] peopleCards = {
+			new Card("People1", CardType.PEOPLE),
+			new Card("People2", CardType.PEOPLE),
+			new Card("People3", CardType.PEOPLE),
+			new Card("People4", CardType.PEOPLE),
+			new Card("People5", CardType.PEOPLE)
+	};
+	
+	private static Card[] weaponCards = {
+			new Card("Weapon1", CardType.WEAPON),
+			new Card("Weapon2", CardType.WEAPON),
+			new Card("Weapon3", CardType.WEAPON),
+			new Card("Weapon4", CardType.WEAPON),
+			new Card("Weapon5", CardType.WEAPON)
+
+	};
+	
+	private static Card[] roomCards = {
+			new Card("Room1", CardType.ROOM),
+			new Card("Room2", CardType.ROOM),
+			new Card("Room3", CardType.ROOM),
+			new Card("Room4", CardType.ROOM),
+			new Card("Room5", CardType.ROOM)
+	};
+	
 
 	@BeforeAll
 	static void setUp() throws Exception {
@@ -31,33 +56,33 @@ class GameSolutionTests {
 	@Test
 	void testCheckAccustion() {
 		Solution answer = new Solution(
-				new Card("People", CardType.PEOPLE),
-				new Card("Room", CardType.ROOM),
-				new Card("Weapon", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[0],
+				weaponCards[0]
 				);
 
 		Solution accusation = new Solution(
-				new Card("People", CardType.PEOPLE),
-				new Card("Room", CardType.ROOM),
-				new Card("Weapon", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[0],
+				weaponCards[0]
 				);
 		
 		Solution wrongPeople = new Solution(
-				new Card("WrongPeople", CardType.PEOPLE),
-				new Card("Room", CardType.ROOM),
-				new Card("Weapon", CardType.WEAPON)
+				peopleCards[1], 
+				roomCards[0],
+				weaponCards[0]
 				);
 		
 		Solution wrongRoom = new Solution(
-				new Card("People", CardType.PEOPLE),
-				new Card("WrongRoom", CardType.ROOM),
-				new Card("Weapon", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[1],
+				weaponCards[0]
 				);
 		
 		Solution wrongWeapon = new Solution(
-				new Card("People", CardType.PEOPLE),
-				new Card("Room", CardType.ROOM),
-				new Card("WrongWeapon", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[0],
+				weaponCards[1]
 				);
 		
 		board.setAnswer(answer);
@@ -69,28 +94,30 @@ class GameSolutionTests {
 	}
 	@Test
 	void testDisproveSuggestion() {
+		
+		
 		Suggestion suggestion = new Suggestion(
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room1", CardType.ROOM),
-				new Card("Weapon1", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[0],
+				weaponCards[0]
 				);
 		
 		Card[] hand1 = {
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room2", CardType.ROOM),
-				new Card("Weapon2", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[1],
+				weaponCards[1]
 				};
 		
 		Card[] hand2 = {
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room1", CardType.ROOM),
-				new Card("Weapon2", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[0],
+				weaponCards[1]
 		};
 	
 		Card[] hand3 = {
-				new Card("People2", CardType.PEOPLE),
-				new Card("Room2", CardType.ROOM),
-				new Card("Weapon2", CardType.WEAPON)
+				peopleCards[1],
+				roomCards[1],
+				weaponCards[1]
 		};
 				
 		
@@ -134,45 +161,45 @@ class GameSolutionTests {
 	void testHandleSuggestion() {
 		// for suggestion no one can disprove
 		Suggestion suggestion1 = new Suggestion(
-				new Card("People5", CardType.PEOPLE),
-				new Card("Room5", CardType.ROOM),
-				new Card("Weapon5", CardType.WEAPON)
+				peopleCards[4],
+				roomCards[4],
+				weaponCards[4]
 				);
 		// for suggestion only accuser can disprove
 		Suggestion suggestion2 = new Suggestion(
-				new Card("People5", CardType.PEOPLE),
-				new Card("Room3", CardType.ROOM),
-				new Card("Weapon5", CardType.WEAPON)
+				peopleCards[4],
+				roomCards[2],
+				weaponCards[4]
 				);
 		
 		Suggestion suggestion3 = new Suggestion(
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room5", CardType.ROOM),
-				new Card("Weapon3", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[4],
+				weaponCards[2]
 				);
 		
 		Card[] hand1 = {
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room2", CardType.ROOM),
-				new Card("Weapon2", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[1],
+				weaponCards[1]
 				};
 		// hand of third suggestion that should return people 1
 		Card[] hand2 = {
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room1", CardType.ROOM),
-				new Card("Weapon2", CardType.WEAPON)
+				peopleCards[0],
+				roomCards[0],
+				weaponCards[1]
 		};
 		// hand of third suggestion that has card weapon 3 but never used due to hand 2
 		Card[] hand3 = {
-				new Card("People2", CardType.PEOPLE),
-				new Card("Room2", CardType.ROOM),
-				new Card("Weapon3", CardType.WEAPON)
+				peopleCards[1],
+				roomCards[1],
+				weaponCards[2]
 		};
 		// hand of second accusation 
 		Card[] hand4 = {
-				new Card("People1", CardType.PEOPLE),
-				new Card("Room3", CardType.ROOM),
-				new Card("Weapon3", CardType.WEAPON)	
+				peopleCards[0],
+				roomCards[2],
+				weaponCards[2]	
 		};
 				
 		
@@ -196,6 +223,12 @@ class GameSolutionTests {
 		player4.updateHand(hand4[0]);
 		player4.updateHand(hand4[1]);
 		player4.updateHand(hand4[2]);
+		board.addPlayer(player1);
+		board.addPlayer(player2);
+		board.addPlayer(player3);
+		board.addPlayer(player4);
+
+		
 		
 		// first suggestion nobody can disprove
 		player1.setSuggestion(suggestion1);
