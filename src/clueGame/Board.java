@@ -32,7 +32,7 @@ public class Board {
 	private ArrayList<Card> deck;
 	private ArrayList<Player> players;
 	private Map<Character, Room> roomMap;
-	private Set<Card> deltCards;
+	private Set<Card> dealtCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
 	public final String ROOM = "Room";		// txt format room types
@@ -55,7 +55,7 @@ public class Board {
 		visited = new HashSet<BoardCell>();
 		roomMap = new HashMap<Character, Room>();
 		deck = new ArrayList<Card>();
-		deltCards = new HashSet<Card>();
+		dealtCards = new HashSet<Card>();
 		players = new ArrayList<Player>();
 		// for testing purposes we keep track of number of all card types
 		numPeople = 0;
@@ -80,7 +80,7 @@ public class Board {
 		// Generates adjacency list
 		generateBoardAdjList();
 	}
-	
+
 	/*
 	 *------------------------------------------------------------------------------
 	 *
@@ -88,9 +88,9 @@ public class Board {
 	 * 
 	 *------------------------------------------------------------------------------
 	 */
-	
+
 	public Card handleSuggestion(Player player) {
-		
+
 		Suggestion playerSuggestion = player.getSuggestion();
 		for (Player gamePlayer: players) {
 			// do not want to handleSuggestion from player making suggestion
@@ -101,73 +101,69 @@ public class Board {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public boolean makeAccusation(Solution accusation) {
 		return this.answer.equals(accusation);
-		}
+	}
 
-	
+
 	// deals cards from deck to players and 3 of each type of card to solution
-		public void deal() {
-			// use this method to shuffle deck each time. Don't need to test for random
-			Collections.shuffle(deck);
-			Card[] answerCards = getThreeCards();
-			answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
+	public void deal() {
+		// use this method to shuffle deck each time. Don't need to test for random
+		Collections.shuffle(deck);
+		Card[] answerCards = getThreeCards();
+		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
 
-			int playerIndex = 0;
-			for (int i = 0; i < deck.size(); i++) {
-				Card card = deck.get(i);
-				if (!(deltCards.contains(card))) {
-					players.get(playerIndex).updateHand(card);
-					deltCards.add(card);
-					playerIndex++;
-					// bound playerIndex by its size. Allows for iterating through players arrayList
-					playerIndex %= players.size();
-				}
-			}/*
-			for(Player player: players) {
-				System.out.println((player.getHand().toString()));
+		int playerIndex = 0;
+		for (int i = 0; i < deck.size(); i++) {
+			Card card = deck.get(i);
+			if (!(dealtCards.contains(card))) {
+				players.get(playerIndex).updateHand(card);
+				dealtCards.add(card);
+				playerIndex++;
+				// bound playerIndex by its size. Allows for iterating through players arrayList
+				playerIndex %= players.size();
 			}
-			 */
 		}
-		// return the first 3 cards of each type from deck and give it to solution 
-		public Card[] getThreeCards() {
-			Card[] cards = new Card[3];
-			for (Card card: deck) {
-				switch(card.getCardType()) {
-				case ROOM:{
-					// cards[0] is room card in array
-					if (cards[0] == null && !(deltCards.contains(card))) {
-						cards[0] = card;
-						deltCards.add(card);
-					}
-					break;
+	}
+	// return the first 3 cards of each type from deck and give it to solution 
+	public Card[] getThreeCards() {
+		Card[] cards = new Card[3];
+		for (Card card: deck) {
+			switch(card.getCardType()) {
+			case ROOM:{
+				// cards[0] is room card in array
+				if (cards[0] == null && !(dealtCards.contains(card))) {
+					cards[0] = card;
+					dealtCards.add(card);
 				}
-				case WEAPON:{
-					// cards[1] is weapon card in array
-					if (cards[1] == null && !(deltCards.contains(card))) {
-						cards[1] = card;
-						deltCards.add(card);
-					}
-					break;
+				break;
+			}
+			case WEAPON:{
+				// cards[1] is weapon card in array
+				if (cards[1] == null && !(dealtCards.contains(card))) {
+					cards[1] = card;
+					dealtCards.add(card);
 				}
-				case PEOPLE:{
-					// cards[2] is people card in array
-					if (cards[2] == null && !(deltCards.contains(card))) {
-						cards[2] = card;
-						deltCards.add(card);
-					}
-					break;
+				break;
+			}
+			case PEOPLE:{
+				// cards[2] is people card in array
+				if (cards[2] == null && !(dealtCards.contains(card))) {
+					cards[2] = card;
+					dealtCards.add(card);
 				}
+				break;
+			}
 
-				}
 			}
-			return cards;
 		}
-		
+		return cards;
+	}
+
 	/*
 	 *------------------------------------------------------------------------------
 	 * 
@@ -175,7 +171,7 @@ public class Board {
 	 * 	
 	 *------------------------------------------------------------------------------
 	 */
-		
+
 
 	// Give each boardcell its type, door, center, label, etc.
 	public void generateBoardCellType(BoardCell boardCell) {
@@ -199,7 +195,8 @@ public class Board {
 			break;
 		}
 		case SPACE: {
-			if (!(bcString.charAt(0) == 'X')) {		// x is universal to unused space, other boards use different chars for walkways
+			if (!(bcString.charAt(0) == 'X')) {		
+				// x is universal to unused space, other boards use different chars for walkways
 				boardCell.setPath(true);
 			}
 			else {
@@ -307,7 +304,7 @@ public class Board {
 			return boardCell;
 		}
 	}
-	
+
 	public void addDoorToRoom(BoardCell doorCell) {
 		// Rooms have a set of connected doors, we want to add each door connected to their associated rooms
 		BoardCell roomCell = findCellAtDoorDirection(doorCell);
@@ -327,7 +324,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 
 	/*
 	 *------------------------------------------------------------------------------
@@ -336,7 +333,7 @@ public class Board {
 	 * 
 	 *------------------------------------------------------------------------------
 	 */
-	
+
 
 	public void generateBoardAdjList() {
 		// Iterates through each index of 2D array to create comprehensive adjacency list
@@ -437,7 +434,7 @@ public class Board {
 		if (startCell.isRoomCenter()) {
 			if (visited.size() == 1) {		// if we start off in a room, visited will only contain the room center cell
 				for (BoardCell targetBoardCell: startCell.getAdjList()) {
-					
+
 					if (targetBoardCell.isDoorway()) {		// call this function with doors
 						calcTargets(targetBoardCell, pathLength -1);
 					}
@@ -591,7 +588,7 @@ public class Board {
 		this.numColumns = colLen;
 		this.numRows = rowLen;
 	}
-	
+
 	/*
 	 * ------------------------------------------------------------------------------
 	 * 
@@ -648,7 +645,7 @@ public class Board {
 	public int getNumPlayers() {
 		return this.players.size();
 	}
-	
+
 	public void setAnswer(Solution answer) {
 		this.answer = answer;
 	}
@@ -661,14 +658,14 @@ public class Board {
 		return this.deck;
 	}
 
-	public Set<Card> getDeltCards(){
-		return this.deltCards;
+	public Set<Card> getDealtCards(){
+		return this.dealtCards;
 	}
 
 	public ArrayList<Player> getPlayers(){
 		return this.players;
 	}
-	
+
 	public void addPlayer(Player player) {
 		players.add(player);
 	}

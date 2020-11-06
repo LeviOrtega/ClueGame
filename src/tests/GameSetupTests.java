@@ -58,7 +58,7 @@ class GameSetupTests {
 		
 		assertEquals(NUM_CARDS, board.getDeck().size());
 		assertEquals(NUM_PLAYERS, players.size());
-		assertEquals(NUM_CARDS, board.getDeltCards().size());
+		assertEquals(NUM_CARDS, board.getDealtCards().size());
 		
 		for (Player player: players) {
 			int cardCount = 0;
@@ -77,7 +77,7 @@ class GameSetupTests {
 	void testSolution() {
 		Solution answer = board.getAnswer();
 		ArrayList<Card> deck = board.getDeck();
-		Set<Card> deltCards = board.getDeltCards();
+		Set<Card> deltCards = board.getDealtCards();
 		
 		assertTrue(deltCards.contains(answer.getPeople()));
 		assertTrue(deltCards.contains(answer.getWeapon()));
