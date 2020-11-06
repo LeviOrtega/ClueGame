@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void selectTarget(int hardCodedRoll) {
+	public void selectTarget(int roll) {
 		// TODO Auto-generated method stub
 		
 	}

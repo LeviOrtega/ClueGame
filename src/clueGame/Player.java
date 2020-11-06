@@ -24,7 +24,7 @@ public abstract class Player {
 	
 	public abstract Suggestion createSuggestion();
 	
-	public abstract void selectTarget(int hardCodedRoll);
+	public abstract void selectTarget(int roll);
 	
 	public abstract PlayerType getPlayerType();
 	
@@ -52,8 +52,11 @@ public abstract class Player {
 	}
 
 	public void updatePosition(int row, int column) {
+		Board.getInstance().getCell(this.row, this.column).setOccupied(false);
 		this.row = row;
 		this.column = column;
+		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
+
 	}
 	
 	public Set<Card> getHand(){
