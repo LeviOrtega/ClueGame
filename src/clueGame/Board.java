@@ -25,11 +25,6 @@ public class Board {
 	private int numColumns;
 	private int numPeople, numWeapons, numRooms; // numRooms != roomMap.size(). roomMap holds unused rooms
 	private Solution answer;
-	public final String ROOM = "Room";		// txt format room types
-	public final String SPACE = "Space";
-	public final String WEAPON = "Weapon";
-	public final String PEOPLE = "People";
-	public final String PLAYER_CHARACTER = "Cowboy";
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private BoardCell[][] board;
@@ -40,6 +35,11 @@ public class Board {
 	private Set<Card> deltCards;
 	private Set<BoardCell> visited;
 	private Set<BoardCell> targets;
+	public final String ROOM = "Room";		// txt format room types
+	public final String SPACE = "Space";
+	public final String WEAPON = "Weapon";
+	public final String PEOPLE = "People";
+	public final String PLAYER_CHARACTER = "Cowboy";
 
 
 	private Board() {}
@@ -81,7 +81,13 @@ public class Board {
 		generateBoardAdjList();
 	}
 	
-	
+	/*
+	 *------------------------------------------------------------------------------
+	 *
+	 * Cards, Suggestions, and Accusations
+	 * 
+	 *------------------------------------------------------------------------------
+	 */
 	
 	public Card handleSuggestion(Player player) {
 		
@@ -103,6 +109,73 @@ public class Board {
 		return this.answer.equals(accusation);
 		}
 
+	
+	// deals cards from deck to players and 3 of each type of card to solution
+		public void deal() {
+			// use this method to shuffle deck each time. Don't need to test for random
+			Collections.shuffle(deck);
+			Card[] answerCards = getThreeCards();
+			answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
+
+			int playerIndex = 0;
+			for (int i = 0; i < deck.size(); i++) {
+				Card card = deck.get(i);
+				if (!(deltCards.contains(card))) {
+					players.get(playerIndex).updateHand(card);
+					deltCards.add(card);
+					playerIndex++;
+					// bound playerIndex by its size. Allows for iterating through players arrayList
+					playerIndex %= players.size();
+				}
+			}/*
+			for(Player player: players) {
+				System.out.println((player.getHand().toString()));
+			}
+			 */
+		}
+		// return the first 3 cards of each type from deck and give it to solution 
+		public Card[] getThreeCards() {
+			Card[] cards = new Card[3];
+			for (Card card: deck) {
+				switch(card.getCardType()) {
+				case ROOM:{
+					// cards[0] is room card in array
+					if (cards[0] == null && !(deltCards.contains(card))) {
+						cards[0] = card;
+						deltCards.add(card);
+					}
+					break;
+				}
+				case WEAPON:{
+					// cards[1] is weapon card in array
+					if (cards[1] == null && !(deltCards.contains(card))) {
+						cards[1] = card;
+						deltCards.add(card);
+					}
+					break;
+				}
+				case PEOPLE:{
+					// cards[2] is people card in array
+					if (cards[2] == null && !(deltCards.contains(card))) {
+						cards[2] = card;
+						deltCards.add(card);
+					}
+					break;
+				}
+
+				}
+			}
+			return cards;
+		}
+		
+	/*
+	 *------------------------------------------------------------------------------
+	 * 
+	 * BoardCell type determination
+	 * 	
+	 *------------------------------------------------------------------------------
+	 */
+		
 
 	// Give each boardcell its type, door, center, label, etc.
 	public void generateBoardCellType(BoardCell boardCell) {
@@ -195,6 +268,46 @@ public class Board {
 	}
 
 
+	// check if boardcell is door and if adj cell is the cell the door points to. If so, add the room's center cell adjcell is in
+	public boolean checkIfDoor(BoardCell adjCell, BoardCell boardCell) {
+		if (boardCell.isDoorway()) {
+			if (adjCell == findCellAtDoorDirection(boardCell)) {
+				// now we want to get room that adjcell is in
+				adjCell = roomMap.get(adjCell.getInitial()).getCenterCell(); // get room at adjCell initial, then get the rooms center cell 
+				boardCell.addAdj(adjCell);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Given a boardcell that was determinded to be a door, return the cell it points to
+	public BoardCell findCellAtDoorDirection(BoardCell boardCell) {
+		DoorDirection dd = boardCell.getDoorDirection();
+
+		// this function is dependent on the csv file being formatted correctly, i,e no doors to non rooms
+		switch (dd) {
+		case UP:{
+			return getCell(boardCell.getRow() - 1, boardCell.getColumn());
+		}
+
+		case DOWN:{
+			return getCell(boardCell.getRow() + 1, boardCell.getColumn());
+		}
+
+		case LEFT:{
+			return getCell(boardCell.getRow(), boardCell.getColumn() - 1);
+		}
+
+		case RIGHT:{
+			return getCell(boardCell.getRow(), boardCell.getColumn() + 1);
+		}
+		default:
+			// this should never happen
+			return boardCell;
+		}
+	}
+	
 	public void addDoorToRoom(BoardCell doorCell) {
 		// Rooms have a set of connected doors, we want to add each door connected to their associated rooms
 		BoardCell roomCell = findCellAtDoorDirection(doorCell);
@@ -214,6 +327,16 @@ public class Board {
 			}
 		}
 	}
+	
+
+	/*
+	 *------------------------------------------------------------------------------
+	 *
+	 * Adjacency list and Targets calculations
+	 * 
+	 *------------------------------------------------------------------------------
+	 */
+	
 
 	public void generateBoardAdjList() {
 		// Iterates through each index of 2D array to create comprehensive adjacency list
@@ -295,45 +418,6 @@ public class Board {
 		return false;
 	}
 
-	// check if boardcell is door and if adj cell is the cell the door points to. If so, add the room's center cell adjcell is in
-	public boolean checkIfDoor(BoardCell adjCell, BoardCell boardCell) {
-		if (boardCell.isDoorway()) {
-			if (adjCell == findCellAtDoorDirection(boardCell)) {
-				// now we want to get room that adjcell is in
-				adjCell = roomMap.get(adjCell.getInitial()).getCenterCell(); // get room at adjCell initial, then get the rooms center cell 
-				boardCell.addAdj(adjCell);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	// Given a boardcell that was determinded to be a door, return the cell it points to
-	public BoardCell findCellAtDoorDirection(BoardCell boardCell) {
-		DoorDirection dd = boardCell.getDoorDirection();
-
-		// this function is dependent on the csv file being formatted correctly, i,e no doors to non rooms
-		switch (dd) {
-		case UP:{
-			return getCell(boardCell.getRow() - 1, boardCell.getColumn());
-		}
-
-		case DOWN:{
-			return getCell(boardCell.getRow() + 1, boardCell.getColumn());
-		}
-
-		case LEFT:{
-			return getCell(boardCell.getRow(), boardCell.getColumn() - 1);
-		}
-
-		case RIGHT:{
-			return getCell(boardCell.getRow(), boardCell.getColumn() + 1);
-		}
-		default:
-			// this should never happen
-			return boardCell;
-		}
-	}
 
 	// Recursive function, within a pathlen find all possible targets given a start cell
 	public void calcTargets(BoardCell startCell, int pathLength) {
@@ -380,63 +464,13 @@ public class Board {
 		visited.remove(startCell);		// always remove cell from visited 
 	}
 
-	// deals cards from deck to players and 3 of each type of card to solution
-	public void deal() {
-		// use this method to shuffle deck each time. Don't need to test for random
-		Collections.shuffle(deck);
-		Card[] answerCards = getThreeCards();
-		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
-
-		int playerIndex = 0;
-		for (int i = 0; i < deck.size(); i++) {
-			Card card = deck.get(i);
-			if (!(deltCards.contains(card))) {
-				players.get(playerIndex).updateHand(card);
-				deltCards.add(card);
-				playerIndex++;
-				// bound playerIndex by its size. Allows for iterating through players arrayList
-				playerIndex %= players.size();
-			}
-		}/*
-		for(Player player: players) {
-			System.out.println((player.getHand().toString()));
-		}
-		 */
-	}
-	// return the first 3 cards of each type from deck and give it to solution 
-	public Card[] getThreeCards() {
-		Card[] cards = new Card[3];
-		for (Card card: deck) {
-			switch(card.getCardType()) {
-			case ROOM:{
-				// cards[0] is room card in array
-				if (cards[0] == null && !(deltCards.contains(card))) {
-					cards[0] = card;
-					deltCards.add(card);
-				}
-				break;
-			}
-			case WEAPON:{
-				// cards[1] is weapon card in array
-				if (cards[1] == null && !(deltCards.contains(card))) {
-					cards[1] = card;
-					deltCards.add(card);
-				}
-				break;
-			}
-			case PEOPLE:{
-				// cards[2] is people card in array
-				if (cards[2] == null && !(deltCards.contains(card))) {
-					cards[2] = card;
-					deltCards.add(card);
-				}
-				break;
-			}
-
-			}
-		}
-		return cards;
-	}
+	/*
+	 * ------------------------------------------------------------------------------
+	 * 
+	 * File configuration
+	 * 
+	 * ------------------------------------------------------------------------------
+	 */
 
 
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
@@ -557,6 +591,14 @@ public class Board {
 		this.numColumns = colLen;
 		this.numRows = rowLen;
 	}
+	
+	/*
+	 * ------------------------------------------------------------------------------
+	 * 
+	 * Getters, Setters, and Adders
+	 * 
+	 * ------------------------------------------------------------------------------
+	 */
 
 	public Set<BoardCell> getTargets(){
 		return targets;

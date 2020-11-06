@@ -46,6 +46,7 @@ class ComputerAITests {
 
 
 		for (int i = 0; i < 500; i++) {
+			// check to see if the locaitons are rooms, should only choose rooms if they have them in range
 			computer.updatePosition(18, 16);
 			computer.selectTarget(4);
 			assertTrue(
@@ -59,6 +60,7 @@ class ComputerAITests {
 		BoardCell w4 = board.getCell(19, 16);
 
 		for (int i = 0; i < 500; i++) {
+			// loop through to check for randomness, if not one of these locations, fail
 			computer.updatePosition(18, 16);
 			computer.selectTarget(1);
 			assertTrue(

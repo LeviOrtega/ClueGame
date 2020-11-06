@@ -55,9 +55,11 @@ public abstract class Player {
 	}
 
 	public void updatePosition(int row, int column) {
+		// set current boardCell to not occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(false);
 		this.row = row;
 		this.column = column;
+		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
 
 	}
