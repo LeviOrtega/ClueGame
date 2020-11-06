@@ -12,11 +12,6 @@ public class Card {
 	
 	public Card() {}
 	
-	public boolean equals(Card card) {
-		return this == card;
-
-	}
-	
 	public CardType getCardType() {
 		return this.cardType;
 	}

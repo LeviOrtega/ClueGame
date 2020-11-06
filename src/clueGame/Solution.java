@@ -11,9 +11,9 @@ public class Solution {
 	
 	public boolean equals(Solution solution) {
 		return 
-				this.people.equals(solution.getPeople()) &&
-				this.room.equals(solution.getRoom()) &&
-				this.weapon.equals(solution.getWeapon());
+				this.people == (solution.getPeople()) &&
+				this.room == (solution.getRoom()) &&
+				this.weapon == (solution.getWeapon());
 	}
 
 	public Card getPeople() {

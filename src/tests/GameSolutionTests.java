@@ -148,7 +148,7 @@ class GameSolutionTests {
 		assertTrue(result1.equals(hand1[0]));
 		// tests for random. This will return 1 of 2 cards that match
 		for (int i = 0; i < 500; i++) {
-			assertTrue(result2.equals(hand2[0]) || result2.equals(hand2[1]));
+			assertTrue(result2 == (hand2[0]) || result2 == (hand2[1]));
 			result2 = player2.disproveSuggestion(suggestion);
 		}
 		assertEquals(null, result3);
@@ -232,6 +232,7 @@ class GameSolutionTests {
 		
 		// first suggestion nobody can disprove
 		player1.setSuggestion(suggestion1);
+		Card result1 = null;
 		assertEquals(null, board.handleSuggestion(player1));
 		
 		// second suggestion only player 4 should be able to disprove so return null
@@ -241,9 +242,9 @@ class GameSolutionTests {
 		// player 2 and 3 should be able to disprove, only player 2 should 
 		player4.setSuggestion(suggestion3);
 		// player 2 card 1 is in the suggestion 
-		assertTrue(board.handleSuggestion(player4).equals(hand2[0]));
-		// player 3 hard 3 is in the suggestion, but we don't want it
-		assertFalse(board.handleSuggestion(player4).equals(hand3[2]));
+		assertEquals(hand2[0], board.handleSuggestion(player4));
+		// player 3 card 3 is in the suggestion, but we don't want it
+		assertNotEquals(hand3[2], board.handleSuggestion(player4));
 
 		
 	}

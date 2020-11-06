@@ -11,9 +11,9 @@ public class Suggestion {
 
 	public boolean equals(Suggestion suggestion) {
 		return 
-				this.people.equals(suggestion.getPeople()) &&
-				this.room.equals(suggestion.getRoom()) &&
-				this.weapon.equals(suggestion.getWeapon());
+				this.people == (suggestion.getPeople()) &&
+				this.room == (suggestion.getRoom()) &&
+				this.weapon == (suggestion.getWeapon());
 	}
 
 	public Suggestion() {}

@@ -84,12 +84,13 @@ public class Board {
 	
 	
 	public Card handleSuggestion(Player player) {
+		
 		Suggestion playerSuggestion = player.getSuggestion();
 		for (Player gamePlayer: players) {
 			// do not want to handleSuggestion from player making suggestion
 			if (!(gamePlayer == player)) {
 				Card card = gamePlayer.disproveSuggestion(playerSuggestion);
-				if (card != null) {
+				if (card != null){
 					return card;
 				}
 			}
