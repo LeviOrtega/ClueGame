@@ -2,6 +2,8 @@ package tests;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -82,14 +84,27 @@ class ComputerAITests {
 		Suggestion suggestion = new Suggestion(sheriff, saloon, revolver);
 		Player computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER);
 		Suggestion aiSuggestion = computer.createSuggestion();
-		
+
+		/* because the deck has not been shuffled, and the computer has not been given any cards
+		 it will make a suggestion in the room its in, saloon, and the first weapon and people card
+		revolver and sheriff
+		 */ 
+		assertNotEquals(null, aiSuggestion);
 		assertTrue(suggestion.equals(aiSuggestion));
+		// adding the revolver to its hand, it will no longer make the same suggesiton
+		computer.updateHand(revolver);
+		aiSuggestion = computer.createSuggestion();
+		assertFalse(suggestion.equals(aiSuggestion));
+
+		
 		// put computer outside of room, should return null if you create suggestion
 		computer.updatePosition(16, 14);
 		aiSuggestion = computer.createSuggestion();
 		assertEquals(null, aiSuggestion);
 
-
+		
+		
+		
 	}
 
 }

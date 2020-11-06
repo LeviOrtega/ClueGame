@@ -17,11 +17,13 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void selectTarget(int roll) {
+		// get player cell
 		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
 		Board.getInstance().calcTargets(playerCell, roll);
 		Set<BoardCell> targets = Board.getInstance().getTargets();
 		ArrayList<BoardCell> rooms = new ArrayList<BoardCell>();
 		ArrayList<BoardCell> spaces = new ArrayList<BoardCell>();
+		// loop through all targets at the players starting location and determine the rooms and spaces they can move to
 		for (BoardCell target: targets) {
 			if (target.isRoomCenter()) {
 				rooms.add(target);
@@ -29,11 +31,13 @@ public class ComputerPlayer extends Player {
 			else spaces.add(target);
 		}
 		BoardCell newLocation;
+		// if we have rooms to go to, choose randomly
 		if (rooms.size() != 0) {
 			Collections.shuffle(rooms);
 			newLocation = rooms.get(0);
 			this.updatePosition(newLocation.getRow(), newLocation.getColumn());
 		}
+		// else choose random space
 		else if (spaces.size() != 0){
 			Collections.shuffle(spaces);
 			newLocation = spaces.get(0);
@@ -58,7 +62,41 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public Suggestion createSuggestion() {
-		return new Suggestion(new Card(), new Card(), new Card());
+		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
+		// if the player isn't in a roomCenter, they cant make a suggestion
+		if (!(playerCell.isRoomCenter())) {
+			return null;
+		}
+		Card room = Board.getInstance().getRoom(playerCell).getRoomCard();
+		Card weapon = null;
+		Card people = null;
+
+		ArrayList<Card> deck = Board.getInstance().getDeck();
+		for (Card card: deck) {
+			// if player has seen card, dont suggest it
+			if (!(this.seen.contains(card))) {
+				CardType cardType = card.getCardType();
+				switch (cardType) {
+				case WEAPON:{
+					if (weapon == null) {
+						weapon = card;
+					}
+					break;
+				}
+				case PEOPLE:{
+					if (people == null) {
+						people = card;
+					}
+				}
+				}
+			}
+			// if found both weapon and people card, don't keep looping through dealt cards
+			if (people != null && weapon != null) {
+				break;
+			}
+		}
+
+		return new Suggestion(people, room, weapon);
 	}
 
 }

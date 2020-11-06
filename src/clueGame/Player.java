@@ -6,10 +6,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public abstract class Player {
-	private String name;
-	private Color color;
-	private Set<Card> hand;
-	private Suggestion suggestion;
+	protected String name;
+	protected Color color;
+	protected Suggestion suggestion;
+	protected Set<Card> hand;
+	protected Set<Card> seen;
 	protected PlayerType playerType;
 	protected int row;
 	protected int column;
@@ -19,6 +20,7 @@ public abstract class Player {
 		this.row = row;
 		this.column = column; 
 		this.hand = new HashSet<>();
+		this.seen = new HashSet<>();
 		this.suggestion = new Suggestion();
 	}
 	
@@ -33,6 +35,7 @@ public abstract class Player {
 
 	public void updateHand(Card card) {
 		hand.add(card);
+		seen.add(card);
 	}
 	
 	public void setSuggestion(Suggestion suggestion) {
