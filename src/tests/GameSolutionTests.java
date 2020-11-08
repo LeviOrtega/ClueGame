@@ -232,7 +232,6 @@ class GameSolutionTests {
 		
 		// first suggestion nobody can disprove
 		player1.setSuggestion(suggestion1);
-		Card result1 = null;
 		assertEquals(null, board.handleSuggestion(player1));
 		
 		// second suggestion only player 4 should be able to disprove so return null

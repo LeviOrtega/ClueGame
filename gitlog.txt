@@ -1,4 +1,76 @@
-// Pair programming, so Levi Committed for anthony 
+// Pair programming, Levi committed to avoid problems with Github 
+
+commit c1563b07d900550f620d00b3a6fbf565656ccf0b
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 5 19:14:09 2020 -0700
+
+    Cleaned up var name spellings
+
+commit 550b8d4dc1430c873d3b6b2c228dc1dcf3a953ff
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 5 19:10:50 2020 -0700
+
+    Refactoring by cleaning up board class
+
+commit 2f42441a30555b29f4bce329d60c7491211e920e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 5 18:55:01 2020 -0700
+
+    All tests pass
+
+commit a0a570b4ec99ba5a64d2912ccd44fe04a6ac6114
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 5 18:35:22 2020 -0700
+
+    testAccusation and disproveSuggesiton passes
+
+commit 950ccdbd68ae5c44faa4463fd0b8f264155976dd
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 5 18:02:10 2020 -0700
+
+    TestComputerSuggestion tests pass
+
+commit 6f79241a4619e73b36ae99a6ae82ae9235d4f547
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 5 17:29:36 2020 -0700
+
+    TestSelectTarget passes
+
+commit ec06e963f0ca7982a51be31c52eb38dbc20cf263
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 4 23:08:48 2020 -0700
+
+    testMakeASuggestion test fails
+
+commit 9de70e04e7a3eb47716e8c3c019e578f32ba146a
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 4 22:46:00 2020 -0700
+
+    testSelectTarget tests failing
+
+commit f4694666092a63a13b8c236cac6a141c7ede79f5
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 4 22:00:49 2020 -0700
+
+    testHandleSuggestion test fails
+
+commit 522428b09b1cf5786d47b0080e7c42adc08b06a7
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 4 19:52:25 2020 -0700
+
+    Added suggestion class and dispriveSuggestion tests fail
+
+commit 5fe3ef390165432e7fc6bc28dde7dfdb155aea47
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 4 19:26:05 2020 -0700
+
+    testCheckAccusation test fails
+
+commit 58cdf1da51d68c3c6b69da7afdb3a349214b8629
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Nov 3 18:08:47 2020 -0700
+
+    Added test files
 
 commit ced6594ac6ae6989406d74dc969b3b1ce20570cb
 Author: LeviOrtega <leviortega@mymail.mines.edu>
