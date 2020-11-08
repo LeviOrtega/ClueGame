@@ -68,4 +68,8 @@ public abstract class Player {
 		return this.hand;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
 }

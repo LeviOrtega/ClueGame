@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -12,6 +13,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.ComputerPlayer;
+import clueGame.Player;
+import clueGame.PlayerType;
+
 public class GameControlPanel extends JPanel{
 	JTextField turn;
 	JTextField roll;
@@ -19,6 +24,7 @@ public class GameControlPanel extends JPanel{
 	JTextField guess;
 	JButton leftButton;
 	JButton rightButton;
+	Player player;
 	
 	public GameControlPanel() {
 		setLayout(new GridLayout(2,0));
@@ -51,7 +57,7 @@ public class GameControlPanel extends JPanel{
 		// have the room label right next to its textfield 
 		label = new JLabel("Roll", SwingConstants.RIGHT);
 		rightSubPan.add(label);
-		roll = new JTextField(5);
+		roll = new JTextField();
 		roll.setEditable(false);
 		rightSubPan.add(roll);
 		
@@ -66,15 +72,21 @@ public class GameControlPanel extends JPanel{
 	}
 	
 	public JPanel createGuessPanel() {
-		JPanel bottom = new JPanel();
-		JPanel left = new JPanel();
+		JPanel bottom = new JPanel();  // create the frame (serves as bottom guess panel)
+		JPanel left = new JPanel();  
 		JPanel right = new JPanel();
-		bottom.setLayout(new GridLayout(0,2));
-		guess = new JTextField(20);
+		bottom.setLayout(new GridLayout(0,2));  // Dimensions make room for a left (guess) and right (result) panel
+		guess = new JTextField(20);   // maximum length of 20 characters for guess message
+		guess.setEditable(false);     // user is not allowed to change text in guess message
 		left.add(guess);
-		result = new JTextField(20);
+		result = new JTextField(20);  // maximum length of 20 characters for result message
+		result.setEditable(false);    // user is not allowed to change text in result message
 		right.add(result);
 		
+		// both guess and result panels added to "bottom" as sort of sub-panels
+		
+		
+		// the terms "Guess" and "Result" are etched 
 		left.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
 		right.setBorder(new TitledBorder (new EtchedBorder(), "Result"));
 		
@@ -82,7 +94,26 @@ public class GameControlPanel extends JPanel{
 		bottom.add(right);
 		return bottom;
 	}
+	
+	
+	public void setTurn(Player player, int dieRoll) {
+		this.player = player;
+		// set our text fields for the player and roll
+		turn.setText(player.getName());
+		roll.setText(String.valueOf(dieRoll));
+	}
+	
+	public void setGuess(String playerGuess) {
+		//set the guess text field
+		guess.setText(playerGuess);
+	}
+	
 
+	public void setGuessResult(String playerResult) {
+		//set the result text field
+		result.setText(playerResult);
+	}
+	
     public static void main(String[] args) {
            GameControlPanel panel = new GameControlPanel();  // create the panel
            JFrame frame = new JFrame();  // create the frame
@@ -92,8 +123,8 @@ public class GameControlPanel extends JPanel{
            frame.setVisible(true); // make it visible
 
            // test filling in the data
-          // panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0), 5);
-           //panel.setGuess( "I have no guess!");
-          // panel.setGuessResult( "So you have nothing?");
+          panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, PlayerType.COMPUTER), 5);
+          panel.setGuess( "I have no guess!");
+          panel.setGuessResult( "So you have nothing?");
     }
 }
