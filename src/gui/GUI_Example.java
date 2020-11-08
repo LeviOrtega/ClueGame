@@ -1,6 +1,5 @@
 package gui;
 
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
@@ -59,7 +58,5 @@ public class GUI_Example extends JPanel {
 		// Now let's view it
 		frame.setVisible(true);
 	}
-
-
 }
 

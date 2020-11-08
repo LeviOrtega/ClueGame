@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class GameControlPanel extends JPanel{
 	JTextField turn;
@@ -17,14 +20,12 @@ public class GameControlPanel extends JPanel{
 	JButton leftButton;
 	JButton rightButton;
 	
-	
 	public GameControlPanel() {
 		setLayout(new GridLayout(2,0));
 		JPanel panel = createTopPanel();
 		add(panel);
 		panel = createGuessPanel();
-		//add(panel);
-		
+		add(panel);
 	}
 	
 	public JPanel createTopPanel() {
@@ -35,8 +36,8 @@ public class GameControlPanel extends JPanel{
 		JPanel leftSubPan = new JPanel();
 		// we want the left sub panel to have 2 rows so panel stacks on text
 		leftSubPan.setLayout(new GridLayout(2,0));
-		
-		JLabel label = new JLabel("Whos turn?");
+		// center the label 
+		JLabel label = new JLabel("Whos turn?", SwingConstants.CENTER);
 		leftSubPan.add(label);
 		turn = new JTextField(15);
 		// this makes it so players cannot type in text field
@@ -47,10 +48,9 @@ public class GameControlPanel extends JPanel{
 		JPanel rightSubPan = new JPanel();
 		// must have JLabel and JTextField with orientation -> JLabel (left), JTF (right)
 		rightSubPan.setLayout(new GridLayout(0,2));
-		label = new JLabel("Roll");
+		// have the room label right next to its textfield 
+		label = new JLabel("Roll", SwingConstants.RIGHT);
 		rightSubPan.add(label);
-		
-		
 		roll = new JTextField(5);
 		roll.setEditable(false);
 		rightSubPan.add(roll);
@@ -66,7 +66,21 @@ public class GameControlPanel extends JPanel{
 	}
 	
 	public JPanel createGuessPanel() {
-		return null;
+		JPanel bottom = new JPanel();
+		JPanel left = new JPanel();
+		JPanel right = new JPanel();
+		bottom.setLayout(new GridLayout(0,2));
+		guess = new JTextField(20);
+		left.add(guess);
+		result = new JTextField(20);
+		right.add(result);
+		
+		left.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
+		right.setBorder(new TitledBorder (new EtchedBorder(), "Result"));
+		
+		bottom.add(left);
+		bottom.add(right);
+		return bottom;
 	}
 
     public static void main(String[] args) {
