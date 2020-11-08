@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
