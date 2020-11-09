@@ -186,6 +186,5 @@ public class GameCardPanel extends JPanel {
         panel.addWeaponSeen(new Card("W5", CardType.WEAPON));
         
         frame.setVisible(true);       // make it visible
-        
     }
 }

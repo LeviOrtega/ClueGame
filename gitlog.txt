@@ -1,4 +1,45 @@
-// Pair programming, Levi committed to avoid problems with Github 
+// Pair programming, levi did commits to github to avoid problems 
+commit 2375ca4e81f3397d56a512a70141c9513757a6be
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 17:17:57 2020 -0700
+
+    Added comments
+
+commit c4bc0ac9d9803353f969e94c0bcdf22eb85689d9
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 17:14:50 2020 -0700
+
+    Finalized weapon and room labels
+
+commit ebada11aeb5c344d1d63044dcb0c141446031440
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 16:59:35 2020 -0700
+
+    Added createPeoplePanel funciton
+
+commit 1323694a8159ee486d73ec85ecec2692ef68f873
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 16:35:31 2020 -0700
+
+    Added GameCardPanel skeleton
+
+commit e7b060c759a3bccc4a0e2851e765b3305f9ce3c0
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 16:11:42 2020 -0700
+
+    Added comments and setters
+
+commit 8cd0a36741d8f535efde69a1d91f474c0000a8b7
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 15:53:34 2020 -0700
+
+    Added bottom label
+
+commit e841da9777d7a197f33bd727ced2b6533ca57241
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 15:31:03 2020 -0700
+
+    Added top panel of GameControlPNel
 
 commit c1563b07d900550f620d00b3a6fbf565656ccf0b
 Author: LeviOrtega <leviortega@mymail.mines.edu>

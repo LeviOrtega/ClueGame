@@ -17,7 +17,6 @@ import clueGame.ComputerPlayer;
 import clueGame.Player;
 import clueGame.PlayerType;
 
-
 public class GameControlPanel extends JPanel {
 	JTextField turn;
 	JTextField roll;
