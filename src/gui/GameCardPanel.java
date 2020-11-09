@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import clueGame.Card;
+import clueGame.CardType;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,11 +16,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.PlayerType;
 
 public class GameCardPanel extends JPanel {
 	JPanel people;
+	JPanel room;
+	JPanel weapon;
 	JPanel peopleHand;
 	JPanel peopleSeen; 
 	JPanel roomHand;
@@ -34,9 +40,9 @@ public class GameCardPanel extends JPanel {
 		panel = createPeoplePanel();
 		add(panel);
 		panel = createRoomPanel();
-		//add(panel);
+		add(panel);
 		panel = createWeaponPanel();
-		//add(panel);
+		add(panel);
 	}
 	
 	public JPanel createPeoplePanel() {
@@ -46,7 +52,7 @@ public class GameCardPanel extends JPanel {
 		
 		people.setLayout(new GridLayout(2,0));
 		people.setBorder(new TitledBorder (new EtchedBorder(), "People"));
-		// keep max number of objects in col to be 1 so when we do an add, we put it below 
+		// keep max number of objects in column to be 1 so when we do an add, we put it below 
 		peopleHand.setLayout(new GridLayout(0,1));
 		peopleSeen.setLayout(new GridLayout(0,1));
 		
@@ -65,32 +71,88 @@ public class GameCardPanel extends JPanel {
 	}
 	
 	public JPanel createRoomPanel() {
-		JPanel room = new JPanel();
+		room = new JPanel();
 		roomHand = new JPanel();
 		roomSeen = new JPanel();
 		
 		room.setLayout(new GridLayout(2,0));
 		room.setBorder(new TitledBorder (new EtchedBorder(), "Room"));
-		// keep max number of objects in col to be 1 so when we do an odd, we put it below
+		// keep max number of objects in column to be 1 so when we do an odd, we put it below
+		roomHand.setLayout(new GridLayout(0,1));
+		roomSeen.setLayout(new GridLayout(0,1));
 		
+		// center label
+		JLabel label = new JLabel("In Hand", SwingConstants.CENTER);
+		roomHand.add(label);
 		
-		return null;
+		label = new JLabel("Seen", SwingConstants.CENTER);
+		roomSeen.add(label);
+		
+		// add both the hand and seen to the room label
+		room.add(roomHand);
+		room.add(roomSeen);
+		
+		return room;
 	}
 	
 	public JPanel createWeaponPanel() {
-		return null;
+		weapon = new JPanel();
+		weaponHand = new JPanel();
+		weaponSeen = new JPanel();
+		
+		weapon.setLayout(new GridLayout(2,0));
+		weapon.setBorder(new TitledBorder (new EtchedBorder(), "Weapon"));
+		// giving each a gridlayout of (0,1) makes it so when we add to them, they add under 
+		weaponHand.setLayout(new GridLayout(0,1));
+		weaponSeen.setLayout(new GridLayout(0,1));
+		
+		JLabel label = new JLabel("In Hand", SwingConstants.CENTER);
+		weaponHand.add(label);
+		
+		label = new JLabel("Seen", SwingConstants.CENTER);
+		weaponSeen.add(label);
+		
+		// add both the hand labels and seen labels to the weapon label
+		weapon.add(weaponHand);
+		weapon.add(weaponSeen);
+		
+		return weapon;
 	}
 	
-	public void addPeopleHand(Player player) {
-		JTextField playerText = new JTextField(player.getName());
-		playerText.setEditable(false);
-		peopleHand.add(playerText);
+	public void addPeopleHand(Card card) {
+		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setEditable(false);
+		peopleHand.add(cardText);
 	}
 	
-	public void addPeopleSeen(Player player) {
-		JTextField playerText = new JTextField(player.getName());
-		playerText.setEditable(false);
-		peopleSeen.add(playerText);
+	public void addPeopleSeen(Card card) {
+		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setEditable(false);
+		peopleSeen.add(cardText);
+	}
+	
+	public void addRoomHand(Card card) {
+		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setEditable(false);
+		roomHand.add(cardText);
+	}
+	
+	public void addRoomSeen(Card card) {
+		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setEditable(false);
+		roomSeen.add(cardText);
+	}
+	
+	public void addWeaponHand(Card card) {
+		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setEditable(false);
+		weaponHand.add(cardText);
+	}
+	
+	public void addWeaponSeen(Card card) {
+		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setEditable(false);
+		weaponSeen.add(cardText);
 	}
  	
 
@@ -102,14 +164,27 @@ public class GameCardPanel extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
       
 
-        panel.addPeopleHand(new ComputerPlayer("P1", 0,0, PlayerType.COMPUTER));
-        panel.addPeopleHand(new ComputerPlayer("P2", 0,0, PlayerType.COMPUTER));
+        panel.addPeopleHand(new Card("P1", CardType.PEOPLE));
+        panel.addPeopleHand(new Card("P2", CardType.PEOPLE));
 
-        panel.addPeopleSeen(new ComputerPlayer("P3", 0,0, PlayerType.COMPUTER));
-        panel.addPeopleSeen(new ComputerPlayer("P4", 0,0, PlayerType.COMPUTER));
-        panel.addPeopleSeen(new ComputerPlayer("P5", 0,0, PlayerType.COMPUTER));
+        panel.addPeopleSeen(new Card("P3", CardType.PEOPLE));
+        panel.addPeopleSeen(new Card("P4", CardType.PEOPLE));
+        panel.addPeopleSeen(new Card("P5", CardType.PEOPLE));
+        
+        
+        panel.addRoomHand(new Card("R1", CardType.ROOM));
 
+        panel.addRoomSeen(new Card("R2", CardType.ROOM));
 
+        
+        panel.addWeaponHand(new Card("W2", CardType.WEAPON));
+        panel.addWeaponHand(new Card("W1", CardType.WEAPON));
+        panel.addWeaponHand(new Card("W3", CardType.WEAPON));
+        
+        panel.addWeaponSeen(new Card("W4", CardType.WEAPON));
+        panel.addWeaponSeen(new Card("W5", CardType.WEAPON));
+      
+        
 
         
         
