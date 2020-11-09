@@ -27,7 +27,6 @@ public class GameControlPanel extends JPanel {
 	Player player;
 	
 	public GameControlPanel() {
-
 		// ensure enough room for 2 items to be stored in grid, in this case two sub-panels
 		// placed in the form of 2 rows with 0 columns
 		setLayout(new GridLayout(2,0));
