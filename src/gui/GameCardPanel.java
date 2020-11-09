@@ -32,11 +32,10 @@ public class GameCardPanel extends JPanel {
 	JPanel weaponSeen;
 	
 	public GameCardPanel() {
-		
-		//setBorder(new TitledBorder (new EtchedBorder(), ""));
 		setLayout(new GridLayout(3,0));
 		this.setBorder(new TitledBorder (new EtchedBorder(), "Known Cards"));
 		JPanel panel = new JPanel();
+		// create the three panels and add them to the gameCardPanel
 		panel = createPeoplePanel();
 		add(panel);
 		panel = createRoomPanel();
@@ -71,10 +70,12 @@ public class GameCardPanel extends JPanel {
 	}
 	
 	public JPanel createRoomPanel() {
+		// ensuring space for room JPanel objects declared in GameCardPanel class
 		room = new JPanel();
 		roomHand = new JPanel();
 		roomSeen = new JPanel();
 		
+		// "In Hand" and "Seen" panels will be displayed on top of each other in a row-type fashion
 		room.setLayout(new GridLayout(2,0));
 		room.setBorder(new TitledBorder (new EtchedBorder(), "Room"));
 		// keep max number of objects in column to be 1 so when we do an odd, we put it below
@@ -163,7 +164,7 @@ public class GameCardPanel extends JPanel {
         frame.setSize(180, 800);      // size the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
       
-
+        // add cards to peopleHand and peopleSeen
         panel.addPeopleHand(new Card("P1", CardType.PEOPLE));
         panel.addPeopleHand(new Card("P2", CardType.PEOPLE));
 
@@ -171,23 +172,18 @@ public class GameCardPanel extends JPanel {
         panel.addPeopleSeen(new Card("P4", CardType.PEOPLE));
         panel.addPeopleSeen(new Card("P5", CardType.PEOPLE));
         
-        
+        // add cards to roomHand and roomSeen
         panel.addRoomHand(new Card("R1", CardType.ROOM));
 
         panel.addRoomSeen(new Card("R2", CardType.ROOM));
 
-        
+        // add cards to weaponHand and weaponSeen
         panel.addWeaponHand(new Card("W2", CardType.WEAPON));
         panel.addWeaponHand(new Card("W1", CardType.WEAPON));
         panel.addWeaponHand(new Card("W3", CardType.WEAPON));
         
         panel.addWeaponSeen(new Card("W4", CardType.WEAPON));
         panel.addWeaponSeen(new Card("W5", CardType.WEAPON));
-      
-        
-
-        
-        
         
         frame.setVisible(true);       // make it visible
         
