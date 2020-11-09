@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -120,40 +121,48 @@ public class GameCardPanel extends JPanel {
 		return weapon;
 	}
 	
-	public void addPeopleHand(Card card) {
+	
+	public void addHand(Card card) {
 		JTextField cardText = new JTextField(card.getCardName());
 		cardText.setEditable(false);
-		peopleHand.add(cardText);
+		// set the color of the card, eventually will be set to color of players
+		cardText.setBackground(Color.green);
+		switch (card.getCardType()) {
+		case PEOPLE:{
+			peopleHand.add(cardText);
+			break;
+		}
+		case ROOM:{
+			roomHand.add(cardText);
+			break;
+		}
+		case WEAPON:{
+			weaponHand.add(cardText);
+			break;
+		}
+		}
 	}
 	
-	public void addPeopleSeen(Card card) {
+	public void addSeen(Card card) {
 		JTextField cardText = new JTextField(card.getCardName());
 		cardText.setEditable(false);
-		peopleSeen.add(cardText);
-	}
-	
-	public void addRoomHand(Card card) {
-		JTextField cardText = new JTextField(card.getCardName());
-		cardText.setEditable(false);
-		roomHand.add(cardText);
-	}
-	
-	public void addRoomSeen(Card card) {
-		JTextField cardText = new JTextField(card.getCardName());
-		cardText.setEditable(false);
-		roomSeen.add(cardText);
-	}
-	
-	public void addWeaponHand(Card card) {
-		JTextField cardText = new JTextField(card.getCardName());
-		cardText.setEditable(false);
-		weaponHand.add(cardText);
-	}
-	
-	public void addWeaponSeen(Card card) {
-		JTextField cardText = new JTextField(card.getCardName());
-		cardText.setEditable(false);
-		weaponSeen.add(cardText);
+		// set the color of the card, eventually will be set to color of players
+		cardText.setBackground(Color.cyan);
+		switch (card.getCardType()) {
+		case PEOPLE:{
+			peopleSeen.add(cardText);
+			break;
+		}
+		case ROOM:{
+			roomSeen.add(cardText);
+			break;
+		}
+		case WEAPON:{
+			weaponSeen.add(cardText);
+			break;
+		}
+		}
+		
 	}
  	
 
@@ -165,25 +174,25 @@ public class GameCardPanel extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
       
         // add cards to peopleHand and peopleSeen
-        panel.addPeopleHand(new Card("P1", CardType.PEOPLE));
-        panel.addPeopleHand(new Card("P2", CardType.PEOPLE));
+        panel.addHand(new Card("P1", CardType.PEOPLE));
+        panel.addHand(new Card("P2", CardType.PEOPLE));
 
-        panel.addPeopleSeen(new Card("P3", CardType.PEOPLE));
-        panel.addPeopleSeen(new Card("P4", CardType.PEOPLE));
-        panel.addPeopleSeen(new Card("P5", CardType.PEOPLE));
+        panel.addSeen(new Card("P3", CardType.PEOPLE));
+        panel.addSeen(new Card("P4", CardType.PEOPLE));
+        panel.addSeen(new Card("P5", CardType.PEOPLE));
         
         // add cards to roomHand and roomSeen
-        panel.addRoomHand(new Card("R1", CardType.ROOM));
+        panel.addHand(new Card("R1", CardType.ROOM));
 
-        panel.addRoomSeen(new Card("R2", CardType.ROOM));
+        panel.addSeen(new Card("R2", CardType.ROOM));
 
         // add cards to weaponHand and weaponSeen
-        panel.addWeaponHand(new Card("W2", CardType.WEAPON));
-        panel.addWeaponHand(new Card("W1", CardType.WEAPON));
-        panel.addWeaponHand(new Card("W3", CardType.WEAPON));
+        panel.addHand(new Card("W2", CardType.WEAPON));
+        panel.addHand(new Card("W1", CardType.WEAPON));
+        panel.addHand(new Card("W3", CardType.WEAPON));
         
-        panel.addWeaponSeen(new Card("W4", CardType.WEAPON));
-        panel.addWeaponSeen(new Card("W5", CardType.WEAPON));
+        panel.addSeen(new Card("W4", CardType.WEAPON));
+        panel.addSeen(new Card("W5", CardType.WEAPON));
         
         frame.setVisible(true);       // make it visible
     }

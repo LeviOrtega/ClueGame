@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -7,13 +8,9 @@ import java.util.Set;
 
 public class ComputerPlayer extends Player {
 
-	public ComputerPlayer(String name, int row, int column, PlayerType playerType) {
-		super(name, row, column);
-		this.playerType = playerType;
-
+	public ComputerPlayer(String name, int row, int column, PlayerType playerType, Color color) {
+		super(name, row, column, playerType, color);
 	}
-
-
 
 	@Override
 	public void selectTarget(int roll) {
@@ -45,11 +42,6 @@ public class ComputerPlayer extends Player {
 		}
 
 
-	}
-
-	@Override
-	public PlayerType getPlayerType() {
-		return this.playerType;
 	}
 
 	@Override

@@ -498,6 +498,7 @@ public class Board {
 		String name = roomInfo[1];
 		String key = roomInfo[2];
 		CardType cardType;
+		// we want to check each type of card using a switch case
 		switch(type) {
 
 		case SPACE:{
@@ -528,19 +529,19 @@ public class Board {
 			cardType = CardType.valueOf(type.toUpperCase());
 			deck.add(new Card(name, cardType));
 			Player player;
-
+			// if the type is PEOPLE, we want to have them as cards and players
 			if (name.equals(PLAYER_CHARACTER)) {
-				player = new HumanPlayer(name, 0,0, PlayerType.HUMAN);
+				player = new HumanPlayer(name, 0,0, PlayerType.HUMAN, null);
 			}
 			else {
-				player = new ComputerPlayer(name,0,0,PlayerType.COMPUTER);
+				player = new ComputerPlayer(name,0,0,PlayerType.COMPUTER, null);
 			}
 			players.add(player);
 			numPeople++;
 			break;
 		}
 		default:
-			// if none of these f
+			// if none of these, throw an exception 
 			throw new BadConfigFormatException(setupConfigFile + " does not have correct card types.");
 		}
 
@@ -672,4 +673,18 @@ public class Board {
 	public void removePlayer(Player player) {
 		players.remove(players.indexOf(player));
 	}
+	
+	public static void main(String[] args) {
+		Board board = Board.getInstance();
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+		board.initialize();
+		board.deal();
+		
+		for (Player player: board.getPlayers()) {
+			System.out.println(player.toString());
+		}
+		
+	}
+	
+	
 }

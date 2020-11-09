@@ -37,7 +37,7 @@ class ComputerAITests {
 
 	@Test
 	void testSelectTarget() {
-		Player computer = new ComputerPlayer("AI", 18, 16, PlayerType.COMPUTER);
+		Player computer = new ComputerPlayer("AI", 18, 16, PlayerType.COMPUTER, null);
 		// we give selectTarget a variable for hardCodedRoll for testing purposes
 
 		BoardCell room1 = board.getRoom('S').getCenterCell();
@@ -84,7 +84,7 @@ class ComputerAITests {
 		assertTrue(sheriff.toString().equals("Sheriff"));
 
 		Suggestion suggestion = new Suggestion(sheriff, saloon, revolver);
-		Player computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER);
+		Player computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER, null);
 		Suggestion aiSuggestion = computer.createSuggestion();
 
 		/* because the deck has not been shuffled, and the computer has not been given any cards

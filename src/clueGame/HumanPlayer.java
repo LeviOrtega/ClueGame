@@ -1,16 +1,15 @@
 package clueGame;
 
+import java.awt.Color;
+
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(String name, int row, int column, PlayerType playerType) {
-		super(name, row, column);
-		this.playerType = playerType;
+	public HumanPlayer(String name, int row, int column, PlayerType playerType, Color color) {
+		super(name, row, column, playerType, color);
+
 	}
 
-	@Override
-	public PlayerType getPlayerType() {
-		return this.playerType;
-	}
+	
 
 	@Override
 	public Card disproveSuggestion(Suggestion suggestion) {

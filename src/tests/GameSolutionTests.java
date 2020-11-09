@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+import java.awt.Color;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -122,17 +122,17 @@ class GameSolutionTests {
 				
 		
 		// give each player their own hand
-		Player player1 = new ComputerPlayer("Player1", 0,0, PlayerType.COMPUTER);
+		Player player1 = new ComputerPlayer("Player1", 0,0, PlayerType.COMPUTER, null);
 		player1.updateHand(hand1[0]);
 		player1.updateHand(hand1[1]);
 		player1.updateHand(hand1[2]);
 		
-		Player player2 = new ComputerPlayer("Player2", 0,0, PlayerType.COMPUTER);
+		Player player2 = new ComputerPlayer("Player2", 0,0, PlayerType.COMPUTER, null);
 		player2.updateHand(hand2[0]);
 		player2.updateHand(hand2[1]);
 		player2.updateHand(hand2[2]);
 		
-		Player player3 = new ComputerPlayer("Player3", 0,0, PlayerType.COMPUTER);
+		Player player3 = new ComputerPlayer("Player3", 0,0, PlayerType.COMPUTER, null);
 		player3.updateHand(hand3[0]);
 		player3.updateHand(hand3[1]);
 		player3.updateHand(hand3[2]);
@@ -204,22 +204,22 @@ class GameSolutionTests {
 				
 		
 		// give each player their own hand
-		Player player1 = new ComputerPlayer("Player1", 0,0, PlayerType.COMPUTER);
+		Player player1 = new ComputerPlayer("Player1", 0,0, PlayerType.COMPUTER, null);
 		player1.updateHand(hand1[0]);
 		player1.updateHand(hand1[1]);
 		player1.updateHand(hand1[2]);
 		
-		Player player2 = new ComputerPlayer("Player2", 0,0, PlayerType.COMPUTER);
+		Player player2 = new ComputerPlayer("Player2", 0,0, PlayerType.COMPUTER, null);
 		player2.updateHand(hand2[0]);
 		player2.updateHand(hand2[1]);
 		player2.updateHand(hand2[2]);
 		
-		Player player3 = new ComputerPlayer("Player3", 0,0, PlayerType.COMPUTER);
+		Player player3 = new ComputerPlayer("Player3", 0,0, PlayerType.COMPUTER, null);
 		player3.updateHand(hand3[0]);
 		player3.updateHand(hand3[1]);
 		player3.updateHand(hand3[2]);
 		
-		Player player4 = new HumanPlayer("Player4", 0, 0, PlayerType.HUMAN);	
+		Player player4 = new HumanPlayer("Player4", 0, 0, PlayerType.HUMAN, null);	
 		player4.updateHand(hand4[0]);
 		player4.updateHand(hand4[1]);
 		player4.updateHand(hand4[2]);
