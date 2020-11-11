@@ -96,6 +96,11 @@ public class Board extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		for (BoardCell[] cells: board) {
+			for (BoardCell cell: cells) {
+				cell.draw(g);
+			}
+		}
 	}
 
 	/*

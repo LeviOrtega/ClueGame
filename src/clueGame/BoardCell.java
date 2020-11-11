@@ -4,12 +4,15 @@
 
 package clueGame;
 
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
 import clueGame.BoardCell;
 
 public class BoardCell {
+	public static final int EXTRA_X = 1;
+	public static final int EXTRA_Y = 1;
 	private int row;
 	private int column;
 	private char initial;
@@ -29,6 +32,15 @@ public class BoardCell {
 		this.column = column;
 		this.initial = initial;
 		this.adjList = new HashSet<BoardCell>();
+	}
+	
+	public void draw(Graphics g) {
+		Board board = Board.getInstance();
+		int width = board.getWidth() / board.getNumColumns();
+		int height = board.getHeight() / board.getNumRows();
+		int x = this.column * width;
+		int y = this.row * height;
+		g.drawRect(x, y, width+ EXTRA_X, height+ EXTRA_Y);
 	}
 	
 	public int getRow() {
