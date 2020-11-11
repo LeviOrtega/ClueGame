@@ -56,11 +56,10 @@ public class GameControlPanel extends JPanel {
 		
 		JPanel rightSubPan = new JPanel();
 		// must have JLabel and JTextField with orientation -> JLabel (left), JTF (right)
-		rightSubPan.setLayout(new GridLayout(0,2));
 		// have the room label right next to its textfield 
 		label = new JLabel("Roll", SwingConstants.RIGHT);
 		rightSubPan.add(label);
-		roll = new JTextField();
+		roll = new JTextField(5);
 		roll.setEditable(false);
 		rightSubPan.add(roll);
 		

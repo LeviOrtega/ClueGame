@@ -5,6 +5,8 @@
 
 package clueGame;
 
+
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -17,9 +19,11 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 import clueGame.BoardCell;
 
-public class Board {
+public class Board extends JPanel{
 	private static Board theInstance = new Board();
 	private int numRows;
 	private int numColumns;
@@ -79,6 +83,19 @@ public class Board {
 		}
 		// Generates adjacency list
 		generateBoardAdjList();
+	}
+	
+	/*
+	 *------------------------------------------------------------------------------
+	 * 
+	 * Graphics and Drawings
+	 *
+	 *------------------------------------------------------------------------------
+	 */
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
 	}
 
 	/*
