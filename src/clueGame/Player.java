@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Color;
+
+import java.awt.Graphics;
 import java.awt.Component;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,10 @@ public abstract class Player {
 		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
 
+	}
+	
+	public void draw(Graphics g) {
+		
 	}
 
 	public void updateHand(Card card) {
