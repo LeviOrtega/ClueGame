@@ -34,7 +34,7 @@ public class ClueGame extends JFrame{
 	
 	public static void main(String[] args) {
 		ClueGame clueGame = new ClueGame();
-		clueGame.setSize(800, 800);
+		clueGame.setSize(1000, 800);
 		clueGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		clueGame.setTitle("ClueGame CSCI 306");
 		GameCardPanel gameCardPanel = new GameCardPanel();
