@@ -86,7 +86,7 @@ public class BoardCell {
 
 
 		}
-
+		// we dont want to have lines in rooms
 		if (!(this.inRoom)){
 		g.setColor(Color.BLACK);
 		g.drawRect(x, y, width, height);

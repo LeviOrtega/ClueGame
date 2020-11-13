@@ -46,6 +46,17 @@ public abstract class Player {
 	}
 	
 	public void draw(Graphics g) {
+		Board board = Board.getInstance();
+		int width = board.getWidth() / board.getNumColumns();
+		int height = board.getHeight() / board.getNumRows();
+		
+		// having x and y multiplied gives us the adjustments for width and height
+		int x = this.column * (width);
+		int y = this.row * (height);
+		g.setColor(this.color);
+		
+		g.fillOval(x, y, width, height);
+		
 		
 	}
 

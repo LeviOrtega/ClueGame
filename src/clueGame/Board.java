@@ -6,6 +6,7 @@
 package clueGame;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -84,6 +85,9 @@ public class Board extends JPanel{
 		}
 		// Generates adjacency list
 		generateBoardAdjList();
+		// after all players are init and added, we want to set their colors and positions
+		// we do this last as the players use boardcells to know where they are
+		setPlayerInfo();
 	}
 
 	/*
@@ -106,6 +110,10 @@ public class Board extends JPanel{
 			if (room.getLabelCell() != null) {
 				room.getLabelCell().drawRoomName(g, room.getName());
 			}
+		}
+		
+		for (Player player: players) {
+			player.draw(g);
 		}
 
 	}
@@ -618,6 +626,55 @@ public class Board extends JPanel{
 
 		this.numColumns = colLen;
 		this.numRows = rowLen;
+	}
+	
+	public void setPlayerInfo() {
+		for (Player player: players) {
+			String playerName = player.getName();
+			switch (playerName) {
+			// put each player into hardcoded positions and colors
+			case "Sheriff":{
+				player.setColor(Color.BLUE);
+				player.updatePosition(0, 8);
+				break;
+			}
+			
+			case "Harlet":{
+				player.setColor(Color.MAGENTA);
+				player.updatePosition(11, 23);
+				break;
+			}
+			
+			case "Cowboy":{
+				// brown
+				player.setColor(new Color(120,70,10));
+				player.updatePosition(0, 16);
+				break;
+			}
+			
+			case "Gunsmith":{
+				player.setColor(Color.GRAY);
+				player.updatePosition(24, 9);
+				break;
+			}
+			
+			case "Banker":{
+				player.setColor(Color.GREEN);
+				player.updatePosition(24, 15);
+				break;
+			}
+			
+			case "Outlaw":{
+				// maroon
+				player.setColor(new Color(130,0,0));
+				player.updatePosition(10, 0);
+				break;
+			}
+			
+			}
+			
+			
+		}
 	}
 
 	/*
