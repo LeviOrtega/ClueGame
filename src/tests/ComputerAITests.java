@@ -81,7 +81,7 @@ class ComputerAITests {
 
 		assertTrue(saloon.toString().equals("Saloon"));
 		assertTrue(revolver.toString().equals("Revolver"));
-		assertTrue(sheriff.toString().equals("Sheriff"));
+		assertTrue(sheriff.toString().equals("Cowboy"));
 
 		Suggestion suggestion = new Suggestion(sheriff, saloon, revolver);
 		Player computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER, null);
@@ -89,7 +89,7 @@ class ComputerAITests {
 
 		/* because the deck has not been shuffled, and the computer has not been given any cards
 		 it will make a suggestion in the room its in, saloon, and the first weapon and people card
-		revolver and sheriff
+		revolver and cowboy
 		 */ 
 		assertNotEquals(null, aiSuggestion);
 		assertTrue(suggestion.equals(aiSuggestion));

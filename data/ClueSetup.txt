@@ -16,9 +16,9 @@ Weapon, Pistol, P
 Weapon, Brander, B
 Weapon, Noose, N
 // People and people cards
+People, Cowboy, C
 People, Sheriff, S
 People, Harlet, H
-People, Cowboy, C
 People, Gunsmith, G
 People, Banker, B
 People, Outlaw, O

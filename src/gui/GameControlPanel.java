@@ -3,6 +3,8 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,6 +68,7 @@ public class GameControlPanel extends JPanel {
 		leftButton = new JButton("Make Accusation");
 		rightButton = new JButton("Next!");
 		
+		
 		top.add(leftSubPan);
 		top.add(rightSubPan);
 		top.add(leftButton);
@@ -119,7 +122,33 @@ public class GameControlPanel extends JPanel {
 		result.setText(playerResult);
 	}
 	
-    public static void main(String[] args) {
+
+	public JTextField getTurn() {
+		return turn;
+	}
+
+	public JTextField getRoll() {
+		return roll;
+	}
+
+	public JTextField getResult() {
+		return result;
+	}
+
+	public JTextField getGuess() {
+		return guess;
+	}
+
+	
+    public JButton getLeftButton() {
+		return leftButton;
+	}
+
+	public JButton getRightButton() {
+		return rightButton;
+	}
+
+	public static void main(String[] args) {
     	GameControlPanel panel = new GameControlPanel();  // create the panel
         JFrame frame = new JFrame();  // create the frame
         frame.setContentPane(panel);  // put the panel in the frame

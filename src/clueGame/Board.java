@@ -85,9 +85,6 @@ public class Board extends JPanel{
 		}
 		// Generates adjacency list
 		generateBoardAdjList();
-		// after all players are init and added, we want to set their colors and positions
-		// we do this last as the players use boardcells to know where they are
-		setPlayerInfo();
 	}
 
 	/*
@@ -221,6 +218,7 @@ public class Board extends JPanel{
 		else {	// else only one character, space card or room card
 			determineFirstCharType(boardCell, bcString);
 		}
+		// after everything is determined logically about boardcell, determine its color
 		determineCellColor(boardCell);
 	}
 
@@ -303,6 +301,7 @@ public class Board extends JPanel{
 		}
 	}
 	
+	// called after cell's type and position is established
 	public void determineCellColor(BoardCell boardCell) {
 		if (boardCell.isPath()) {
 			boardCell.setColor(Color.ORANGE);
@@ -774,6 +773,7 @@ public class Board extends JPanel{
 	public void removePlayer(Player player) {
 		players.remove(players.indexOf(player));
 	}
+	
 
 	public static void main(String[] args) {
 		Board board = Board.getInstance();
