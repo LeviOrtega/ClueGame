@@ -55,8 +55,8 @@ public abstract class Player {
 		int y = this.row * (height);
 		g.setColor(this.color);
 		
+		// we use an oval to display players
 		g.fillOval(x, y, width, height);
-		
 		
 	}
 

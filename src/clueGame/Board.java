@@ -221,6 +221,7 @@ public class Board extends JPanel{
 		else {	// else only one character, space card or room card
 			determineFirstCharType(boardCell, bcString);
 		}
+		determineCellColor(boardCell);
 	}
 
 	// if the cell at index of boardcell is only one char, boardCell is a room or a space
@@ -299,6 +300,18 @@ public class Board extends JPanel{
 			roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
 			break;
 		}
+		}
+	}
+	
+	public void determineCellColor(BoardCell boardCell) {
+		if (boardCell.isPath()) {
+			boardCell.setColor(Color.ORANGE);
+		} 
+		else if (boardCell.isRoom()) {
+			boardCell.setColor(Color.GRAY);
+		}
+		else if (boardCell.isUnused()) {
+			boardCell.setColor(Color.BLACK);
 		}
 	}
 
@@ -628,6 +641,7 @@ public class Board extends JPanel{
 		this.numRows = rowLen;
 	}
 	
+	// we use this method to determine the location and color of players
 	public void setPlayerInfo() {
 		for (Player player: players) {
 			String playerName = player.getName();

@@ -25,6 +25,7 @@ public class BoardCell {
 	private boolean isDoorway;
 	private boolean isPath;
 	private boolean isUnused;
+	private Color color;
 	private Set<BoardCell> adjList;
 
 	public BoardCell(int row, int column, char initial) { // Constructor
@@ -41,22 +42,15 @@ public class BoardCell {
 		// the x and y position of the rectangles will be shifted by each rectangles width and height
 		int x = this.column * width;
 		int y = this.row * height;
-
-		if (this.isPath) {
-			g.setColor(Color.ORANGE);
-		} 
-		else if (this.inRoom) {
-			g.setColor(Color.GRAY);
-		}
-		else if (this.isUnused) {
-			g.setColor(Color.BLACK);
-		}
-
+		// color is set by logic outside of the boardcell class
+		g.setColor(this.color);
 		g.fillRect(x, y, width, height);
 
+
+		// if the cell is a doorway, we will display a rectangle for door direction
 		if (this.isDoorway) {
 			g.setColor(Color.RED);
-			
+
 			switch(this.doorDirection) {
 			case UP:{
 				// will make a rectangle that is on the top
@@ -81,15 +75,12 @@ public class BoardCell {
 				break;
 
 			}
-
 			}
-
-
 		}
-		// we dont want to have lines in rooms
+		// we don't want to have lines in rooms
 		if (!(this.inRoom)){
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, width, height);
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, width, height);
 		}
 	}
 
@@ -205,5 +196,9 @@ public class BoardCell {
 		if (adjList.contains(adjCell)) {
 			adjList.remove(adjCell);
 		}
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 }
