@@ -24,12 +24,7 @@ public class ClueGame extends JFrame{
 		add(board, BorderLayout.CENTER);
 		setVisible(true);
 		
-		while (true) {
-			
-			
-			
 		
-		}
 		
 		
 		
@@ -41,6 +36,7 @@ public class ClueGame extends JFrame{
 		ClueGame clueGame = new ClueGame();
 		clueGame.setSize(800, 800);
 		clueGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		clueGame.setTitle("ClueGame CSCI 306");
 		GameCardPanel gameCardPanel = new GameCardPanel();
 		GameControlPanel gameControlPanel = new GameControlPanel();
 		gameCardPanel.setPreferredSize(new Dimension(clueGame.getWidth()/6, clueGame.getHeight()));

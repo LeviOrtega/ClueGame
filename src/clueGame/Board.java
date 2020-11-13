@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
@@ -84,7 +85,7 @@ public class Board extends JPanel{
 		// Generates adjacency list
 		generateBoardAdjList();
 	}
-	
+
 	/*
 	 *------------------------------------------------------------------------------
 	 * 
@@ -92,15 +93,21 @@ public class Board extends JPanel{
 	 *
 	 *------------------------------------------------------------------------------
 	 */
-	
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		for (BoardCell[] cells: board) {
 			for (BoardCell cell: cells) {
 				cell.draw(g);
 			}
 		}
+		for (Room room: roomMap.values()) {
+			if (room.getLabelCell() != null) {
+				room.getLabelCell().drawRoomName(g, room.getName());
+			}
+		}
+
 	}
 
 	/*
@@ -280,6 +287,7 @@ public class Board extends JPanel{
 		}
 		default: {
 			boardCell.setSecretPassage(lastChar);
+			boardCell.setRoom(true);
 			roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
 			break;
 		}
@@ -695,18 +703,19 @@ public class Board extends JPanel{
 	public void removePlayer(Player player) {
 		players.remove(players.indexOf(player));
 	}
-	
+
 	public static void main(String[] args) {
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 		board.deal();
-		
+
 		for (Player player: board.getPlayers()) {
 			System.out.println(player.toString());
 		}
-		
+
 	}
-	
-	
+
+
+
 }

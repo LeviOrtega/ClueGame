@@ -4,6 +4,7 @@
 
 package clueGame;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +12,6 @@ import java.util.Set;
 import clueGame.BoardCell;
 
 public class BoardCell {
-	public static final int EXTRA_X = 1;
-	public static final int EXTRA_Y = 1;
 	private int row;
 	private int column;
 	private char initial;
@@ -38,9 +37,40 @@ public class BoardCell {
 		Board board = Board.getInstance();
 		int width = board.getWidth() / board.getNumColumns();
 		int height = board.getHeight() / board.getNumRows();
+		// the x and y position of the rectangles will be shifted by each rectangles width and height
 		int x = this.column * width;
 		int y = this.row * height;
-		g.drawRect(x, y, width+ EXTRA_X, height+ EXTRA_Y);
+		
+		if (this.isPath) {
+			g.setColor(Color.ORANGE);
+		} 
+		else if (this.isLabel()) {
+			g.setColor(Color.GREEN);
+		}
+		else if (this.inRoom) {
+			g.setColor(Color.GRAY);
+		}
+		else if (this.isUnused) {
+			g.setColor(Color.BLACK);
+		}
+		
+		g.fillRect(x, y, width, height);
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, width, height);
+	}
+	
+	public void drawRoomName(Graphics g, String roomName) {
+		Board board = Board.getInstance();
+		int width = board.getWidth() / board.getNumColumns();
+		int height = board.getHeight() / board.getNumRows();
+		// the x and y position of the rectangles will be shifted by each rectangles width and height
+		// we divide by 2 to get the center of the cell
+		int x = this.column * (width) + width/6;
+		int y = this.row * (height) + height/2;
+		
+		if (this.isLabel()) {
+			g.drawString(roomName, x, y);
+		}
 	}
 	
 	public int getRow() {
