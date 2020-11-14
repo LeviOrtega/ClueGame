@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import clueGame.Board;
+import clueGame.BoardCell;
 import clueGame.Player;
 import clueGame.PlayerType;
 
@@ -33,6 +35,7 @@ public class ClueGame extends JFrame{
 		setSize(1000, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ClueGame CSCI 306");
+		addMouseListener(new MouseBoard());
 		gameCardPanel = new GameCardPanel();
 		gameControlPanel = new GameControlPanel();
 		gameCardPanel.setPreferredSize(new Dimension(getWidth()/6, getHeight()));
@@ -70,6 +73,34 @@ public class ClueGame extends JFrame{
 
 		board.repaint();
 	}
+	
+	// given a point from the board being clicked on, determine what to do
+	public void handleBoardClickLogic(Point point) {
+		if (currentPlayer.getPlayerType() != PlayerType.HUMAN) {
+			//error box
+			return;
+		}
+		
+		
+		// get cell at the point of clicking
+		int offX = point.x % (BoardCell.getWidth());
+		int offY = point.y % (BoardCell.getHeight());
+		// when we click on the board, we wont always click directly on the cells orgin
+		// so we have to subtract the distance from the orgin of the cell to find it
+		int x = (point.x - offX) / BoardCell.getWidth();
+		int y = (point.y - offY) / BoardCell.getHeight() - 1;
+		// if the player clicks off of the board, handle the exception
+		try {
+		BoardCell pointCell = board.getCell(y, x);
+		// if the player is human, and they selected a target cell, they finished their turn
+		currentPlayer.setFinishedTurn(true);
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Clicked out of frame");
+		}
+		//System.out.println(pointCell);
+		
+	}
 
 	// return true if we can move to next player
 	public boolean checkIfCanMoveOn() {
@@ -78,7 +109,7 @@ public class ClueGame extends JFrame{
 			return true;
 		}
 		// else player is human and need to check if they finished their turn which is triggered after target is selected
-		return !currentPlayer.isFinishedTurn();
+		return currentPlayer.isFinishedTurn();
 	}
 
 	public int rollDie() {

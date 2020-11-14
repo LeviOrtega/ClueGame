@@ -15,6 +15,8 @@ import clueGame.BoardCell;
 public class BoardCell {
 	private int row;
 	private int column;
+	private static int width;
+	private static int height;
 	private char initial;
 	private DoorDirection doorDirection;
 	private boolean roomLabel;
@@ -33,12 +35,13 @@ public class BoardCell {
 		this.column = column;
 		this.initial = initial;
 		this.adjList = new HashSet<BoardCell>();
+		
 	}
 
 	public void draw(Graphics g) {
 		Board board = Board.getInstance();
-		int width = board.getWidth() / board.getNumColumns();
-		int height = board.getHeight() / board.getNumRows();
+		width = board.getWidth() / board.getNumColumns();
+		height = board.getHeight() / board.getNumRows();
 		// the x and y position of the rectangles will be shifted by each rectangles width and height
 		int x = this.column * width;
 		int y = this.row * height;
@@ -86,8 +89,8 @@ public class BoardCell {
 
 	public void drawRoomName(Graphics g, String roomName) {
 		Board board = Board.getInstance();
-		int width = board.getWidth() / board.getNumColumns();
-		int height = board.getHeight() / board.getNumRows();
+		width = board.getWidth() / board.getNumColumns();
+		height = board.getHeight() / board.getNumRows();
 		// the x and y position of the rectangles will be shifted by each rectangles width and height
 		// we divide by 2 to get the center of the cell
 		int x = this.column * (width);
@@ -201,4 +204,31 @@ public class BoardCell {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+
+	public static int getWidth() {
+		return width;
+	}
+
+
+	public static int getHeight() {
+		return height;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardCell [row=" + row + ", column=" + column + ", initial=" + initial + ", doorDirection="
+				+ doorDirection + ", roomLabel=" + roomLabel + ", color=" + color + "]";
+	}
+
+	
+	
+	
+	
+
+
+
+	
+	
+	
+	
 }
