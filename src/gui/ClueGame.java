@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clueGame.Board;
@@ -18,11 +19,11 @@ import clueGame.PlayerType;
 
 public class ClueGame extends JFrame{
 	private static ClueGame theInstance = new ClueGame();
+	private Board board = Board.getInstance();
 	private GameCardPanel gameCardPanel;
 	private GameControlPanel gameControlPanel;
 	private Player currentPlayer;
 	private static int currentPlayerIndex;
-	private Board board = Board.getInstance();
 
 	public static ClueGame getInstance() {
 		return theInstance;
@@ -39,7 +40,7 @@ public class ClueGame extends JFrame{
 		gameCardPanel = new GameCardPanel();
 		gameControlPanel = new GameControlPanel();
 		gameCardPanel.setPreferredSize(new Dimension(getWidth()/6, getHeight()));
-
+		
 
 		// we use indexes of the players arraylist to loop through the players in the game
 		// the first player in the arrayList is the cowboy, the human player
@@ -83,14 +84,14 @@ public class ClueGame extends JFrame{
 		// get cell at the point of clicking
 		int offX = point.x % (BoardCell.getWidth());
 		int offY = point.y % (BoardCell.getHeight());
-		// when we click on the board, we wont always click directly on the cells orgin
-		// so we have to subtract the distance from the orgin of the cell to find it
+		// when we click on the board, we wont always click directly on the cells origin
+		// so we have to subtract the distance from the origin of the cell to find it
 		int x = (point.x - offX) / BoardCell.getWidth();
+		// for some reason the y cord is off by 1, so I subtract it
 		int y = (point.y - offY) / BoardCell.getHeight() - 1;
 		// if the player clicks off of the board, handle the exception
 		try {
 		BoardCell pointCell = board.getCell(y, x);
-		// if the player is human, and they selected a target cell, they finished their turn
 		validateTargetSelection(pointCell);
 		}
 		catch (ArrayIndexOutOfBoundsException e) {
@@ -100,6 +101,7 @@ public class ClueGame extends JFrame{
 		
 	}
 	
+	// after a boardCell is clicked on, check to see if the player can move to it
 	public void validateTargetSelection(BoardCell pointCell) {
 		if (board.getTargets().contains(pointCell)) {
 			// move the player to the point if its within the targets
@@ -111,11 +113,20 @@ public class ClueGame extends JFrame{
 			if (pointCell.isRoomCenter()) {
 				// handle logic for suggestions then set finished to true
 			}
-			else {
+			// after handling the room suggestion, or if the target was valid, the player
+			// can now move
 			currentPlayer.setFinishedTurn(true);
-			}
-			
 		}
+		else {
+			// display error box
+			displayErrorSplash();
+		}
+	}
+	
+	public void displayErrorSplash() {
+		JOptionPane.showMessageDialog(new JFrame(), 
+				"Please select a target cell",
+				"Error", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	// called when nexButton is clicked on
@@ -138,12 +149,18 @@ public class ClueGame extends JFrame{
 		// else player is human and need to check if they finished their turn which is triggered after target is selected
 		return currentPlayer.isFinishedTurn();
 	}
+	
+	public void welcomeSplash() {
+		JOptionPane.showMessageDialog(new JFrame(), 
+				"You are the Cowboy" +
+				"\nCan you find the solution" +
+				"\nbefore the computer players?",
+				"Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+	}
 
 	public int rollDie() {
 		return (int)(Math.random()*6 + 1);
 	}
-
-
 
 	public static int getCurrentPlayerIndex() {
 		return currentPlayerIndex;
@@ -171,6 +188,8 @@ public class ClueGame extends JFrame{
 		clueGame.add(gameCardPanel, BorderLayout.EAST);
 
 		clueGame.initialize();
+		// display a welcome splash
+		clueGame.welcomeSplash();
 	}
 
 
