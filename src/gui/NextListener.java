@@ -12,15 +12,7 @@ public class NextListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		if (clueGame.checkIfCanMoveOn()) {
-			int index = clueGame.getCurrentPlayerIndex() + 1;
-			// bound the index by the size of players
-			index  %= Board.getInstance().getPlayers().size();
-			clueGame.setCurrentPlayerIndex(index);
-			clueGame.handlePlayerLogic();
-		}
-		// else throw error
+		clueGame.iteratePlayerIndex();
 	}
 
 }

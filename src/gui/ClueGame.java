@@ -65,9 +65,8 @@ public class ClueGame extends JFrame{
 		gameControlPanel.getTurn().setBackground(currentPlayer.getColor());
 		gameControlPanel.getTurn().setText(currentPlayer.getName());
 		int roll = rollDie();
+		// give the player the roll to calc targets
 		gameControlPanel.getRoll().setText(String.valueOf(roll));
-
-
 		currentPlayer.selectTarget(roll);
 
 
@@ -81,7 +80,6 @@ public class ClueGame extends JFrame{
 			return;
 		}
 		
-		
 		// get cell at the point of clicking
 		int offX = point.x % (BoardCell.getWidth());
 		int offY = point.y % (BoardCell.getHeight());
@@ -93,13 +91,42 @@ public class ClueGame extends JFrame{
 		try {
 		BoardCell pointCell = board.getCell(y, x);
 		// if the player is human, and they selected a target cell, they finished their turn
-		currentPlayer.setFinishedTurn(true);
+		validateTargetSelection(pointCell);
 		}
 		catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Clicked out of frame");
 		}
 		//System.out.println(pointCell);
 		
+	}
+	
+	public void validateTargetSelection(BoardCell pointCell) {
+		if (board.getTargets().contains(pointCell)) {
+			// move the player to the point if its within the targets
+			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
+			// clear the targets and repaint the board to remove colored floors
+			// targets will be recalculated in next player
+			board.getTargets().clear();
+			board.repaint();
+			if (pointCell.isRoomCenter()) {
+				// handle logic for suggestions then set finished to true
+			}
+			else {
+			currentPlayer.setFinishedTurn(true);
+			}
+			
+		}
+	}
+	
+	// called when nexButton is clicked on
+	public void iteratePlayerIndex() {
+		if (checkIfCanMoveOn()) {
+			currentPlayerIndex++;
+			currentPlayerIndex %= Board.getInstance().getPlayers().size();
+			// bound the index by the size of players
+			handlePlayerLogic();
+		}
+		// else throw error
 	}
 
 	// return true if we can move to next player
