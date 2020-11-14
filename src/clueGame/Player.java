@@ -17,6 +17,7 @@ public abstract class Player {
 	protected PlayerType playerType;
 	protected int row;
 	protected int column;
+	protected boolean finishedTurn;
 
 	public Player(String name, int row, int column, PlayerType playerType, Color color) {
 		this.name = name;
@@ -107,5 +108,14 @@ public abstract class Player {
 		return "Player [name=" + name + ", color=" + color + ", playerType=" + playerType + ", row=" + row + ", column="
 				+ column + "]";
 	}
+
+	public boolean isFinishedTurn() {
+		return finishedTurn;
+	}
+
+	public void setFinishedTurn(boolean finishedTurn) {
+		this.finishedTurn = finishedTurn;
+	}
+	
 
 }

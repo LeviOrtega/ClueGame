@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class HumanPlayer extends Player {
 
+
+	
 	public HumanPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
 

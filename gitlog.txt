@@ -1,4 +1,85 @@
-// Pair programming, levi did commits to github to avoid problems 
+// Pair programming, levi committed most to avoid problems with git
+commit 0f4dc597b7aa169a3231a21a0bb41d59f32414bd
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Nov 13 17:07:15 2020 -0700
+
+    tried messing around with action listeners
+
+commit 51ed75c37e3e660f7fcdae6f31333209670780f8
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Nov 13 16:56:43 2020 -0700
+
+    Moved player starting turns, modified way loop through players.
+
+commit b46bbbaa3260f055344981b9b5ab35d4c8eee4d1
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 12 22:51:48 2020 -0700
+
+    added comments
+
+commit 2701a805485dcfa875772e50b75b0c6a9a63f53d
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 12 22:43:02 2020 -0700
+
+    players drawn on board
+
+commit b467bd120c1676d57098cbc372d397f46027892e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 12 22:12:33 2020 -0700
+
+    Added door rectangles and finished room names
+
+commit cba9a088a823db3225a8798f37635e8090abf5ba
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 12 20:07:37 2020 -0700
+
+    Added colors to cells in drawing and drew labels of rooms
+
+commit ca12e195b756c2e15d26713bde3966c5b9dac240
+Merge: e3e20d8 b4fee7e
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Tue Nov 10 18:16:49 2020 -0700
+
+    Fix
+    
+    Merge branch 'main' of https://github.com/LeviOrtega/ClueGame into main
+
+commit e3e20d80f24fbb5ca1c93a8660ac79799dbb3ad9
+Author: Anthony <adesiato@mymail.mines.edu>
+Date:   Tue Nov 10 18:16:17 2020 -0700
+
+    Anthony updating files end of 11/10
+
+commit b4fee7e69c4df492db304a3c69931c5b7d7e3286
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Nov 10 18:15:14 2020 -0700
+
+    Added clueGame driver class and created Board GUI
+
+commit 59755f310e453ba444f8474e6faa23c4e256b42d
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Nov 10 17:32:03 2020 -0700
+
+    Made board extend JPanel
+
+commit 3076e5d17be260da2d7c28112d1923f1885a4ec1
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Mon Nov 9 11:59:02 2020 -0700
+
+    Added colors to setters for players, added comments to multiple classes, and refactored the player classes
+
+commit 52bb7d6fbbacb3e98c77d20dfc8f9483c9e4f497
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 17:19:34 2020 -0700
+
+    fix
+
+commit d611a522000c52a32d7349df2f08dc63b3c68223
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 8 17:19:13 2020 -0700
+
+    fix
+
 commit 2375ca4e81f3397d56a512a70141c9513757a6be
 Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Sun Nov 8 17:17:57 2020 -0700

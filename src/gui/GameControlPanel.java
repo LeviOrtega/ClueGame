@@ -70,6 +70,7 @@ public class GameControlPanel extends JPanel {
 		leftButton = new JButton("Make Accusation");
 		rightButton = new JButton("Next!");
 		
+		rightButton.addActionListener(new NextListener());
 
 		
 		
@@ -79,6 +80,7 @@ public class GameControlPanel extends JPanel {
 		top.add(rightButton);
 		return top;
 	}
+	
 	
 	public JPanel createGuessPanel() {
 		JPanel bottom = new JPanel();  // create the frame (serves as bottom guess panel)
