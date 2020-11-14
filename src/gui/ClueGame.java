@@ -51,13 +51,7 @@ public class ClueGame extends JFrame{
 		gameControlPanel.getTurn().setBackground(currentPlayer.getColor());
 		gameControlPanel.getTurn().setText(currentPlayer.getName());
 		gameControlPanel.getTurn().setDisabledTextColor((Color.WHITE));
-		/*gameControlPanel.getRightButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				currentPlayerIndex++;
-				currentPlayerIndex %= board.getPlayers().size();
-				System.out.println(currentPlayerIndex);
-			}
-		});*/
+		
 		
 		
 
@@ -82,5 +76,8 @@ public class ClueGame extends JFrame{
 
 		clueGame.gameLoop();
 	}
+
+
+	
 
 }

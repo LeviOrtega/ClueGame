@@ -27,6 +27,8 @@ public class GameControlPanel extends JPanel {
 	JButton leftButton;
 	JButton rightButton;
 	Player player;
+	ClueGame clueGame;
+	
 	
 	public GameControlPanel() {
 		// ensure enough room for 2 items to be stored in grid, in this case two sub-panels
@@ -67,6 +69,8 @@ public class GameControlPanel extends JPanel {
 		
 		leftButton = new JButton("Make Accusation");
 		rightButton = new JButton("Next!");
+		
+
 		
 		
 		top.add(leftSubPan);
