@@ -19,7 +19,6 @@ public class NextListener implements ActionListener{
 			index  %= Board.getInstance().getPlayers().size();
 			clueGame.setCurrentPlayerIndex(index);
 			clueGame.handlePlayerLogic();
-			Board.getInstance().repaint();
 		}
 		// else throw error
 	}

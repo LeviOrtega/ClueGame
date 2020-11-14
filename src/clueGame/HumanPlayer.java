@@ -19,9 +19,14 @@ public class HumanPlayer extends Player {
 		return null;
 	}
 
+	// the human player must select the targets in order for game to move on
 	@Override
 	public void selectTarget(int roll) {
-		// TODO Auto-generated method stub
+		// set the finished turn to false before anything to make sure player cant move on until 
+		// target is selected
+		this.finishedTurn = false;
+		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
+		Board.getInstance().calcTargets(playerCell, roll);
 		
 	}
 

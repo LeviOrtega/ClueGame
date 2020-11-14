@@ -25,7 +25,7 @@ public class ClueGame extends JFrame{
 	public static ClueGame getInstance() {
 		return theInstance;
 	}
-	
+
 	private ClueGame() {}
 
 
@@ -37,7 +37,7 @@ public class ClueGame extends JFrame{
 		gameControlPanel = new GameControlPanel();
 		gameCardPanel.setPreferredSize(new Dimension(getWidth()/6, getHeight()));
 
-		
+
 		// we use indexes of the players arraylist to loop through the players in the game
 		// the first player in the arrayList is the cowboy, the human player
 		currentPlayerIndex = 0;
@@ -51,7 +51,7 @@ public class ClueGame extends JFrame{
 		board.setPlayerInfo();
 		add(board, BorderLayout.CENTER);
 		setVisible(true);
-		
+
 		handlePlayerLogic();
 	}
 
@@ -62,11 +62,15 @@ public class ClueGame extends JFrame{
 		gameControlPanel.getTurn().setBackground(currentPlayer.getColor());
 		gameControlPanel.getTurn().setText(currentPlayer.getName());
 		int roll = rollDie();
-		currentPlayer.selectTarget(roll);
 		gameControlPanel.getRoll().setText(String.valueOf(roll));
-	
+
+
+		currentPlayer.selectTarget(roll);
+
+
+		board.repaint();
 	}
-	
+
 	// return true if we can move to next player
 	public boolean checkIfCanMoveOn() {
 		// if the player is a computer, it will have done what it needs to do and we can move on
@@ -76,7 +80,7 @@ public class ClueGame extends JFrame{
 		// else player is human and need to check if they finished their turn which is triggered after target is selected
 		return !currentPlayer.isFinishedTurn();
 	}
-	
+
 	public int rollDie() {
 		return (int)(Math.random()*6 + 1);
 	}
@@ -90,7 +94,7 @@ public class ClueGame extends JFrame{
 	public static void setCurrentPlayerIndex(int currentPlayerIndex) {
 		ClueGame.currentPlayerIndex = currentPlayerIndex;
 	}
-	
+
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -112,6 +116,6 @@ public class ClueGame extends JFrame{
 	}
 
 
-	
+
 
 }

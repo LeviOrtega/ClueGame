@@ -120,8 +120,9 @@ public class Board extends JPanel{
 
 	// called after cell's type and position is established and in repaint
 	public void determineCellColor(BoardCell boardCell) {
+		// check to see if the boardCell is a target and the turn is not a computer to display blue cells
 		if (targets.contains(boardCell) && ClueGame.getInstance().getCurrentPlayer().getPlayerType() != PlayerType.COMPUTER) {
-			boardCell.setColor(Color.CYAN);
+			boardCell.setColor(Color.WHITE);
 		}
 		else if (boardCell.isPath()) {
 			boardCell.setColor(Color.ORANGE);
@@ -672,7 +673,7 @@ public class Board extends JPanel{
 			}
 			
 			case "Gunsmith":{
-				player.setColor(Color.GRAY);
+				player.setColor(Color.LIGHT_GRAY);
 				player.updatePosition(24, 9);
 				break;
 			}
