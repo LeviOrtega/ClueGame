@@ -22,8 +22,7 @@ public class ClueGame extends JFrame{
 	private Board board = Board.getInstance();
 	private GameCardPanel gameCardPanel;
 	private GameControlPanel gameControlPanel;
-	private Player currentPlayer;
-	private static int currentPlayerIndex;
+
 
 	public static ClueGame getInstance() {
 		return theInstance;
@@ -40,11 +39,10 @@ public class ClueGame extends JFrame{
 		gameCardPanel = new GameCardPanel();
 		gameControlPanel = new GameControlPanel();
 		gameCardPanel.setPreferredSize(new Dimension(getWidth()/6, getHeight()));
-		
+
 
 		// we use indexes of the players arraylist to loop through the players in the game
 		// the first player in the arrayList is the cowboy, the human player
-		currentPlayerIndex = 0;
 		add(gameControlPanel, BorderLayout.SOUTH);
 		add(gameCardPanel, BorderLayout.EAST);
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
@@ -56,123 +54,40 @@ public class ClueGame extends JFrame{
 		add(board, BorderLayout.CENTER);
 		setVisible(true);
 
-		handlePlayerLogic();
+		board.updateCurrentPlayer();
 	}
 
 
-	public void handlePlayerLogic() {
-		currentPlayer = board.getPlayers().get(currentPlayerIndex);
-		// set the turn text box to correct player
-		gameControlPanel.getTurn().setBackground(currentPlayer.getColor());
-		gameControlPanel.getTurn().setText(currentPlayer.getName());
-		int roll = rollDie();
-		// give the player the roll to calc targets
-		gameControlPanel.getRoll().setText(String.valueOf(roll));
-		currentPlayer.selectTarget(roll);
 
-
-		board.repaint();
-	}
-	
-	// given a point from the board being clicked on, determine what to do
-	public void handleBoardClickLogic(Point point) {
-		if (currentPlayer.getPlayerType() != PlayerType.HUMAN) {
-			//error box
-			return;
-		}
-		
-		// get cell at the point of clicking
-		int offX = point.x % (BoardCell.getWidth());
-		int offY = point.y % (BoardCell.getHeight());
-		// when we click on the board, we wont always click directly on the cells origin
-		// so we have to subtract the distance from the origin of the cell to find it
-		int x = (point.x - offX) / BoardCell.getWidth();
-		// for some reason the y cord is off by 1, so I subtract it
-		int y = (point.y - offY) / BoardCell.getHeight() - 1;
-		// if the player clicks off of the board, handle the exception
-		try {
-		BoardCell pointCell = board.getCell(y, x);
-		validateTargetSelection(pointCell);
-		}
-		catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Clicked out of frame");
-		}
-		//System.out.println(pointCell);
-		
-	}
-	
-	// after a boardCell is clicked on, check to see if the player can move to it
-	public void validateTargetSelection(BoardCell pointCell) {
-		if (board.getTargets().contains(pointCell)) {
-			// move the player to the point if its within the targets
-			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
-			// clear the targets and repaint the board to remove colored floors
-			// targets will be recalculated in next player
-			board.getTargets().clear();
-			board.repaint();
-			if (pointCell.isRoomCenter()) {
-				// handle logic for suggestions then set finished to true
-			}
-			// after handling the room suggestion, or if the target was valid, the player
-			// can now move
-			currentPlayer.setFinishedTurn(true);
-		}
-		else {
-			// display error box
-			displayErrorSplash();
-		}
-	}
-	
-	public void displayErrorSplash() {
+	public void displayErrorSplash(String error) {
 		JOptionPane.showMessageDialog(new JFrame(), 
-				"Please select a target cell",
+				error,
 				"Error", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
-	// called when nexButton is clicked on
-	public void iteratePlayerIndex() {
-		if (checkIfCanMoveOn()) {
-			currentPlayerIndex++;
-			currentPlayerIndex %= Board.getInstance().getPlayers().size();
-			// bound the index by the size of players
-			handlePlayerLogic();
-		}
-		// else throw error
+
+	public void displayPlayerAndRoll(Player player, int roll) {
+		// set the turn text box to correct player
+		gameControlPanel.getTurn().setBackground(player.getColor());
+		gameControlPanel.getTurn().setText(player.getName());
+
+		// give the player the roll to calc targets
+		gameControlPanel.getRoll().setText(String.valueOf(roll));
+
 	}
 
-	// return true if we can move to next player
-	public boolean checkIfCanMoveOn() {
-		// if the player is a computer, it will have done what it needs to do and we can move on
-		if (currentPlayer.getPlayerType() == PlayerType.COMPUTER) {
-			return true;
-		}
-		// else player is human and need to check if they finished their turn which is triggered after target is selected
-		return currentPlayer.isFinishedTurn();
-	}
-	
+
+
 	public void welcomeSplash() {
 		JOptionPane.showMessageDialog(new JFrame(), 
 				"You are the Cowboy" +
-				"\nCan you find the solution" +
-				"\nbefore the computer players?",
-				"Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+						"\nCan you find the solution" +
+						"\nbefore the computer players?",
+						"Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public int rollDie() {
-		return (int)(Math.random()*6 + 1);
-	}
 
-	public static int getCurrentPlayerIndex() {
-		return currentPlayerIndex;
-	}
 
-	public static void setCurrentPlayerIndex(int currentPlayerIndex) {
-		ClueGame.currentPlayerIndex = currentPlayerIndex;
-	}
 
-	public Player getCurrentPlayer() {
-		return currentPlayer;
-	}
 
 	public static void main(String[] args) {
 		ClueGame clueGame = ClueGame.getInstance();

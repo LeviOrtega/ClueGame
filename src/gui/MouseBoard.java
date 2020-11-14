@@ -4,13 +4,15 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import clueGame.Board;
+
 
 public class MouseBoard implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Point point = e.getPoint();
-		ClueGame.getInstance().handleBoardClickLogic(point);
+		Board.getInstance().handleBoardClickLogic(point);
 	}
 
 	@Override

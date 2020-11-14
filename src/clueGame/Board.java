@@ -8,6 +8,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class Board extends JPanel{
 	private int numColumns;
 	private int numPeople, numWeapons, numRooms; // numRooms != roomMap.size(). roomMap holds unused rooms
 	private Solution answer;
+	private Player currentPlayer;
+	private static int currentPlayerIndex;
 	private String layoutConfigFile;
 	private String setupConfigFile;
 	private BoardCell[][] board;
@@ -68,6 +71,7 @@ public class Board extends JPanel{
 		numPeople = 0;
 		numWeapons = 0;
 		numRooms = 0;
+		currentPlayerIndex = 0;
 
 		loadSetupConfig();
 		loadLayoutConfig();
@@ -110,18 +114,18 @@ public class Board extends JPanel{
 				room.getLabelCell().drawRoomName(g, room.getName());
 			}
 		}
-		
+
 		for (Player player: players) {
 			player.draw(g);
 		}
 
 	}
-	
+
 
 	// called after cell's type and position is established and in repaint
 	public void determineCellColor(BoardCell boardCell) {
 		// check to see if the boardCell is a target and the turn is not a computer to display blue cells
-		if (targets.contains(boardCell) && ClueGame.getInstance().getCurrentPlayer().getPlayerType() != PlayerType.COMPUTER) {
+		if (targets.contains(boardCell) && currentPlayer.getPlayerType() != PlayerType.COMPUTER) {
 			boardCell.setColor(Color.WHITE);
 		}
 		else if (boardCell.isPath()) {
@@ -138,10 +142,97 @@ public class Board extends JPanel{
 	/*
 	 *------------------------------------------------------------------------------
 	 *
-	 * Cards, Suggestions, and Accusations
+	 * Players, Cards, Suggestions, and Accusations
 	 * 
 	 *------------------------------------------------------------------------------
 	 */
+
+	// called when nexButton is clicked on
+	public void iteratePlayerIndex() {
+		if (checkIfCanMoveOn()) {
+			currentPlayerIndex++;
+			currentPlayerIndex %= Board.getInstance().getPlayers().size();
+			// bound the index by the size of players
+			updateCurrentPlayer();
+		}
+		// if its the humans turn and they haven't finished their turn
+		else if (currentPlayer.playerType != PlayerType.COMPUTER) {
+		ClueGame.getInstance().displayErrorSplash("Please finish turn before moving on");
+		}
+	}
+
+	// return true if we can move to next player
+	public boolean checkIfCanMoveOn() {
+		// if the player is a computer, it will have done what it needs to do and we can move on
+		if (currentPlayer.getPlayerType() == PlayerType.COMPUTER) {
+			return true;
+		}
+		// else player is human and need to check if they finished their turn which is triggered after target is selected
+		return currentPlayer.isFinishedTurn();
+	}
+	
+	public int rollDie() {
+		return (int)(Math.random()*6 + 1);
+	}
+
+	public void updateCurrentPlayer() {
+		currentPlayer = players.get(Board.currentPlayerIndex);
+		int roll = rollDie();
+		currentPlayer.selectTarget(roll);
+		ClueGame.getInstance().displayPlayerAndRoll(currentPlayer, roll);
+
+		repaint();
+	}
+
+	// given a point from the board being clicked on, determine what to do
+	public void handleBoardClickLogic(Point point) {
+		if (currentPlayer.getPlayerType() != PlayerType.HUMAN) {
+			//we don't care about board clicks if its not the humans turn
+			return;
+		}
+
+		// get cell at the point of clicking
+		int offX = point.x % (BoardCell.getWidth());
+		int offY = point.y % (BoardCell.getHeight());
+		// when we click on the board, we wont always click directly on the cells origin
+		// so we have to subtract the distance from the origin of the cell to find it
+		int x = (point.x - offX) / BoardCell.getWidth();
+		// for some reason the y cord is off by 1, so I subtract it
+		int y = (point.y - offY) / BoardCell.getHeight() - 1;
+		// if the player clicks off of the board, handle the exception
+		try {
+			BoardCell pointCell = getCell(y, x);
+			validateTargetSelection(pointCell);
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Clicked out of frame");
+		}
+		//System.out.println(pointCell);
+
+	}
+
+	// after a boardCell is clicked on, check to see if the player can move to it
+	public void validateTargetSelection(BoardCell pointCell) {
+		if (targets.contains(pointCell)) {
+			// move the player to the point if its within the targets
+			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
+			// clear the targets and repaint the board to remove colored floors
+			// targets will be recalculated in next player
+			targets.clear();
+			repaint();
+			if (pointCell.isRoomCenter()) {
+				// handle logic for suggestions then set finished to true
+			}
+			// after handling the room suggestion, or if the target was valid, the player
+			// can now move
+			currentPlayer.setFinishedTurn(true);
+		}
+		else {
+			// display error box
+			ClueGame.getInstance().displayErrorSplash("Please select valid target.");
+		}
+	}
+
 
 	public Card handleSuggestion(Player player) {
 
@@ -646,7 +737,7 @@ public class Board extends JPanel{
 		this.numColumns = colLen;
 		this.numRows = rowLen;
 	}
-	
+
 	// we use this method to determine the location and color of players
 	public void setPlayerInfo() {
 		for (Player player: players) {
@@ -658,42 +749,42 @@ public class Board extends JPanel{
 				player.updatePosition(0, 8);
 				break;
 			}
-			
+
 			case "Harlet":{
 				player.setColor(Color.MAGENTA);
 				player.updatePosition(11, 23);
 				break;
 			}
-			
+
 			case "Cowboy":{
 				// brown
 				player.setColor(new Color(120,70,10));
 				player.updatePosition(0, 16);
 				break;
 			}
-			
+
 			case "Gunsmith":{
 				player.setColor(Color.LIGHT_GRAY);
 				player.updatePosition(24, 9);
 				break;
 			}
-			
+
 			case "Banker":{
 				player.setColor(Color.GREEN);
 				player.updatePosition(24, 15);
 				break;
 			}
-			
+
 			case "Outlaw":{
 				// maroon
 				player.setColor(new Color(130,0,0));
 				player.updatePosition(10, 0);
 				break;
 			}
-			
+
 			}
-			
-			
+
+
 		}
 	}
 
@@ -780,7 +871,19 @@ public class Board extends JPanel{
 	public void removePlayer(Player player) {
 		players.remove(players.indexOf(player));
 	}
-	
+
+	public static int getCurrentPlayerIndex() {
+		return currentPlayerIndex;
+	}
+
+	public static void setCurrentPlayerIndex(int currentPlayerIndex) {
+		currentPlayerIndex = currentPlayerIndex;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
 
 	public static void main(String[] args) {
 		Board board = Board.getInstance();
