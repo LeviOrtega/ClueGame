@@ -22,6 +22,7 @@ public class ComputerPlayer extends Player {
 		ArrayList<BoardCell> spaces = new ArrayList<BoardCell>();
 		// loop through all targets at the players starting location and determine the rooms and spaces they can move to
 		for (BoardCell target: targets) {
+			// set all targets to be blue
 			if (target.isRoomCenter()) {
 				rooms.add(target);
 			}

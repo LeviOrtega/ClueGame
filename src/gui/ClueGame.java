@@ -62,7 +62,7 @@ public class ClueGame extends JFrame{
 		gameControlPanel.getTurn().setBackground(currentPlayer.getColor());
 		gameControlPanel.getTurn().setText(currentPlayer.getName());
 		int roll = rollDie();
-		System.out.println(roll);
+		currentPlayer.selectTarget(roll);
 		gameControlPanel.getRoll().setText(String.valueOf(roll));
 	
 	}

@@ -24,6 +24,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import clueGame.BoardCell;
+import gui.ClueGame;
 
 public class Board extends JPanel{
 	private static Board theInstance = new Board();
@@ -100,6 +101,7 @@ public class Board extends JPanel{
 
 		for (BoardCell[] cells: board) {
 			for (BoardCell cell: cells) {
+				determineCellColor(cell);
 				cell.draw(g);
 			}
 		}
@@ -113,6 +115,23 @@ public class Board extends JPanel{
 			player.draw(g);
 		}
 
+	}
+	
+
+	// called after cell's type and position is established and in repaint
+	public void determineCellColor(BoardCell boardCell) {
+		if (targets.contains(boardCell) && ClueGame.getInstance().getCurrentPlayer().getPlayerType() != PlayerType.COMPUTER) {
+			boardCell.setColor(Color.CYAN);
+		}
+		else if (boardCell.isPath()) {
+			boardCell.setColor(Color.ORANGE);
+		} 
+		else if (boardCell.isRoom()) {
+			boardCell.setColor(Color.GRAY);
+		}
+		else if (boardCell.isUnused()) {
+			boardCell.setColor(Color.BLACK);
+		}
 	}
 
 	/*
@@ -298,19 +317,6 @@ public class Board extends JPanel{
 			roomMap.get(bcString.charAt(0)).setSecretRoom(lastChar);
 			break;
 		}
-		}
-	}
-	
-	// called after cell's type and position is established
-	public void determineCellColor(BoardCell boardCell) {
-		if (boardCell.isPath()) {
-			boardCell.setColor(Color.ORANGE);
-		} 
-		else if (boardCell.isRoom()) {
-			boardCell.setColor(Color.GRAY);
-		}
-		else if (boardCell.isUnused()) {
-			boardCell.setColor(Color.BLACK);
 		}
 	}
 
