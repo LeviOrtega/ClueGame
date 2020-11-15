@@ -40,8 +40,21 @@ public class HumanPlayer extends Player {
 			return null;
 		}
 		
-		ClueGame.getInstance().displaySuggestionFrame();
+
 		return null;
+	}
+
+
+
+	@Override
+	protected void checkIfPlayerShouldHandleSuggestion() {
+		suggestion = createSuggestion();
+		if (suggestion != null) {
+			Board.getInstance().handleSuggestion(this);
+		}
+		// after the suggestion is used, remove the suggestion 
+		suggestion = null;
+		
 	}
 	
 	

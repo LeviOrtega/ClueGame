@@ -44,14 +44,12 @@ public abstract class Player {
 		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
 		
-		suggestion = createSuggestion();
-		if (suggestion != null) {
-			Board.getInstance().handleSuggestion(this);
-		}
-		// after the suggestion is used, remove the suggestion 
-		suggestion = null;
+		checkIfPlayerShouldHandleSuggestion();
 
 	}
+
+	protected abstract void checkIfPlayerShouldHandleSuggestion();
+
 	
 	public void draw(Graphics g) {
 		Board board = Board.getInstance();

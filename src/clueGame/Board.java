@@ -159,7 +159,7 @@ public class Board extends JPanel{
 		}
 		// if its the humans turn and they haven't finished their turn
 		else if (currentPlayer.playerType != PlayerType.COMPUTER) {
-		ClueGame.getInstance().displayErrorSplash("Please finish turn before moving on");
+			ClueGame.getInstance().displayErrorSplash("Please finish turn before moving on");
 		}
 	}
 
@@ -172,7 +172,7 @@ public class Board extends JPanel{
 		// else player is human and need to check if they finished their turn which is triggered after target is selected
 		return currentPlayer.isFinishedTurn();
 	}
-	
+
 	public int rollDie() {
 		return (int)(Math.random()*6 + 1);
 	}
@@ -216,19 +216,15 @@ public class Board extends JPanel{
 	// after a boardCell is clicked on, check to see if the player can move to it
 	public void validateTargetSelection(BoardCell pointCell) {
 		if (targets.contains(pointCell)) {
+			// after handling the room suggestion, or if the target was valid, the player
+			// can now move
+			currentPlayer.setFinishedTurn(true);
 			// move the player to the point if its within the targets
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
 			// clear the targets and repaint the board to remove colored floors
 			// targets will be recalculated in next player
 			targets.clear();
 			repaint();
-			if (pointCell.isRoomCenter()) {
-				// currentPlayer is a human in this method, createSuggestion is called for computer players elsewhere
-				currentPlayer.createSuggestion();
-			}
-			// after handling the room suggestion, or if the target was valid, the player
-			// can now move
-			currentPlayer.setFinishedTurn(true);
 		}
 		else {
 			// display error box
@@ -252,7 +248,7 @@ public class Board extends JPanel{
 				}
 			}
 		}
-		
+
 		ClueGame.getInstance().updateGuessAndResult(playerSuggestion, card, player, disprovePlayer);
 		return card;
 	}
@@ -751,7 +747,8 @@ public class Board extends JPanel{
 			switch (playerName) {
 			// put each player into hardcoded positions and colors
 			case "Sheriff":{
-				player.setColor(Color.BLUE);
+				// blue
+				player.setColor(new Color(0,80,255));
 				player.updatePosition(0, 8);
 				break;
 			}
@@ -776,14 +773,15 @@ public class Board extends JPanel{
 			}
 
 			case "Banker":{
-				player.setColor(Color.GREEN);
+				// green
+				player.setColor(new Color(0,225,50));
 				player.updatePosition(24, 15);
 				break;
 			}
 
 			case "Outlaw":{
 				// maroon
-				player.setColor(new Color(130,0,0));
+				player.setColor(new Color(180,0,0));
 				player.updatePosition(10, 0);
 				break;
 			}
@@ -899,6 +897,7 @@ public class Board extends JPanel{
 
 		for (Player player: board.getPlayers()) {
 			System.out.println(player.toString());
+			System.out.println(player.getHand());
 		}
 
 	}

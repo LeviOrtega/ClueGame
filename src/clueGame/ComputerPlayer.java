@@ -81,6 +81,8 @@ public class ComputerPlayer extends Player {
 		Card people = null;
 
 		ArrayList<Card> deck = Board.getInstance().getDeck();
+		// shuffle deck so that computers suggest different cards
+		Collections.shuffle(deck);
 		for (Card card: deck) {
 			// if player has seen card, dont suggest it
 			if (!(this.seen.contains(card))) {
@@ -106,6 +108,16 @@ public class ComputerPlayer extends Player {
 		}
 		this.suggestion = new Suggestion(people, room, weapon);
 		return this.suggestion;
+	}
+
+	@Override
+	protected void checkIfPlayerShouldHandleSuggestion() {
+		suggestion = createSuggestion();
+		if (suggestion != null) {
+			Board.getInstance().handleSuggestion(this);
+		}
+		// after the suggestion is used, remove the suggestion 
+		suggestion = null;
 	}
 
 }

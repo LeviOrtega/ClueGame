@@ -58,28 +58,27 @@ public class ClueGame extends JFrame{
 
 		board.updateCurrentPlayer();
 	}
-	
+
 	public void displaySuggestionFrame() {
-		//JFrame suggestionFrame = new JFrame();
-		//suggestionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//suggestionFrame.setSize(200,200);
-		//suggestionFrame.setVisible(true);
+		JOptionPane.showConfirmDialog(new JFrame(), "Select Suggestion");
 	}
-	
+
 	public void updateGuessAndResult(Suggestion guess, Card result, Player suggestionPlayer, Player disprovePlayer) {
-		String stringGuess = 
-				guess.getPeople().getCardName() + "," +
-				guess.getWeapon().getCardName() + "," +
-				guess.getRoom().getCardName();
-		gameControlPanel.getGuess().setBackground(suggestionPlayer.getColor());
-		gameControlPanel.setGuess(stringGuess);
-		if (result != null) {
-		// set the color of the result text field to be color of player disproving suggestion
-		gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
-		gameControlPanel.setResult(result.getCardName());
-		
+		// for JUnit tests we see check if its not null
+		if (gameControlPanel != null) {
+			String stringGuess = 
+					guess.getPeople().getCardName() + "," +
+							guess.getWeapon().getCardName() + "," +
+							guess.getRoom().getCardName();
+			gameControlPanel.getGuess().setBackground(suggestionPlayer.getColor());
+			gameControlPanel.setGuess(stringGuess);
+			if (result != null) {
+				// set the color of the result text field to be color of player disproving suggestion
+				gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
+				gameControlPanel.setResult(result.getCardName());
+
+			}
 		}
-		System.out.println("before");
 	}
 
 
@@ -95,13 +94,12 @@ public class ClueGame extends JFrame{
 		gameControlPanel.getTurn().setBackground(player.getColor());
 		gameControlPanel.setTurn(player, roll);
 	}
-	
+
 	public void clearGuessAndResult() {
 		gameControlPanel.getGuess().setBackground(Color.white);
 		gameControlPanel.getResult().setBackground(Color.white);
 		gameControlPanel.setGuess("");
 		gameControlPanel.setResult("");
-		System.out.println("after");
 
 	}
 

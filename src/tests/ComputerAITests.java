@@ -26,8 +26,8 @@ class ComputerAITests {
 	private static Board board;
 	private static ArrayList<Card> deck;
 
-	@BeforeAll
-	static void setUp(){
+	@BeforeEach
+	 void setUp(){
 		board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
