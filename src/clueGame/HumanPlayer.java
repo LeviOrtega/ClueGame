@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 
+import gui.ClueGame;
+
 public class HumanPlayer extends Player {
 
 
@@ -32,7 +34,13 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Suggestion createSuggestion() {
-		// TODO Auto-generated method stub
+		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
+		// if the player isn't in a roomCenter, they cant make a suggestion
+		if (!(playerCell.isRoomCenter())) {
+			return null;
+		}
+		
+		ClueGame.getInstance().displaySuggestionFrame();
 		return null;
 	}
 	

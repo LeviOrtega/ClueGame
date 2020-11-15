@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 
 import clueGame.Board;
 import clueGame.BoardCell;
+import clueGame.Card;
 import clueGame.Player;
 import clueGame.PlayerType;
+import clueGame.Suggestion;
 
 public class ClueGame extends JFrame{
 	private static ClueGame theInstance = new ClueGame();
@@ -56,6 +58,29 @@ public class ClueGame extends JFrame{
 
 		board.updateCurrentPlayer();
 	}
+	
+	public void displaySuggestionFrame() {
+		//JFrame suggestionFrame = new JFrame();
+		//suggestionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//suggestionFrame.setSize(200,200);
+		//suggestionFrame.setVisible(true);
+	}
+	
+	public void updateGuessAndResult(Suggestion guess, Card result, Player suggestionPlayer, Player disprovePlayer) {
+		String stringGuess = 
+				guess.getPeople().getCardName() + "," +
+				guess.getWeapon().getCardName() + "," +
+				guess.getRoom().getCardName();
+		gameControlPanel.getGuess().setBackground(suggestionPlayer.getColor());
+		gameControlPanel.setGuess(stringGuess);
+		if (result != null) {
+		// set the color of the result text field to be color of player disproving suggestion
+		gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
+		gameControlPanel.setResult(result.getCardName());
+		
+		}
+		System.out.println("before");
+	}
 
 
 
@@ -68,10 +93,15 @@ public class ClueGame extends JFrame{
 	public void displayPlayerAndRoll(Player player, int roll) {
 		// set the turn text box to correct player
 		gameControlPanel.getTurn().setBackground(player.getColor());
-		gameControlPanel.getTurn().setText(player.getName());
-
-		// give the player the roll to calc targets
-		gameControlPanel.getRoll().setText(String.valueOf(roll));
+		gameControlPanel.setTurn(player, roll);
+	}
+	
+	public void clearGuessAndResult() {
+		gameControlPanel.getGuess().setBackground(Color.white);
+		gameControlPanel.getResult().setBackground(Color.white);
+		gameControlPanel.setGuess("");
+		gameControlPanel.setResult("");
+		System.out.println("after");
 
 	}
 

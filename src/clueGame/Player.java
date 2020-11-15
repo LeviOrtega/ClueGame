@@ -43,6 +43,13 @@ public abstract class Player {
 		this.column = column;
 		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
+		
+		suggestion = createSuggestion();
+		if (suggestion != null) {
+			Board.getInstance().handleSuggestion(this);
+		}
+		// after the suggestion is used, remove the suggestion 
+		suggestion = null;
 
 	}
 	

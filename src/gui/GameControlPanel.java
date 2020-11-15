@@ -122,7 +122,7 @@ public class GameControlPanel extends JPanel {
 	}
 	
 
-	public void setGuessResult(String playerResult) {
+	public void setResult(String playerResult) {
 		// set the result text field
 
 		result.setText(playerResult);
@@ -165,7 +165,7 @@ public class GameControlPanel extends JPanel {
         // test filling in the data
         panel.setTurn(new ComputerPlayer( "Col. Mustard", 0, 0, PlayerType.COMPUTER, null), 5);
         panel.setGuess( "I have no guess!");
-        panel.setGuessResult( "So you have nothing?");
+        panel.setResult( "So you have nothing?");
 
     }
 }

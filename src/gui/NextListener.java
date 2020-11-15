@@ -11,6 +11,7 @@ public class NextListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		ClueGame.getInstance().clearGuessAndResult();
 		Board.getInstance().iteratePlayerIndex();
 	}
 

@@ -105,11 +105,13 @@ public class Board extends JPanel{
 
 		for (BoardCell[] cells: board) {
 			for (BoardCell cell: cells) {
+				// determine the color of the cell every time we change things on the board
 				determineCellColor(cell);
 				cell.draw(g);
 			}
 		}
 		for (Room room: roomMap.values()) {
+			// if the room is a room and not a space
 			if (room.getLabelCell() != null) {
 				room.getLabelCell().drawRoomName(g, room.getName());
 			}
@@ -221,7 +223,8 @@ public class Board extends JPanel{
 			targets.clear();
 			repaint();
 			if (pointCell.isRoomCenter()) {
-				// handle logic for suggestions then set finished to true
+				// currentPlayer is a human in this method, createSuggestion is called for computer players elsewhere
+				currentPlayer.createSuggestion();
 			}
 			// after handling the room suggestion, or if the target was valid, the player
 			// can now move
@@ -237,17 +240,21 @@ public class Board extends JPanel{
 	public Card handleSuggestion(Player player) {
 
 		Suggestion playerSuggestion = player.getSuggestion();
+		Player disprovePlayer = null;
+		Card card = null;
 		for (Player gamePlayer: players) {
 			// do not want to handleSuggestion from player making suggestion
 			if (!(gamePlayer == player)) {
-				Card card = gamePlayer.disproveSuggestion(playerSuggestion);
+				card = gamePlayer.disproveSuggestion(playerSuggestion);
 				if (card != null){
-					return card;
+					disprovePlayer = gamePlayer;
+					break;
 				}
 			}
 		}
-
-		return null;
+		
+		ClueGame.getInstance().updateGuessAndResult(playerSuggestion, card, player, disprovePlayer);
+		return card;
 	}
 
 	public boolean makeAccusation(Solution accusation) {
@@ -466,7 +473,6 @@ public class Board extends JPanel{
 			for (int j = 0; j < boardString[0].length; j++) {
 				// if the first char is given to roomMap as a key, and it returns null, roomMap does not have that value
 				if (roomMap.get(boardString[i][j].charAt(0)) == null) {
-					//System.out.println("hello");
 					throw new BadConfigFormatException(layoutConfigFile + " has incorrect rooms");
 				}
 			}
