@@ -9,7 +9,7 @@ import gui.ClueGame;
 public class HumanPlayer extends Player {
 
 
-	
+
 	public HumanPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
 
@@ -23,28 +23,20 @@ public class HumanPlayer extends Player {
 		this.finishedTurn = false;
 		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
 		Board.getInstance().calcTargets(playerCell, roll);
-		
+
 	}
-
-
 
 	@Override
 	public Suggestion createSuggestion() {
 		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
-		// if the player isn't in a roomCenter, they cant make a suggestion
+		// if the player isn't in a roomCenter, they can't make a suggestion
 		if (!(playerCell.isRoomCenter())) {
 			return null;
 		}
-		
-		// the dialogue box will return a solution 
-		return ClueGame.getInstance().displaySuggestionFrame();
-	
+
+		// the dialogue box will return a solution from the drop down menus 
+		return ClueGame.getInstance().displaySuggestionPrompt(this);
+
 	}
-
-
-
-
-	
-	
 
 }

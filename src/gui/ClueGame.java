@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,8 +60,8 @@ public class ClueGame extends JFrame{
 		board.updateCurrentPlayer();
 	}
 
-	public Suggestion displaySuggestionFrame() {
-		JOptionPane.showConfirmDialog(new JFrame(), "Select Suggestion");
+	public Suggestion displaySuggestionPrompt(Player player) {
+		// called by human player to display the suggestion prompt to make suggestion
 		return null;
 	}
 
@@ -69,8 +70,8 @@ public class ClueGame extends JFrame{
 		if (gameControlPanel != null) {
 			String stringGuess = 
 					guess.getPeople().getCardName() + "," +
-							guess.getWeapon().getCardName() + "," +
-							guess.getRoom().getCardName();
+					guess.getWeapon().getCardName() + "," +
+					guess.getRoom().getCardName();
 			gameControlPanel.getGuess().setBackground(suggestionPlayer.getColor());
 			gameControlPanel.setGuess(stringGuess);
 			if (result != null) {
@@ -79,9 +80,12 @@ public class ClueGame extends JFrame{
 				gameControlPanel.setResult(result.getCardName());
 
 			}
+			// if result IS null, then no player disproved any card in suggestion 
+			else {
+				gameControlPanel.setResult("Cannot be disproved!");
+			}
 		}
 	}
-
 
 
 	public void displayErrorSplash(String error) {

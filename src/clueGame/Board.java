@@ -209,19 +209,18 @@ public class Board extends JPanel{
 		catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Clicked out of frame");
 		}
-		//System.out.println(pointCell);
-
 	}
 
 	// after a boardCell is clicked on, check to see if the player can move to it
 	public void validateTargetSelection(BoardCell pointCell) {
 		if (targets.contains(pointCell)) {
 			// clear the targets, they will be recalculated in next player
+			// updatePosition repaints so targets will be pained normal colors again 
 			targets.clear();
-			// after handling the room suggestion, or if the target was valid, the player
-			// can now move
+			// target was valid, the player can now move
 			currentPlayer.setFinishedTurn(true);
 			// move the player to the point if its within the targets
+			// update position also checks if player should handle suggesiton
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
 		}
 		else {
@@ -232,7 +231,6 @@ public class Board extends JPanel{
 
 
 	public Card handleSuggestion(Player player) {
-
 		Suggestion playerSuggestion = player.getSuggestion();
 		Player disprovePlayer = null;
 		Card card = null;
@@ -246,7 +244,7 @@ public class Board extends JPanel{
 				}
 			}
 		}
-
+		// we wait until the end to return card because we wish to display everything in the control panel
 		ClueGame.getInstance().updateGuessAndResult(playerSuggestion, card, player, disprovePlayer);
 		return card;
 	}
@@ -885,7 +883,7 @@ public class Board extends JPanel{
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	public void setCurrentPlayer(Player player) {
 		this.currentPlayer = player;
 	}

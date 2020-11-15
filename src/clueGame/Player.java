@@ -48,11 +48,11 @@ public abstract class Player {
 		if (this.hand.contains(suggestion.getRoom())) {
 			disprovingCards.add(suggestion.getRoom());
 		}
-		
+
 		if (disprovingCards.size() == 0) {
 			return null;
 		}
-		
+
 		Collections.shuffle(disprovingCards);
 		return disprovingCards.get(0);
 	}
@@ -64,18 +64,20 @@ public abstract class Player {
 		this.column = column;
 		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
+		// after the players position has been updated, repaint
 		Board.getInstance().repaint();
 		checkIfPlayerShouldHandleSuggestion();
 	}
 
 	private void checkIfPlayerShouldHandleSuggestion() {
 		// only check if currentPlayer is this player
+		// we do this because players can be pulled into rooms
 		if (Board.getInstance().getCurrentPlayer() == this) {
 			suggestion = createSuggestion();
 			if (suggestion != null) {
 				Board.getInstance().handleSuggestion(this);
 			}
-			// after the suggestion is used, remove the suggestion 
+			// after the suggestion is used, make it null again. Player shouldn't hold onto suggestion
 			suggestion = null;
 		}
 

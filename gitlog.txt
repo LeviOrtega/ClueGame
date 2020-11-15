@@ -1,4 +1,64 @@
-// Pair programming, levi committed most to avoid problems with git
+// Pair programming, levi did commits to avoid problems with git
+commit 0b07c6775da844a7bf5afd02323eaaad46bee76e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 19:05:21 2020 -0700
+
+    Made disproveSuggestion same for humans and computers
+
+commit 860d0082e291d5418abd11a176d454e27603b581
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 18:37:05 2020 -0700
+
+    Added shuffling in the computer player create suggestion, and worked on more suggestion logic
+
+commit 78693b190b31434a2fb7a8192e8b6ca40feab9e4
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 17:58:11 2020 -0700
+
+    Added player suggestions for those in rooms
+
+commit ef132315812031f6848f4c203e54a6a2351f977f
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 10:22:43 2020 -0700
+
+    Added error for not finishing turn on human player, and move ALL logic from cluegame to board class
+
+commit 2e306bce26564c9d92a2fb762ed2cae25fb1dda5
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 10:02:01 2020 -0700
+
+    Added splash screens
+
+commit f502c3552f9dc381cb0cfa82efb95b878754fef9
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 09:36:56 2020 -0700
+
+    Added player movement
+
+commit 27b2e95fe1dda653cf613b2221c38a6e1391f99a
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 09:20:36 2020 -0700
+
+    clicking on board gives boardcell
+
+commit a18b0c410effef035600f964e7b9c7c98abe1213
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Nov 13 23:29:49 2020 -0700
+
+    Added mouseBoard class and display only targets for player
+
+commit 667c752073f98c9e6c93a09551212ac65fd29987
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Nov 13 21:12:09 2020 -0700
+
+    Added computer movement and blue cells for targets
+
+commit 3b0f08c3319966e7bad901f7497ff3297211765d
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Nov 13 20:55:48 2020 -0700
+
+    Added better lister functionalit. Listener now calls functions
+
 commit 0f4dc597b7aa169a3231a21a0bb41d59f32414bd
 Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Fri Nov 13 17:07:15 2020 -0700
