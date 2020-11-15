@@ -59,8 +59,9 @@ public class ClueGame extends JFrame{
 		board.updateCurrentPlayer();
 	}
 
-	public void displaySuggestionFrame() {
+	public Suggestion displaySuggestionFrame() {
 		JOptionPane.showConfirmDialog(new JFrame(), "Select Suggestion");
+		return null;
 	}
 
 	public void updateGuessAndResult(Suggestion guess, Card result, Player suggestionPlayer, Player disprovePlayer) {
@@ -93,6 +94,7 @@ public class ClueGame extends JFrame{
 		// set the turn text box to correct player
 		gameControlPanel.getTurn().setBackground(player.getColor());
 		gameControlPanel.setTurn(player, roll);
+		
 	}
 
 	public void clearGuessAndResult() {

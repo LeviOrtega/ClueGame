@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import gui.ClueGame;
 
@@ -11,14 +13,6 @@ public class HumanPlayer extends Player {
 	public HumanPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
 
-	}
-
-	
-
-	@Override
-	public Card disproveSuggestion(Suggestion suggestion) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	// the human player must select the targets in order for game to move on
@@ -32,6 +26,8 @@ public class HumanPlayer extends Player {
 		
 	}
 
+
+
 	@Override
 	public Suggestion createSuggestion() {
 		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
@@ -40,22 +36,14 @@ public class HumanPlayer extends Player {
 			return null;
 		}
 		
-
-		return null;
+		// the dialogue box will return a solution 
+		return ClueGame.getInstance().displaySuggestionFrame();
+	
 	}
 
 
 
-	@Override
-	protected void checkIfPlayerShouldHandleSuggestion() {
-		suggestion = createSuggestion();
-		if (suggestion != null) {
-			Board.getInstance().handleSuggestion(this);
-		}
-		// after the suggestion is used, remove the suggestion 
-		suggestion = null;
-		
-	}
+
 	
 	
 

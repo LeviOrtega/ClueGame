@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import java.awt.Graphics;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -34,7 +36,26 @@ public abstract class Player {
 
 	public abstract void selectTarget(int roll);
 
-	public abstract Card disproveSuggestion(Suggestion suggestion);
+	public Card disproveSuggestion(Suggestion suggestion){
+		ArrayList<Card> disprovingCards = new ArrayList<>();
+		// find all cards in hand that suggestion has and add it do a list of possible disproving cards
+		if (this.hand.contains(suggestion.getPeople())) {
+			disprovingCards.add(suggestion.getPeople());
+		}
+		if (this.hand.contains(suggestion.getWeapon())) {
+			disprovingCards.add(suggestion.getWeapon());
+		}
+		if (this.hand.contains(suggestion.getRoom())) {
+			disprovingCards.add(suggestion.getRoom());
+		}
+		
+		if (disprovingCards.size() == 0) {
+			return null;
+		}
+		
+		Collections.shuffle(disprovingCards);
+		return disprovingCards.get(0);
+	}
 
 	public void updatePosition(int row, int column) {
 		// set current boardCell to not occupied
@@ -43,35 +64,43 @@ public abstract class Player {
 		this.column = column;
 		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
-		
+		Board.getInstance().repaint();
 		checkIfPlayerShouldHandleSuggestion();
-
 	}
 
-	protected abstract void checkIfPlayerShouldHandleSuggestion();
+	private void checkIfPlayerShouldHandleSuggestion() {
+		// only check if currentPlayer is this player
+		if (Board.getInstance().getCurrentPlayer() == this) {
+			suggestion = createSuggestion();
+			if (suggestion != null) {
+				Board.getInstance().handleSuggestion(this);
+			}
+			// after the suggestion is used, remove the suggestion 
+			suggestion = null;
+		}
 
-	
+	}
 	public void draw(Graphics g) {
 		Board board = Board.getInstance();
 		int width = board.getWidth() / board.getNumColumns();
 		int height = board.getHeight() / board.getNumRows();
-		
+
 		// having x and y multiplied gives us the adjustments for width and height
 		int x = this.column * (width);
 		int y = this.row * (height);
 		g.setColor(this.color);
-		
+
 		// we use an oval to display players
 		g.fillOval(x, y, width, height);
-		
+
 	}
 
 	public void updateHand(Card card) {
 		hand.add(card);
 		seen.add(card);
 	}
-	
-	
+
+
 	public PlayerType getPlayerType() {
 		return this.playerType;
 	}
@@ -107,7 +136,7 @@ public abstract class Player {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", color=" + color + ", playerType=" + playerType + ", row=" + row + ", column="
@@ -121,6 +150,6 @@ public abstract class Player {
 	public void setFinishedTurn(boolean finishedTurn) {
 		this.finishedTurn = finishedTurn;
 	}
-	
+
 
 }

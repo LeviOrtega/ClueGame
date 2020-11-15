@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
-
+	
+	private boolean testing;
+	
 	public ComputerPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
 	}
@@ -45,28 +47,6 @@ public class ComputerPlayer extends Player {
 
 	}
 
-	@Override
-	public Card disproveSuggestion(Suggestion suggestion) {
-		ArrayList<Card> disprovingCards = new ArrayList<>();
-		// find all cards in hand that suggestion has and add it do a list of possible disproving cards
-		if (this.hand.contains(suggestion.getPeople())) {
-			disprovingCards.add(suggestion.getPeople());
-		}
-		if (this.hand.contains(suggestion.getWeapon())) {
-			disprovingCards.add(suggestion.getWeapon());
-		}
-		if (this.hand.contains(suggestion.getRoom())) {
-			disprovingCards.add(suggestion.getRoom());
-		}
-		
-		if (disprovingCards.size() == 0) {
-			return null;
-		}
-		
-		Collections.shuffle(disprovingCards);
-		return disprovingCards.get(0);
-	}
-
 
 
 	@Override
@@ -82,7 +62,9 @@ public class ComputerPlayer extends Player {
 
 		ArrayList<Card> deck = Board.getInstance().getDeck();
 		// shuffle deck so that computers suggest different cards
+		if (testing == false) {
 		Collections.shuffle(deck);
+		}
 		for (Card card: deck) {
 			// if player has seen card, dont suggest it
 			if (!(this.seen.contains(card))) {
@@ -110,14 +92,9 @@ public class ComputerPlayer extends Player {
 		return this.suggestion;
 	}
 
-	@Override
-	protected void checkIfPlayerShouldHandleSuggestion() {
-		suggestion = createSuggestion();
-		if (suggestion != null) {
-			Board.getInstance().handleSuggestion(this);
-		}
-		// after the suggestion is used, remove the suggestion 
-		suggestion = null;
+	public void setTesting(Boolean test) {
+		// for testing shuffling
+		this.testing= test;
 	}
 
 }

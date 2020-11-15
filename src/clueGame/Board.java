@@ -216,15 +216,13 @@ public class Board extends JPanel{
 	// after a boardCell is clicked on, check to see if the player can move to it
 	public void validateTargetSelection(BoardCell pointCell) {
 		if (targets.contains(pointCell)) {
+			// clear the targets, they will be recalculated in next player
+			targets.clear();
 			// after handling the room suggestion, or if the target was valid, the player
 			// can now move
 			currentPlayer.setFinishedTurn(true);
 			// move the player to the point if its within the targets
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
-			// clear the targets and repaint the board to remove colored floors
-			// targets will be recalculated in next player
-			targets.clear();
-			repaint();
 		}
 		else {
 			// display error box
@@ -886,6 +884,10 @@ public class Board extends JPanel{
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public void setCurrentPlayer(Player player) {
+		this.currentPlayer = player;
 	}
 
 

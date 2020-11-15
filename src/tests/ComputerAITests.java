@@ -84,7 +84,8 @@ class ComputerAITests {
 		assertTrue(sheriff.toString().equals("Cowboy"));
 
 		Suggestion suggestion = new Suggestion(sheriff, saloon, revolver);
-		Player computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER, null);
+		ComputerPlayer computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER, null);
+		computer.setTesting(true);
 		Suggestion aiSuggestion = computer.createSuggestion();
 
 		/* because the deck has not been shuffled, and the computer has not been given any cards
@@ -103,10 +104,6 @@ class ComputerAITests {
 		computer.updatePosition(16, 14);
 		aiSuggestion = computer.createSuggestion();
 		assertEquals(null, aiSuggestion);
-
-		
-		
-		
 	}
 
 }
