@@ -748,7 +748,7 @@ public class Board extends JPanel{
 			case "Sheriff":{
 				// blue
 				player.setColor(new Color(0,80,255));
-				player.updatePosition(0, 8);
+				player.updatePosition(0, 16);
 				break;
 			}
 
@@ -761,20 +761,20 @@ public class Board extends JPanel{
 			case "Cowboy":{
 				// brown
 				player.setColor(new Color(120,70,10));
-				player.updatePosition(0, 16);
+				player.updatePosition(0, 8);
 				break;
 			}
 
 			case "Gunsmith":{
 				player.setColor(Color.LIGHT_GRAY);
-				player.updatePosition(24, 9);
+				player.updatePosition(24, 15);
 				break;
 			}
 
 			case "Banker":{
 				// green
 				player.setColor(new Color(0,225,50));
-				player.updatePosition(24, 15);
+				player.updatePosition(24, 9);
 				break;
 			}
 
