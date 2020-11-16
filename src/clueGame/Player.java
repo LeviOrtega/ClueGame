@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import gui.ClueGame;
+
 public abstract class Player {
 	protected String name;
 	protected Color color;
@@ -99,7 +101,17 @@ public abstract class Player {
 
 	public void updateHand(Card card) {
 		hand.add(card);
+		if (playerType == PlayerType.HUMAN) {
+		ClueGame.getInstance().displayNewHand(card, this);	
+		}
+		}
+	
+	// called from a disproved card
+	public void updateSeen(Card card, Player disprovePlayer) {
 		seen.add(card);
+		if (playerType == PlayerType.HUMAN) {
+		ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
+		}
 	}
 
 

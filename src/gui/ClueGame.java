@@ -50,10 +50,10 @@ public class ClueGame extends JFrame{
 		add(gameCardPanel, BorderLayout.EAST);
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
-		board.deal();
 		// after all players are init and added, we want to set their colors and positions
 		// we do this last as the players use boardcells to know where they are
 		board.setPlayerInfo();
+		board.deal();
 		add(board, BorderLayout.CENTER);
 		setVisible(true);
 
@@ -107,6 +107,14 @@ public class ClueGame extends JFrame{
 		gameControlPanel.setGuess("");
 		gameControlPanel.setResult("");
 
+	}
+	
+	public void displayNewHand(Card card, Player player) {
+		gameCardPanel.addHand(card, player);
+	}
+	
+	public void displayNewSeen(Card card, Player player) {
+		gameCardPanel.addSeen(card, player);
 	}
 
 

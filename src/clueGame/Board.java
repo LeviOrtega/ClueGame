@@ -217,11 +217,11 @@ public class Board extends JPanel{
 			// clear the targets, they will be recalculated in next player
 			// updatePosition repaints so targets will be pained normal colors again 
 			targets.clear();
-			// target was valid, the player can now move
-			currentPlayer.setFinishedTurn(true);
 			// move the player to the point if its within the targets
 			// update position also checks if player should handle suggesiton
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
+			// target was valid and player has made their suggestion, the player can now move
+			currentPlayer.setFinishedTurn(true);
 		}
 		else {
 			// display error box

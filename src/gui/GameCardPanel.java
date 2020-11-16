@@ -122,11 +122,11 @@ public class GameCardPanel extends JPanel {
 	}
 	
 	
-	public void addHand(Card card) {
+	public void addHand(Card card, Player mainPlayer) {
 		JTextField cardText = new JTextField(card.getCardName());
 		cardText.setEditable(false);
 		// set the color of the card, eventually will be set to color of players
-		cardText.setBackground(Color.green);
+		cardText.setBackground(mainPlayer.getColor());
 		switch (card.getCardType()) {
 		case PEOPLE:{
 			peopleHand.add(cardText);
@@ -143,11 +143,11 @@ public class GameCardPanel extends JPanel {
 		}
 	}
 	
-	public void addSeen(Card card) {
+	public void addSeen(Card card, Player disprovePlayer) {
 		JTextField cardText = new JTextField(card.getCardName());
 		cardText.setEditable(false);
 		// set the color of the card, eventually will be set to color of players
-		cardText.setBackground(Color.cyan);
+		cardText.setBackground(disprovePlayer.getColor());
 		switch (card.getCardType()) {
 		case PEOPLE:{
 			peopleSeen.add(cardText);
@@ -174,25 +174,25 @@ public class GameCardPanel extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
       
         // add cards to peopleHand and peopleSeen
-        panel.addHand(new Card("P1", CardType.PEOPLE));
-        panel.addHand(new Card("P2", CardType.PEOPLE));
+        panel.addHand(new Card("P1", CardType.PEOPLE), null);
+        panel.addHand(new Card("P2", CardType.PEOPLE), null);
 
-        panel.addSeen(new Card("P3", CardType.PEOPLE));
-        panel.addSeen(new Card("P4", CardType.PEOPLE));
-        panel.addSeen(new Card("P5", CardType.PEOPLE));
+        panel.addSeen(new Card("P3", CardType.PEOPLE), null);
+        panel.addSeen(new Card("P4", CardType.PEOPLE), null);
+        panel.addSeen(new Card("P5", CardType.PEOPLE), null);
         
         // add cards to roomHand and roomSeen
-        panel.addHand(new Card("R1", CardType.ROOM));
+        panel.addHand(new Card("R1", CardType.ROOM), null);
 
-        panel.addSeen(new Card("R2", CardType.ROOM));
+        panel.addSeen(new Card("R2", CardType.ROOM), null);
 
         // add cards to weaponHand and weaponSeen
-        panel.addHand(new Card("W2", CardType.WEAPON));
-        panel.addHand(new Card("W1", CardType.WEAPON));
-        panel.addHand(new Card("W3", CardType.WEAPON));
+        panel.addHand(new Card("W2", CardType.WEAPON), null);
+        panel.addHand(new Card("W1", CardType.WEAPON), null);
+        panel.addHand(new Card("W3", CardType.WEAPON), null);
         
-        panel.addSeen(new Card("W4", CardType.WEAPON));
-        panel.addSeen(new Card("W5", CardType.WEAPON));
+        panel.addSeen(new Card("W4", CardType.WEAPON), null);
+        panel.addSeen(new Card("W5", CardType.WEAPON), null);
         
         frame.setVisible(true);       // make it visible
     }
