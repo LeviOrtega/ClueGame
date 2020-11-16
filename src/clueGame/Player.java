@@ -22,6 +22,7 @@ public abstract class Player {
 	protected int row;
 	protected int column;
 	protected boolean finishedTurn;
+	protected boolean testing;
 
 	public Player(String name, int row, int column, PlayerType playerType, Color color) {
 		this.name = name;
@@ -101,7 +102,12 @@ public abstract class Player {
 
 	public void updateHand(Card card) {
 		hand.add(card);
-		if (playerType == PlayerType.HUMAN) {
+		// the computer checks all cards its seen before when making suggestions
+		if (playerType == PlayerType.COMPUTER) {
+			seen.add(card);
+		}
+		// we only want to display the hand and seen if its a player
+		if (testing == false && playerType == PlayerType.HUMAN) {
 		ClueGame.getInstance().displayNewHand(card, this);	
 		}
 		}
@@ -109,7 +115,7 @@ public abstract class Player {
 	// called from a disproved card
 	public void updateSeen(Card card, Player disprovePlayer) {
 		seen.add(card);
-		if (playerType == PlayerType.HUMAN) {
+		if (testing == false && playerType == PlayerType.HUMAN) {
 		ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
 		}
 	}
@@ -163,6 +169,11 @@ public abstract class Player {
 
 	public void setFinishedTurn(boolean finishedTurn) {
 		this.finishedTurn = finishedTurn;
+	}
+	
+	public void setTesting(Boolean test) {
+		// for testing shuffling and to not call null values not setup in JUnit tests
+		testing = test;
 	}
 
 

@@ -29,6 +29,7 @@ import gui.ClueGame;
 
 public class Board extends JPanel{
 	private static Board theInstance = new Board();
+	private static boolean testing;
 	private int numRows;
 	private int numColumns;
 	private int numPeople, numWeapons, numRooms; // numRooms != roomMap.size(). roomMap holds unused rooms
@@ -682,6 +683,8 @@ public class Board extends JPanel{
 			else {
 				player = new ComputerPlayer(name,0,0,PlayerType.COMPUTER, null);
 			}
+			// for debugging purposes
+			player.setTesting(testing);
 			players.add(player);
 			numPeople++;
 			break;
@@ -886,6 +889,10 @@ public class Board extends JPanel{
 
 	public void setCurrentPlayer(Player player) {
 		this.currentPlayer = player;
+	}
+	
+	public void setTesting(boolean testing) {
+		this.testing = testing;
 	}
 
 

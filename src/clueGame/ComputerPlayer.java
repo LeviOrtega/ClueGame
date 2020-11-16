@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class ComputerPlayer extends Player {
 	
-	private boolean testing;
 	
 	public ComputerPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
@@ -92,9 +91,5 @@ public class ComputerPlayer extends Player {
 		return this.suggestion;
 	}
 
-	public void setTesting(Boolean test) {
-		// for testing shuffling
-		this.testing= test;
-	}
 
 }

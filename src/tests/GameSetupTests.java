@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
 import clueGame.Solution;
+import gui.ClueGame;
 
 class GameSetupTests {
 
@@ -34,6 +35,7 @@ class GameSetupTests {
 	static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
+		board.setTesting(true);
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files

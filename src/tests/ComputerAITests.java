@@ -84,7 +84,7 @@ class ComputerAITests {
 		assertTrue(sheriff.toString().equals("Cowboy"));
 
 		Suggestion suggestion = new Suggestion(sheriff, saloon, revolver);
-		ComputerPlayer computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER, null);
+		Player computer = new ComputerPlayer("AI", 15,20,PlayerType.COMPUTER, null);
 		computer.setTesting(true);
 		Suggestion aiSuggestion = computer.createSuggestion();
 
