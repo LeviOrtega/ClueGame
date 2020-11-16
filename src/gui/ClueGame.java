@@ -82,7 +82,8 @@ public class ClueGame extends JFrame{
 			}
 			// if result IS null, then no player disproved any card in suggestion 
 			else {
-				gameControlPanel.setResult("Cannot be disproved!");
+				System.out.println("He");
+				gameControlPanel.setResult("Cannot be disproven!");
 			}
 		}
 	}
