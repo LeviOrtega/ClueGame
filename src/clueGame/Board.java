@@ -133,14 +133,23 @@ public class Board extends JPanel{
 	// called after cell's type and position is established and in repaint
 	public void determineCellColor(BoardCell boardCell) {
 		// check to see if the boardCell is a target and the turn is not a computer to display blue cells
-		if (targets.contains(boardCell) && currentPlayer.getPlayerType() != PlayerType.COMPUTER) {
+
+		if (targets.contains(boardCell) && currentPlayer.getPlayerType() == PlayerType.HUMAN) {
 			boardCell.setColor(Color.WHITE);
 		}
 		else if (boardCell.isPath()) {
 			boardCell.setColor(Color.ORANGE);
 		} 
 		else if (boardCell.isRoom()) {
-			boardCell.setColor(new Color(50,50,50));
+			// check if the targets has this rooms center cell, if so, make the whole room white
+			// we also only want to show this if its a human player
+			Room potentialRoom = getRoom(boardCell);
+			if (targets.contains(potentialRoom.getCenterCell()) && currentPlayer.getPlayerType() == PlayerType.HUMAN){
+				boardCell.setColor(Color.white);
+			}
+			else {
+				boardCell.setColor(new Color(50,50,50));
+			}
 		}
 		else if (boardCell.isUnused()) {
 			boardCell.setColor(Color.BLACK);
@@ -219,6 +228,8 @@ public class Board extends JPanel{
 
 	// after a boardCell is clicked on, check to see if the player can move to it
 	public void validateTargetSelection(BoardCell pointCell) {
+		Room potentialRoom = getRoom(pointCell);
+
 		if (targets.contains(pointCell)) {
 			// clear the targets, they will be recalculated in next player
 			// updatePosition repaints so targets will be pained normal colors again 
@@ -226,6 +237,17 @@ public class Board extends JPanel{
 			// move the player to the point if its within the targets
 			// update position also checks if player should handle suggesiton
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
+		}
+		// if potential room isnt null, that means that the cell they clicked on was a room cell
+		// and if that cell's room's center cell is in targets, we can move the player to that rooms
+		// center cell
+		else if(potentialRoom != null && targets.contains(potentialRoom.getCenterCell())) {
+			// we don't want to move the player to a position they clicked on, we want to move them to the room
+			// center of the room they clicked on
+			BoardCell actualRoomCell = potentialRoom.getCenterCell();
+			targets.clear();
+			currentPlayer.updatePosition(actualRoomCell.getRow(), actualRoomCell.getColumn());
+
 		}
 		else {
 			// display error box
@@ -335,7 +357,7 @@ public class Board extends JPanel{
 
 			}
 		}
-		
+
 		return cards;
 	}
 

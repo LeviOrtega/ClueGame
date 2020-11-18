@@ -85,7 +85,8 @@ public class AccusationPrompt extends JDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				player.setFinishedTurn(true);
+				// player still can make moves during this turn since the accusation prompt
+				// is only every called at beginning of turn
 				dispose();
 			}
 			

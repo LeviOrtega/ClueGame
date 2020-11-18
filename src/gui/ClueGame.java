@@ -172,6 +172,7 @@ public class ClueGame extends JFrame{
 		clueGame.initialize();
 		// display a welcome splash
 		clueGame.welcomeSplash();
+		System.out.println(board.getAnswer().toString());
 		
 	}
 
