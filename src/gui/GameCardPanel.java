@@ -162,6 +162,8 @@ public class GameCardPanel extends JPanel {
 			break;
 		}
 		}
+		this.revalidate();
+		this.repaint();
 		
 	}
  	

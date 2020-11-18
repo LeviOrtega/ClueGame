@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -18,10 +21,12 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.Player;
 import clueGame.PlayerType;
+import clueGame.Solution;
 import clueGame.Suggestion;
 
 public class ClueGame extends JFrame{
 	private static ClueGame theInstance = new ClueGame();
+	private static Board board = Board.getInstance();
 	private GameCardPanel gameCardPanel;
 	private GameControlPanel gameControlPanel;
 
@@ -47,7 +52,7 @@ public class ClueGame extends JFrame{
 		// the first player in the arrayList is the cowboy, the human player
 		add(gameControlPanel, BorderLayout.SOUTH);
 		add(gameCardPanel, BorderLayout.EAST);
-		Board board = Board.getInstance();
+
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 		// after all players are init and added, we want to set their colors and positions
@@ -60,8 +65,8 @@ public class ClueGame extends JFrame{
 		board.updateCurrentPlayer();
 	}
 
-	public Suggestion displaySuggestionPrompt(Player player) {
-		// called by human player to display the suggestion prompt to make suggestion
+
+	public Solution displayAccusationPrompt(Player player) {
 		return null;
 	}
 
@@ -70,19 +75,23 @@ public class ClueGame extends JFrame{
 		if (gameControlPanel != null) {
 			String stringGuess = 
 					guess.getPeople().getCardName() + "," +
-					guess.getWeapon().getCardName() + "," +
-					guess.getRoom().getCardName();
+							guess.getWeapon().getCardName() + "," +
+							guess.getRoom().getCardName();
 			gameControlPanel.getGuess().setBackground(suggestionPlayer.getColor());
 			gameControlPanel.setGuess(stringGuess);
 			if (result != null) {
-				// set the color of the result text field to be color of player disproving suggestion
-				gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
-				gameControlPanel.setResult(result.getCardName());
-
+				// only display disproved card if its the human
+				if (suggestionPlayer.getPlayerType() == PlayerType.HUMAN) {
+					// set the color of the result text field to be color of player disproving suggestion
+					gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
+					gameControlPanel.setResult(result.getCardName());
+				}
+				else {
+					gameControlPanel.setResult("A card has been disproven.");
+				}
 			}
 			// if result IS null, then no player disproved any card in suggestion 
 			else {
-				System.out.println("He");
 				gameControlPanel.setResult("Cannot be disproven!");
 			}
 		}
@@ -99,7 +108,7 @@ public class ClueGame extends JFrame{
 		// set the turn text box to correct player
 		gameControlPanel.getTurn().setBackground(player.getColor());
 		gameControlPanel.setTurn(player, roll);
-		
+
 	}
 
 	public void clearGuessAndResult() {
@@ -109,11 +118,11 @@ public class ClueGame extends JFrame{
 		gameControlPanel.setResult("");
 
 	}
-	
+
 	public void displayNewHand(Card card, Player player) {
 		gameCardPanel.addHand(card, player);
 	}
-	
+
 	public void displayNewSeen(Card card, Player player) {
 		gameCardPanel.addSeen(card, player);
 	}

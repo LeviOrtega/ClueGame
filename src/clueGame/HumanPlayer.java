@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import gui.ClueGame;
+import gui.SuggestionPrompt;
 
 public class HumanPlayer extends Player {
-
-
 
 	public HumanPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
@@ -26,17 +25,23 @@ public class HumanPlayer extends Player {
 
 	}
 
+	// called every move
 	@Override
 	public Suggestion createSuggestion() {
 		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
 		// if the player isn't in a roomCenter, they can't make a suggestion
 		if (!(playerCell.isRoomCenter())) {
+			// if player isn't in a room, then their turn is done
+			finishedTurn = true;
 			return null;
 		}
 
 		// the dialogue box will return a solution from the drop down menus 
-		return ClueGame.getInstance().displaySuggestionPrompt(this);
+		SuggestionPrompt input = new SuggestionPrompt();
+		input.displaySuggestionPrompt(this);
 
+		// suggestion will be handled in suggestionprompt and once answer is submitted it will be sent to handleSuggestion
+		return null;
 	}
 
 }

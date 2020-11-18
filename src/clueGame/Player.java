@@ -69,6 +69,7 @@ public abstract class Player {
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
 		// after the players position has been updated, repaint
 		Board.getInstance().repaint();
+
 		checkIfPlayerShouldHandleSuggestion();
 	}
 
@@ -76,15 +77,22 @@ public abstract class Player {
 		// only check if currentPlayer is this player
 		// we do this because players can be pulled into rooms
 		if (Board.getInstance().getCurrentPlayer() == this) {
-			suggestion = createSuggestion();
-			if (suggestion != null) {
-				Board.getInstance().handleSuggestion(this);
-			}
-			// after the suggestion is used, make it null again. Player shouldn't hold onto suggestion
-			suggestion = null;
-		}
 
+			// these function calls are not event driven and should only be used for computers. 
+			// handle suggestion is called in event listeners
+
+			// createSuggestion returns null if player isn't in room
+			suggestion = createSuggestion();
+			if (playerType == PlayerType.COMPUTER && suggestion != null) {
+				Card disprovedCard = Board.getInstance().handleSuggestion(this);
+				if (disprovedCard == null) {
+					// we know that if the card is null, no one disproved it
+				} 
+				// seen is added in handleSuggesiton
+			}
+		}
 	}
+
 	public void draw(Graphics g) {
 		Board board = Board.getInstance();
 		int width = board.getWidth() / board.getNumColumns();
@@ -108,15 +116,15 @@ public abstract class Player {
 		}
 		// we only want to display the hand and seen if its a player
 		if (testing == false && playerType == PlayerType.HUMAN) {
-		ClueGame.getInstance().displayNewHand(card, this);	
+			ClueGame.getInstance().displayNewHand(card, this);	
 		}
-		}
-	
+	}
+
 	// called from a disproved card
 	public void updateSeen(Card card, Player disprovePlayer) {
 		seen.add(card);
 		if (testing == false && playerType == PlayerType.HUMAN) {
-		ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
+			ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
 		}
 	}
 
@@ -170,7 +178,7 @@ public abstract class Player {
 	public void setFinishedTurn(boolean finishedTurn) {
 		this.finishedTurn = finishedTurn;
 	}
-	
+
 	public void setTesting(Boolean test) {
 		// for testing shuffling and to not call null values not setup in JUnit tests
 		testing = test;

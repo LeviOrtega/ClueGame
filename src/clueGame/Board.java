@@ -226,8 +226,6 @@ public class Board extends JPanel{
 			// move the player to the point if its within the targets
 			// update position also checks if player should handle suggesiton
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
-			// target was valid and player has made their suggestion, the player can now move
-			currentPlayer.setFinishedTurn(true);
 		}
 		else {
 			// display error box
@@ -250,6 +248,8 @@ public class Board extends JPanel{
 				}
 			}
 		}
+		
+		player.updateSeen(card, disprovePlayer);
 		// we wait until the end to return card because we wish to display everything in the control panel
 		ClueGame.getInstance().updateGuessAndResult(playerSuggestion, card, player, disprovePlayer);
 		return card;
@@ -806,6 +806,44 @@ public class Board extends JPanel{
 	 * 
 	 * ------------------------------------------------------------------------------
 	 */
+
+	public Card getCardByString(String cardString) {
+		for (Card card: deck) {
+			if (card.getCardName().equals(cardString)) {
+				return card;
+			}
+		}
+		return null;
+	}
+
+	// return all card types as an array 
+	public Card[] getTypeCards(CardType cardType) {
+		int len = 0;
+		switch (cardType) {
+		case PEOPLE:{
+			len = numPeople;
+			break;
+		}
+		case WEAPON:{
+			len = numWeapons;
+			break;
+		}
+		case ROOM:{
+			len = numRooms;
+			break;
+		}
+
+		}
+		Card[] cards = new Card[len];
+		int i = 0;
+		for (Card card: deck) {
+			if (card.getCardType() == cardType) {
+				cards[i] = card;
+				i++;
+			}
+		}
+		return cards;
+	}
 
 	public Set<BoardCell> getTargets(){
 		return targets;
