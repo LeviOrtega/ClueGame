@@ -22,7 +22,6 @@ import clueGame.Suggestion;
 
 public class ClueGame extends JFrame{
 	private static ClueGame theInstance = new ClueGame();
-	private Board board = Board.getInstance();
 	private GameCardPanel gameCardPanel;
 	private GameControlPanel gameControlPanel;
 
@@ -35,7 +34,7 @@ public class ClueGame extends JFrame{
 
 
 	public void initialize() {
-		setSize(1000, 800);
+		setSize(900, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ClueGame CSCI 306");
 		addMouseListener(new MouseBoard());
@@ -48,6 +47,7 @@ public class ClueGame extends JFrame{
 		// the first player in the arrayList is the cowboy, the human player
 		add(gameControlPanel, BorderLayout.SOUTH);
 		add(gameCardPanel, BorderLayout.EAST);
+		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 		// after all players are init and added, we want to set their colors and positions
@@ -134,17 +134,6 @@ public class ClueGame extends JFrame{
 
 	public static void main(String[] args) {
 		ClueGame clueGame = ClueGame.getInstance();
-		clueGame.setSize(1000, 800);
-		clueGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		clueGame.setTitle("ClueGame CSCI 306");
-		GameCardPanel gameCardPanel = new GameCardPanel();
-		GameControlPanel gameControlPanel = new GameControlPanel();
-		gameCardPanel.setPreferredSize(new Dimension(clueGame.getWidth()/6, clueGame.getHeight()));
-
-
-		clueGame.add(gameControlPanel, BorderLayout.SOUTH);
-		clueGame.add(gameCardPanel, BorderLayout.EAST);
-
 		clueGame.initialize();
 		// display a welcome splash
 		clueGame.welcomeSplash();

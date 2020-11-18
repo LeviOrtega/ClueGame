@@ -97,7 +97,7 @@ public class BoardCell {
 		int y = this.row * (height) + (height*3)/4;
 
 		if (this.isLabel()) {
-			g.setFont(new Font("TimesRoman", Font.BOLD, 15));
+			g.setFont(new Font("TimesRoman", Font.BOLD, 12));
 			g.setColor(Color.RED);
 			g.drawString(roomName, x, y);
 		}

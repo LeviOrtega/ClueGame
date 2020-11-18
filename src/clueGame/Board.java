@@ -11,6 +11,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,6 +54,7 @@ public class Board extends JPanel{
 	public final String WEAPON = "Weapon";
 	public final String PEOPLE = "People";
 	public final String PLAYER_CHARACTER = "Cowboy";
+	public final String DIR =  "data/";
 
 
 	private Board() {}
@@ -68,6 +72,7 @@ public class Board extends JPanel{
 		deck = new ArrayList<Card>();
 		dealtCards = new HashSet<Card>();
 		players = new ArrayList<Player>();
+		board = null;
 		// for testing purposes we keep track of number of all card types
 		numPeople = 0;
 		numWeapons = 0;
@@ -135,7 +140,7 @@ public class Board extends JPanel{
 			boardCell.setColor(Color.ORANGE);
 		} 
 		else if (boardCell.isRoom()) {
-			boardCell.setColor(Color.GRAY);
+			boardCell.setColor(new Color(50,50,50));
 		}
 		else if (boardCell.isUnused()) {
 			boardCell.setColor(Color.BLACK);
@@ -620,7 +625,7 @@ public class Board extends JPanel{
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
 
 		try {
-			File setup = new File("data/" + setupConfigFile);
+			File setup = new File(DIR + setupConfigFile);
 			Scanner sc = new Scanner(setup);
 
 			// this loop goes through each line of setup .txt, grabs data, and checks if file is formatted correctly
@@ -698,11 +703,14 @@ public class Board extends JPanel{
 	}
 
 	public void loadLayoutConfig() throws BadConfigFormatException {  // CSV file loader
+		//System.out.println(Paths.get("").toAbsolutePath());
 		int colLen = 0;
 		int rowLen = 0;
 		try {
-			File layout = new File("data/" + layoutConfigFile);
-			Scanner sc = new Scanner(layout);
+			Scanner sc;
+			File layout;
+			layout = new File(DIR + layoutConfigFile);
+			sc = new Scanner(layout);
 			String in = sc.nextLine();
 			String[] column = in.split(",");
 			colLen = column.length;
@@ -732,7 +740,7 @@ public class Board extends JPanel{
 			checkRooms();
 		}
 		catch(FileNotFoundException e) {
-			System.out.println("File " + layoutConfigFile + " cannot be opened.");
+			System.out.println("File, " + layoutConfigFile + " could not be opened.");
 		}
 
 		this.numColumns = colLen;
@@ -890,7 +898,7 @@ public class Board extends JPanel{
 	public void setCurrentPlayer(Player player) {
 		this.currentPlayer = player;
 	}
-	
+
 	public void setTesting(boolean testing) {
 		this.testing = testing;
 	}
