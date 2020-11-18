@@ -76,7 +76,7 @@ public abstract class Player {
 	private void checkIfPlayerShouldHandleSuggestion() {
 		// only check if currentPlayer is this player
 		// we do this because players can be pulled into rooms
-		if (Board.getInstance().getCurrentPlayer() == this) {
+		if (Board.getInstance().getCurrentPlayer() == this && finishedTurn == false) {
 
 			// these function calls are not event driven and should only be used for computers. 
 			// handle suggestion is called in event listeners
@@ -122,10 +122,15 @@ public abstract class Player {
 
 	// called from a disproved card
 	public void updateSeen(Card card, Player disprovePlayer) {
-		seen.add(card);
 		if (testing == false && playerType == PlayerType.HUMAN) {
+			if (!(seen.contains(card))) {
+			// we don't want to add the same card that has been disproven. Humans can submit a card that has been disproven
 			ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
+			}
 		}
+		
+		seen.add(card);
+		
 	}
 
 

@@ -249,10 +249,31 @@ public class Board extends JPanel{
 			}
 		}
 		
+		// if a suggestion was made, then take the player being suggested and move them to the position of the player
+		// making the suggestion
+
+		if (playerSuggestion != null) {
+			handleSuggestionMovePlayers(playerSuggestion.getPeople(), player);
+		}
+
 		player.updateSeen(card, disprovePlayer);
 		// we wait until the end to return card because we wish to display everything in the control panel
 		ClueGame.getInstance().updateGuessAndResult(playerSuggestion, card, player, disprovePlayer);
 		return card;
+	}
+
+	public void handleSuggestionMovePlayers(Card playerCard, Player suggestingPlayer) {
+		Player suggestedPlayer = null;
+		for (Player player: players) {
+			if (player.getName().equals(playerCard.getCardName())) {
+				// we found player being accused
+				suggestedPlayer = player;
+				break;
+			}
+		}
+		
+		suggestedPlayer.updatePosition(suggestingPlayer.getRow(), suggestingPlayer.getColumn());
+
 	}
 
 	public boolean makeAccusation(Solution accusation) {
