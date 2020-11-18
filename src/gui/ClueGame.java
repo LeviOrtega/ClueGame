@@ -96,6 +96,15 @@ public class ClueGame extends JFrame{
 			}
 		}
 	}
+	
+	
+	public void displayVictoryScreen(Player winner) {
+		JDialog dialog = new JDialog();
+		dialog.setSize(100, 100);
+		JLabel wLabel = new JLabel(winner.getName() + " has won!");
+		dialog.add(wLabel);
+		dialog.setVisible(true);
+	}
 
 
 	public void displayErrorSplash(String error) {
@@ -146,6 +155,11 @@ public class ClueGame extends JFrame{
 		clueGame.initialize();
 		// display a welcome splash
 		clueGame.welcomeSplash();
+		for (Player player: board.getPlayers()) {
+			System.out.println(player.toString());
+			System.out.println(player.getHand());
+		}
+		System.out.println(board.getAnswer().toString());
 	}
 
 

@@ -248,15 +248,18 @@ public class Board extends JPanel{
 				}
 			}
 		}
-		
+
 		// if a suggestion was made, then take the player being suggested and move them to the position of the player
 		// making the suggestion
 
-		if (playerSuggestion != null) {
+		if (playerSuggestion != null && player.testing == false) {
 			handleSuggestionMovePlayers(playerSuggestion.getPeople(), player);
 		}
 
-		player.updateSeen(card, disprovePlayer);
+		// we don't want to give a null card
+		if (card != null) {
+			player.updateSeen(card, disprovePlayer);
+		}
 		// we wait until the end to return card because we wish to display everything in the control panel
 		ClueGame.getInstance().updateGuessAndResult(playerSuggestion, card, player, disprovePlayer);
 		return card;
@@ -271,7 +274,7 @@ public class Board extends JPanel{
 				break;
 			}
 		}
-		
+		// move player who is being suggested to position of suggesting player
 		suggestedPlayer.updatePosition(suggestingPlayer.getRow(), suggestingPlayer.getColumn());
 
 	}
@@ -305,24 +308,24 @@ public class Board extends JPanel{
 		Card[] cards = new Card[3];
 		for (Card card: deck) {
 			switch(card.getCardType()) {
-			case ROOM:{
-				// cards[0] is room card in array
+			case PEOPLE:{
+				// cards[0] is people card in array
 				if (cards[0] == null && !(dealtCards.contains(card))) {
 					cards[0] = card;
 					dealtCards.add(card);
 				}
 				break;
 			}
-			case WEAPON:{
-				// cards[1] is weapon card in array
+			case ROOM:{
+				// cards[1] is room card in array
 				if (cards[1] == null && !(dealtCards.contains(card))) {
 					cards[1] = card;
 					dealtCards.add(card);
 				}
 				break;
 			}
-			case PEOPLE:{
-				// cards[2] is people card in array
+			case WEAPON:{
+				// cards[2] is weapon card in array
 				if (cards[2] == null && !(dealtCards.contains(card))) {
 					cards[2] = card;
 					dealtCards.add(card);
@@ -961,6 +964,7 @@ public class Board extends JPanel{
 	public void setTesting(boolean testing) {
 		this.testing = testing;
 	}
+
 
 
 	public static void main(String[] args) {

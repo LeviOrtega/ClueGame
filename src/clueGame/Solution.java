@@ -1,6 +1,7 @@
 package clueGame;
 
 public class Solution {
+
 	Card people, room, weapon;
 	
 	public Solution(Card people, Card room, Card weapon) {
@@ -38,6 +39,11 @@ public class Solution {
 
 	public void setWeapon(Card weapon) {
 		this.weapon = weapon;
+	}
+	
+	@Override
+	public String toString() {
+		return "Solution [people=" + people.getCardName() + ", room=" + room.getCardName() + ", weapon=" + weapon.getCardName() + "]";
 	}
 	
 }

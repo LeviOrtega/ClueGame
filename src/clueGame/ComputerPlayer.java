@@ -6,44 +6,60 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import gui.ClueGame;
+
 public class ComputerPlayer extends Player {
-	
-	
+
+
 	public ComputerPlayer(String name, int row, int column, PlayerType playerType, Color color) {
 		super(name, row, column, playerType, color);
 	}
 
 	@Override
 	public void selectTarget(int roll) {
-		// get player cell
-		BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
-		Board.getInstance().calcTargets(playerCell, roll);
-		Set<BoardCell> targets = Board.getInstance().getTargets();
-		ArrayList<BoardCell> rooms = new ArrayList<BoardCell>();
-		ArrayList<BoardCell> spaces = new ArrayList<BoardCell>();
-		// loop through all targets at the players starting location and determine the rooms and spaces they can move to
-		for (BoardCell target: targets) {
-			// set all targets to be blue
-			if (target.isRoomCenter()) {
-				rooms.add(target);
+		// this is the first funciton called for each player
+		// check if previous turn a solution was found, if so, check if it was right
+
+		if (accusation != null) {
+			if (Board.getInstance().makeAccusation(accusation)) {
+				ClueGame.getInstance().displayVictoryScreen(this);
 			}
-			else spaces.add(target);
+			else {
+				System.out.println(Board.getInstance().getAnswer().toString() + " ... " + accusation.toString());
+			}
 		}
-		BoardCell newLocation;
-		// if we have rooms to go to, choose randomly
-		if (rooms.size() != 0) {
-			Collections.shuffle(rooms);
-			newLocation = rooms.get(0);
-			this.updatePosition(newLocation.getRow(), newLocation.getColumn());
-		}
-		// else choose random space
-		else if (spaces.size() != 0){
-			Collections.shuffle(spaces);
-			newLocation = spaces.get(0);
-			this.updatePosition(newLocation.getRow(), newLocation.getColumn());
-		}
+		// else continue on with calculating targets
+		else {
 
+			// get player cell
+			BoardCell playerCell = Board.getInstance().getCell(this.row, this.column);
+			Board.getInstance().calcTargets(playerCell, roll);
+			Set<BoardCell> targets = Board.getInstance().getTargets();
+			ArrayList<BoardCell> rooms = new ArrayList<BoardCell>();
+			ArrayList<BoardCell> spaces = new ArrayList<BoardCell>();
+			// loop through all targets at the players starting location and determine the rooms and spaces they can move to
+			for (BoardCell target: targets) {
+				// set all targets to be blue
+				if (target.isRoomCenter()) {
+					rooms.add(target);
+				}
+				else spaces.add(target);
+			}
+			BoardCell newLocation;
+			// if we have rooms to go to, choose randomly
+			if (rooms.size() != 0) {
+				Collections.shuffle(rooms);
+				newLocation = rooms.get(0);
+				this.updatePosition(newLocation.getRow(), newLocation.getColumn());
+			}
+			// else choose random space
+			else if (spaces.size() != 0){
+				Collections.shuffle(spaces);
+				newLocation = spaces.get(0);
+				this.updatePosition(newLocation.getRow(), newLocation.getColumn());
+			}
 
+		}
 	}
 
 
@@ -61,9 +77,6 @@ public class ComputerPlayer extends Player {
 
 		ArrayList<Card> deck = Board.getInstance().getDeck();
 		// shuffle deck so that computers suggest different cards
-		if (testing == false) {
-		Collections.shuffle(deck);
-		}
 		for (Card card: deck) {
 			// if player has seen card, dont suggest it
 			if (!(this.seen.contains(card))) {

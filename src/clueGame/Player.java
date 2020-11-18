@@ -23,6 +23,7 @@ public abstract class Player {
 	protected int column;
 	protected boolean finishedTurn;
 	protected boolean testing;
+	protected Solution accusation;
 
 	public Player(String name, int row, int column, PlayerType playerType, Color color) {
 		this.name = name;
@@ -65,6 +66,7 @@ public abstract class Player {
 		Board.getInstance().getCell(this.row, this.column).setOccupied(false);
 		this.row = row;
 		this.column = column;
+
 		// set new boardCell to occupied
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
 		// after the players position has been updated, repaint
@@ -86,7 +88,16 @@ public abstract class Player {
 			if (playerType == PlayerType.COMPUTER && suggestion != null) {
 				Card disprovedCard = Board.getInstance().handleSuggestion(this);
 				if (disprovedCard == null) {
-					// we know that if the card is null, no one disproved it
+					// we know that if the card is null, no one disproved it and that is the solution besides themselves
+					if (!(seen.contains(suggestion.getRoom()))){
+						// players must suggest room they are in, because of this, we don't check to see if its in seen/hand
+						// this means that when attempting to disprove suggestion, the player making the suggesting
+						// cannot disprove the room card they have in their hand and think they have found a solution
+						accusation = new Solution(
+								suggestion.getPeople(), 
+								suggestion.getRoom(), 
+								suggestion.getWeapon());
+					}
 				} 
 				// seen is added in handleSuggesiton
 			}
@@ -124,13 +135,13 @@ public abstract class Player {
 	public void updateSeen(Card card, Player disprovePlayer) {
 		if (testing == false && playerType == PlayerType.HUMAN) {
 			if (!(seen.contains(card))) {
-			// we don't want to add the same card that has been disproven. Humans can submit a card that has been disproven
-			ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
+				// we don't want to add the same card that has been disproven. Humans can submit a card that has been disproven
+				ClueGame.getInstance().displayNewSeen(card, disprovePlayer);
 			}
 		}
-		
+
 		seen.add(card);
-		
+
 	}
 
 
