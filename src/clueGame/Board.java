@@ -184,6 +184,9 @@ public class Board extends JPanel{
 		if (currentPlayer.getPlayerType() == PlayerType.COMPUTER) {
 			return true;
 		}
+		else if (targets.size() == 0) {
+			return true;
+		}
 		// else player is human and need to check if they finished their turn which is triggered after target is selected
 		return currentPlayer.isFinishedTurn();
 	}
