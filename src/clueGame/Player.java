@@ -71,11 +71,9 @@ public abstract class Player {
 		Board.getInstance().getCell(this.row, this.column).setOccupied(true);
 		// after the players position has been updated, repaint
 		Board.getInstance().repaint();
-
-		checkIfPlayerShouldHandleSuggestion();
 	}
 
-	private void checkIfPlayerShouldHandleSuggestion() {
+	public void checkIfPlayerShouldHandleSuggestion() {
 		// only check if currentPlayer is this player
 		// we do this because players can be pulled into rooms
 		if (Board.getInstance().getCurrentPlayer() == this && finishedTurn == false) {

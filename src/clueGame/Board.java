@@ -235,7 +235,6 @@ public class Board extends JPanel{
 			// updatePosition repaints so targets will be pained normal colors again 
 			targets.clear();
 			// move the player to the point if its within the targets
-			// update position also checks if player should handle suggesiton
 			currentPlayer.updatePosition(pointCell.getRow(), pointCell.getColumn());
 		}
 		// if potential room isnt null, that means that the cell they clicked on was a room cell
@@ -252,7 +251,10 @@ public class Board extends JPanel{
 		else {
 			// display error box
 			ClueGame.getInstance().displayErrorSplash("Please select valid target.");
+			return;
 		}
+		// after the player moved to a correct location, check if they should make a suggestion
+		currentPlayer.checkIfPlayerShouldHandleSuggestion();
 	}
 
 

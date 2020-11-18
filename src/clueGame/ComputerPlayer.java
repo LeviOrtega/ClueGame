@@ -48,6 +48,8 @@ public class ComputerPlayer extends Player {
 				Collections.shuffle(rooms);
 				newLocation = rooms.get(0);
 				this.updatePosition(newLocation.getRow(), newLocation.getColumn());
+				// if the computer is in a room, they should handle a suggestion
+				checkIfPlayerShouldHandleSuggestion();
 			}
 			// else choose random space
 			else if (spaces.size() != 0){
