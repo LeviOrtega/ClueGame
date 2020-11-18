@@ -1,5 +1,6 @@
 package gui;
 
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,21 +17,23 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.Player;
 import clueGame.Room;
+import clueGame.Solution;
 import clueGame.Suggestion;
 
-public class SuggestionPrompt extends JDialog{
+public class AccusationPrompt extends JDialog{
 	JComboBox peopleBox;
 	JComboBox weaponBox;
-	private Suggestion suggestion;
+	JComboBox roomBox;
+	private Solution solution;
 
 	private Board board = Board.getInstance();
 
 
-	public SuggestionPrompt() {
-		suggestion = new Suggestion();
+	public AccusationPrompt() {
+		solution = new Solution();
 	}
-	// called by human player to display the suggestion prompt to make suggestion
-	public void displaySuggestionPrompt(Player player) {
+	// called by the action preformed in accusation button
+	public void displayAccusationPrompt(Player player) {
 		setSize(400,200);
 		setLocationRelativeTo(null);
 		//suggestion.setLayout(new GridLayout(4,2));
@@ -65,10 +68,14 @@ public class SuggestionPrompt extends JDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// send suggestion to handleSuggestion 
 				player.setFinishedTurn(true);
-				player.setSuggestion(suggestion);
-				Board.getInstance().handleSuggestion(player);
+				Boolean win = Board.getInstance().makeAccusation(solution);
+				if (win) {
+					ClueGame.getInstance().displayVictoryScreen(player);
+				}
+				else {
+					ClueGame.getInstance().displayLoseScreen();
+				}
 				dispose();
 			}
 			
@@ -100,14 +107,14 @@ public class SuggestionPrompt extends JDialog{
 		Card[] weaponCards = board.getTypeCards(CardType.WEAPON);
 		weaponBox = new JComboBox(weaponCards);
 		// set default selection to be the first item
-		suggestion.setWeapon(weaponCards[0]);
+		solution.setWeapon(weaponCards[0]);
 		weaponBox.setSelectedIndex(0);
 		weaponBox.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//give suggestion the 
-				suggestion.setWeapon(weaponCards[weaponBox.getSelectedIndex()]);
+				solution.setWeapon(weaponCards[weaponBox.getSelectedIndex()]);
 				
 			}
 		});
@@ -125,14 +132,14 @@ public class SuggestionPrompt extends JDialog{
 		Card[] peopleCards = board.getTypeCards(CardType.PEOPLE);
 		peopleBox = new JComboBox(peopleCards);
 		// set default selection to be the first item
-		suggestion.setPeople(peopleCards[0]);
+		solution.setPeople(peopleCards[0]);
 		peopleBox.setSelectedIndex(0);
 		peopleBox.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//give suggestion the 
-				suggestion.setPeople(peopleCards[peopleBox.getSelectedIndex()]);
+				solution.setPeople(peopleCards[peopleBox.getSelectedIndex()]);
 
 			}
 		});
@@ -144,25 +151,30 @@ public class SuggestionPrompt extends JDialog{
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(0,2));
 
-		// telling player which room they're in
-		JLabel label = new JLabel("Current Room:");
-		panel1.add(label);
+		JLabel label1 = new JLabel("Person:");
+		panel1.add(label1);
 
-		// current room
-		BoardCell playerCell = board.getCell(player.getRow(), player.getColumn());
-		Room room = board.getRoom(playerCell);
-		String roomName = room.getName();
-		Card roomCard = room.getRoomCard();
+		Card[] roomCards = board.getTypeCards(CardType.ROOM);
+		roomBox = new JComboBox(roomCards);
+		// set default selection to be the first item
+		solution.setRoom(roomCards[0]);
+		roomBox.setSelectedIndex(0);
+		roomBox.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//give suggestion the 
+				solution.setRoom(roomCards[roomBox.getSelectedIndex()]);
 
-		suggestion.setRoom(roomCard);
+			}
+		});
 
-		label = new JLabel(roomName);
-		panel1.add(label);
+		panel1.add(roomBox);
 		return panel1;
 	}
 
-	public Suggestion getSuggestion() {
-		return this.suggestion;
+	public Solution getSolution() {
+		return this.solution;
 	}
 	
 	

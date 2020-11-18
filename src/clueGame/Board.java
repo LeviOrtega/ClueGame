@@ -290,7 +290,7 @@ public class Board extends JPanel{
 		Collections.shuffle(deck);
 		Card[] answerCards = getThreeCards();
 		answer = new Solution(answerCards[0], answerCards[1], answerCards[2]);
-
+		Collections.shuffle(deck);
 		int playerIndex = 0;
 		for (int i = 0; i < deck.size(); i++) {
 			Card card = deck.get(i);
@@ -335,6 +335,7 @@ public class Board extends JPanel{
 
 			}
 		}
+		
 		return cards;
 	}
 

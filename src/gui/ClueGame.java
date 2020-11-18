@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import clueGame.Board;
 import clueGame.BoardCell;
@@ -40,6 +41,7 @@ public class ClueGame extends JFrame{
 
 	public void initialize() {
 		setSize(900, 900);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ClueGame CSCI 306");
 		addMouseListener(new MouseBoard());
@@ -99,11 +101,26 @@ public class ClueGame extends JFrame{
 	
 	
 	public void displayVictoryScreen(Player winner) {
-		JDialog dialog = new JDialog();
-		dialog.setSize(100, 100);
-		JLabel wLabel = new JLabel(winner.getName() + " has won!");
-		dialog.add(wLabel);
-		dialog.setVisible(true);
+		JFrame victoryFrame = new JFrame();
+		victoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		victoryFrame.setSize(200, 200);
+		victoryFrame.setLocationRelativeTo(null);
+		JLabel wLabel = new JLabel(winner.getName() + " has won!", SwingConstants.CENTER);
+		victoryFrame.add(wLabel);
+		victoryFrame.setTitle("Congrats!");
+		victoryFrame.getContentPane().setBackground(winner.getColor());
+		victoryFrame.setVisible(true);
+	}
+	
+	public void displayLoseScreen() {
+		JFrame loseFrame = new JFrame();
+		loseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loseFrame.setSize(400, 200);
+		loseFrame.setLocationRelativeTo(null);
+		JLabel lLabel = new JLabel("You've lost. Maybe next time, partner.", SwingConstants.CENTER);
+		loseFrame.add(lLabel);
+		loseFrame.setTitle("You lost!");
+		loseFrame.setVisible(true);
 	}
 
 
@@ -155,11 +172,7 @@ public class ClueGame extends JFrame{
 		clueGame.initialize();
 		// display a welcome splash
 		clueGame.welcomeSplash();
-		for (Player player: board.getPlayers()) {
-			System.out.println(player.toString());
-			System.out.println(player.getHand());
-		}
-		System.out.println(board.getAnswer().toString());
+		
 	}
 
 

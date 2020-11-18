@@ -10,6 +10,9 @@ public class Solution {
 		this.weapon = weapon;
 	}
 	
+	public Solution() {
+	}
+
 	public boolean equals(Solution solution) {
 		return 
 				this.people == (solution.getPeople()) &&

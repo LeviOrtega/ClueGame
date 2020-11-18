@@ -24,9 +24,6 @@ public class ComputerPlayer extends Player {
 			if (Board.getInstance().makeAccusation(accusation)) {
 				ClueGame.getInstance().displayVictoryScreen(this);
 			}
-			else {
-				System.out.println(Board.getInstance().getAnswer().toString() + " ... " + accusation.toString());
-			}
 		}
 		// else continue on with calculating targets
 		else {

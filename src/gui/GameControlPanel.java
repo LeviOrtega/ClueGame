@@ -15,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.Board;
 import clueGame.ComputerPlayer;
 import clueGame.Player;
 import clueGame.PlayerType;
@@ -71,6 +72,19 @@ public class GameControlPanel extends JPanel {
 		rightButton = new JButton("Next!");
 
 		rightButton.addActionListener(new NextListener());
+
+		leftButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AccusationPrompt acc = new AccusationPrompt();
+				Player player = Board.getInstance().getCurrentPlayer();
+				if (player.getPlayerType() == PlayerType.HUMAN && player.isFinishedTurn() == false) {
+					acc.displayAccusationPrompt(player);
+				}
+			}
+
+		});
 
 		top.add(leftSubPan);
 		top.add(rightSubPan);

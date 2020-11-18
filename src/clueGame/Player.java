@@ -199,6 +199,8 @@ public abstract class Player {
 		// for testing shuffling and to not call null values not setup in JUnit tests
 		testing = test;
 	}
+	
+
 
 
 }
