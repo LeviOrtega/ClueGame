@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,8 +48,25 @@ public class GameControlPanel extends JPanel {
 	public JPanel createTopPanel() {
 		JPanel top = new JPanel();
 		// have enough room for 4 items 
-		top.setLayout(new GridLayout(1,4));
+		top.setLayout(new GridLayout(1,3));
 
+		JPanel turnSubPan = makeTurnPanel();
+		// must have JLabel and JTextField with orientation -> JLabel (top), JTF (bottom)
+
+		JPanel rollSubPan = makeRollPanel();
+
+		makeButtons();
+		JPanel musicSubPan = makeMusicPanel();
+		
+		top.add(turnSubPan);
+		top.add(rollSubPan);
+		top.add(leftButton);
+		top.add(rightButton);
+		top.add(musicSubPan);
+		return top;
+	}
+
+	public JPanel makeTurnPanel() {
 		JPanel leftSubPan = new JPanel();
 		// we want the left sub panel to have 2 rows so panel stacks on text
 		leftSubPan.setLayout(new GridLayout(2,0));
@@ -57,8 +77,11 @@ public class GameControlPanel extends JPanel {
 		// this makes it so players cannot type in text field
 		turn.setEditable(false);
 		leftSubPan.add(turn);
-		// must have JLabel and JTextField with orientation -> JLabel (top), JTF (bottom)
+		return leftSubPan;
+	}
 
+	public JPanel makeRollPanel() {
+		JLabel label;
 		JPanel rightSubPan = new JPanel();
 		// must have JLabel and JTextField with orientation -> JLabel (left), JTF (right)
 		// have the room label right next to its textfield 
@@ -67,7 +90,10 @@ public class GameControlPanel extends JPanel {
 		roll = new JTextField(5);
 		roll.setEditable(false);
 		rightSubPan.add(roll);
+		return rightSubPan;
+	}
 
+	public void makeButtons() {
 		leftButton = new JButton("Make Accusation");
 		rightButton = new JButton("Next!");
 
@@ -89,12 +115,42 @@ public class GameControlPanel extends JPanel {
 			}
 
 		});
+	}
 
-		top.add(leftSubPan);
-		top.add(rightSubPan);
-		top.add(leftButton);
-		top.add(rightButton);
-		return top;
+	public JPanel makeMusicPanel() {
+		JPanel musicSubPan = new JPanel();
+		musicSubPan.setLayout(new GridLayout(0,1));
+		musicSubPan.setBorder(new TitledBorder (new EtchedBorder(), "Music"));
+		
+		JCheckBox mute = new JCheckBox("Mute");
+		mute.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == 1) {
+					// mute is selected
+					clueGame.getMusic().pause();
+				}
+				else {
+					clueGame.getMusic().resumeAudio();
+				}
+				
+			}
+			
+		});
+		musicSubPan.add(mute);
+		
+		JButton nextSong = new JButton("Next Song");
+		nextSong.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clueGame.getMusic().nextSong();
+			}
+			
+		});
+		musicSubPan.add(nextSong);
+		return musicSubPan;
 	}
 
 

@@ -1,14 +1,18 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Scanner;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -17,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import audio.Music;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.Card;
@@ -28,8 +33,10 @@ import clueGame.Suggestion;
 public class ClueGame extends JFrame{
 	private static ClueGame theInstance = new ClueGame();
 	private static Board board = Board.getInstance();
+	private static Music music;
 	private GameCardPanel gameCardPanel;
 	private GameControlPanel gameControlPanel;
+
 
 
 	public static ClueGame getInstance() {
@@ -40,7 +47,7 @@ public class ClueGame extends JFrame{
 
 
 	public void initialize() {
-		setSize(850, 850);
+		setSize(800, 850);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ClueGame CSCI 306");
@@ -65,13 +72,11 @@ public class ClueGame extends JFrame{
 		setVisible(true);
 
 		board.updateCurrentPlayer();
+		music = new Music();
 	}
 
-
-	public Solution displayAccusationPrompt(Player player) {
-		return null;
-	}
-
+	
+	
 	public void updateGuessAndResult(Suggestion guess, Card result, Player suggestionPlayer, Player disprovePlayer) {
 		// for JUnit tests we see check if its not null
 		if (gameControlPanel != null) {
@@ -115,7 +120,7 @@ public class ClueGame extends JFrame{
 				+ answer.getWeapon().getCardName()
 				, SwingConstants.CENTER
 				);
-		
+
 		victoryFrame.add(wLabel);
 		victoryFrame.add(solution);
 		victoryFrame.setTitle("Congrats!");
@@ -164,7 +169,9 @@ public class ClueGame extends JFrame{
 		gameCardPanel.addSeen(card, player);
 	}
 
-
+	public Music getMusic() {
+		return this.music;
+	}
 
 	public void welcomeSplash() {
 		JOptionPane.showMessageDialog(new JFrame(), 
@@ -179,11 +186,14 @@ public class ClueGame extends JFrame{
 
 
 	public static void main(String[] args) {
+
 		ClueGame clueGame = ClueGame.getInstance();
 		clueGame.initialize();
+
 		// display a welcome splash
 		clueGame.welcomeSplash();
-		System.out.println(board.getAnswer().toString());
+
+		System.out.println(board.getAnswer().toString() + " Playing song:" + music.getSongNumber());
 	}
 
 
