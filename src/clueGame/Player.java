@@ -1,8 +1,10 @@
 package clueGame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,6 +90,11 @@ public abstract class Player {
 
 		// we use an oval to display players
 		g.fillOval(x, y, width, height);
+		g.setColor(Color.BLACK);
+		Graphics2D g2 = (Graphics2D) g;
+		int thickness = 4;
+	    g2.setStroke(new BasicStroke(thickness));
+		g2.drawOval(x+(thickness/2), y+(thickness/2), width-thickness, height-thickness);
 
 	}
 

@@ -48,7 +48,7 @@ public class BoardCell {
 		// color is set by logic outside of the boardcell class
 		g.setColor(this.color);
 		g.fillRect(x, y, width, height);
-
+		
 
 		// if the cell is a doorway, we will display a rectangle for door direction
 		if (this.isDoorway) {
