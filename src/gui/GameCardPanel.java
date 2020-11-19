@@ -43,6 +43,7 @@ public class GameCardPanel extends JPanel {
 		add(panel);
 		panel = createWeaponPanel();
 		add(panel);
+		
 	}
 	
 	public JPanel createPeoplePanel() {

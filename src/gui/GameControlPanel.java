@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class GameControlPanel extends JPanel {
 	JTextField roll;
 	JTextField result;
 	JTextField guess;
+	JTextField song;
 	JButton leftButton;
 	JButton rightButton;
 	Player player;
@@ -38,11 +40,12 @@ public class GameControlPanel extends JPanel {
 		// ensure enough room for 2 items to be stored in grid, in this case two sub-panels
 		// placed in the form of 2 rows with 0 columns
 		setLayout(new GridLayout(2,0));
-
+		
 		JPanel panel = createTopPanel();
 		add(panel);
 		panel = createGuessPanel();
 		add(panel);
+		
 	}
 
 	public JPanel createTopPanel() {
@@ -122,6 +125,7 @@ public class GameControlPanel extends JPanel {
 		musicSubPan.setLayout(new GridLayout(0,1));
 		musicSubPan.setBorder(new TitledBorder (new EtchedBorder(), "Music"));
 		
+		JPanel muteAndSongPanel = new JPanel();
 		JCheckBox mute = new JCheckBox("Mute");
 		mute.addItemListener(new ItemListener() {
 
@@ -138,7 +142,14 @@ public class GameControlPanel extends JPanel {
 			}
 			
 		});
-		musicSubPan.add(mute);
+		muteAndSongPanel.add(mute);
+		
+		song = new JTextField(5);
+		song.setEditable(false);
+		song.setBackground(new Color(220,220,220));
+		muteAndSongPanel.add(song);
+		
+		musicSubPan.add(muteAndSongPanel);
 		
 		JButton nextSong = new JButton("Next Song");
 		nextSong.addActionListener(new ActionListener() {
@@ -182,6 +193,10 @@ public class GameControlPanel extends JPanel {
 		// set our text fields for the player and roll
 		turn.setText(player.getName());
 		roll.setText(String.valueOf(dieRoll));
+	}
+	
+	public void setSong() {
+		song.setText("Song: " + clueGame.getMusic().getSongNumber());
 	}
 
 	public void setGuess(String playerGuess) {

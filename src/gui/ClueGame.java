@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import audio.Music;
 import clueGame.Board;
@@ -48,12 +50,16 @@ public class ClueGame extends JFrame{
 
 	public void initialize() {
 		setSize(800, 850);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ClueGame CSCI 306");
 		addMouseListener(new MouseBoard());
 		gameCardPanel = new GameCardPanel();
+		music = new Music();
 		gameControlPanel = new GameControlPanel();
+		music.pickRandomSong();
+		music.initialize();
 		gameCardPanel.setPreferredSize(new Dimension(getWidth()/6, getHeight()));
 
 
@@ -61,18 +67,22 @@ public class ClueGame extends JFrame{
 		// the first player in the arrayList is the cowboy, the human player
 		add(gameControlPanel, BorderLayout.SOUTH);
 		add(gameCardPanel, BorderLayout.EAST);
-
+		
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 		// after all players are init and added, we want to set their colors and positions
 		// we do this last as the players use boardcells to know where they are
 		board.setPlayerInfo();
 		board.deal();
+		
+
 		add(board, BorderLayout.CENTER);
 		setVisible(true);
 
 		board.updateCurrentPlayer();
-		music = new Music();
+		
+		
+
 	}
 
 	
@@ -182,8 +192,12 @@ public class ClueGame extends JFrame{
 	}
 
 
+	
 
 
+	public GameControlPanel getGameControlPanel() {
+		return gameControlPanel;
+	}
 
 	public static void main(String[] args) {
 
@@ -193,7 +207,7 @@ public class ClueGame extends JFrame{
 		// display a welcome splash
 		clueGame.welcomeSplash();
 
-		System.out.println(board.getAnswer().toString() + " Playing song:" + music.getSongNumber());
+		System.out.println(board.getAnswer().toString());
 	}
 
 

@@ -40,8 +40,8 @@ public class BoardCell {
 
 	public void draw(Graphics g) {
 		Board board = Board.getInstance();
-		width = board.getWidth() / board.getNumColumns();
-		height = board.getHeight() / board.getNumRows();
+		width = (board.getWidth()) / board.getNumColumns();
+		height = (board.getHeight()) / board.getNumRows();
 		// the x and y position of the rectangles will be shifted by each rectangles width and height
 		int x = this.column * width;
 		int y = this.row * height;
@@ -89,8 +89,8 @@ public class BoardCell {
 
 	public void drawRoomName(Graphics g, String roomName) {
 		Board board = Board.getInstance();
-		width = board.getWidth() / board.getNumColumns();
-		height = board.getHeight() / board.getNumRows();
+		width = (board.getWidth()) / board.getNumColumns();
+		height = (board.getHeight()) / board.getNumRows();
 		// the x and y position of the rectangles will be shifted by each rectangles width and height
 		// we divide by 2 to get the center of the cell
 		int x = this.column * (width);

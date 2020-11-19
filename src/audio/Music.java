@@ -11,7 +11,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem; 
 import javax.sound.sampled.Clip; 
 import javax.sound.sampled.LineUnavailableException; 
-import javax.sound.sampled.UnsupportedAudioFileException; 
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import gui.ClueGame; 
 
 public class Music  
 { 
@@ -27,8 +29,11 @@ public class Music
 
 	// constructor to initialize streams and clip 
 	public Music() 
-	{ 
-		pickRandomSong();
+	{
+	} 
+	
+	public void initialize() {
+		
 		// create AudioInputStream object 
 		try {
 			audioInputStream =  
@@ -52,11 +57,12 @@ public class Music
 			e.printStackTrace();
 		} 
 
-	} 
+	}
 
 	public void pickRandomSong() {
 		songNumber = (int)(Math.random() * (songs.length-1));
 		filePath = songs[songNumber];
+		ClueGame.getInstance().getGameControlPanel().setSong();
 	}
 
 	public int getSongNumber() {
@@ -134,6 +140,7 @@ public class Music
 		songNumber++;
 		songNumber %= (songs.length);
 		filePath = songs[songNumber];
+		ClueGame.getInstance().getGameControlPanel().setSong();
 		restart();
 	} 
 
