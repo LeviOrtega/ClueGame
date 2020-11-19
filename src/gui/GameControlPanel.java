@@ -28,7 +28,7 @@ public class GameControlPanel extends JPanel {
 	JButton leftButton;
 	JButton rightButton;
 	Player player;
-	ClueGame clueGame;
+	ClueGame clueGame = ClueGame.getInstance();
 
 
 	public GameControlPanel() {
@@ -81,6 +81,10 @@ public class GameControlPanel extends JPanel {
 				Player player = Board.getInstance().getCurrentPlayer();
 				if (player.getPlayerType() == PlayerType.HUMAN && player.isFinishedTurn() == false) {
 					acc.displayAccusationPrompt(player);
+				}
+				else {
+					// display error 
+					clueGame.displayErrorSplash("Cannot make accusation");
 				}
 			}
 

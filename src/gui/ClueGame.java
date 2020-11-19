@@ -40,7 +40,7 @@ public class ClueGame extends JFrame{
 
 
 	public void initialize() {
-		setSize(900, 900);
+		setSize(850, 850);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("ClueGame CSCI 306");
@@ -103,10 +103,20 @@ public class ClueGame extends JFrame{
 	public void displayVictoryScreen(Player winner) {
 		JFrame victoryFrame = new JFrame();
 		victoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		victoryFrame.setSize(200, 200);
+		victoryFrame.setSize(300, 100);
 		victoryFrame.setLocationRelativeTo(null);
+		victoryFrame.setLayout(new GridLayout(0,1));
 		JLabel wLabel = new JLabel(winner.getName() + " has won!", SwingConstants.CENTER);
+		Solution answer = board.getAnswer();
+		JLabel solution = new JLabel("Answer: "  
+				+ answer.getPeople().getCardName() + ", "
+				+ answer.getRoom().getCardName() + ", "
+				+ answer.getWeapon().getCardName()
+				, SwingConstants.CENTER
+				);
+		
 		victoryFrame.add(wLabel);
+		victoryFrame.add(solution);
 		victoryFrame.setTitle("Congrats!");
 		victoryFrame.getContentPane().setBackground(winner.getColor());
 		victoryFrame.setVisible(true);
@@ -173,7 +183,6 @@ public class ClueGame extends JFrame{
 		// display a welcome splash
 		clueGame.welcomeSplash();
 		System.out.println(board.getAnswer().toString());
-
 	}
 
 

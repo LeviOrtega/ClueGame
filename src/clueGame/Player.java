@@ -24,6 +24,7 @@ public abstract class Player {
 	protected boolean finishedTurn;
 	protected boolean testing;
 	protected Solution accusation;
+	protected Room previousRoom;
 
 	public Player(String name, int row, int column, PlayerType playerType, Color color) {
 		this.name = name;
@@ -169,6 +170,14 @@ public abstract class Player {
 	public void setTesting(Boolean test) {
 		// for testing shuffling and to not call null values not setup in JUnit tests
 		testing = test;
+	}
+	
+	public Room getPreviousRoom() {
+		return this.previousRoom;
+	}
+	
+	public void setPreviousRoom(Room room) {
+		this.previousRoom = room;
 	}
 	
 

@@ -48,6 +48,8 @@ public class ComputerPlayer extends Player {
 				Collections.shuffle(rooms);
 				newLocation = rooms.get(0);
 				this.updatePosition(newLocation.getRow(), newLocation.getColumn());
+				// set the previous room of the player to the room they enter by their choice
+				previousRoom = Board.getInstance().getRoom(newLocation);
 				// if the computer is in a room, they should handle a suggestion
 				checkIfPlayerShouldHandleSuggestion();
 			}
@@ -56,6 +58,8 @@ public class ComputerPlayer extends Player {
 				Collections.shuffle(spaces);
 				newLocation = spaces.get(0);
 				this.updatePosition(newLocation.getRow(), newLocation.getColumn());
+				// reset their previous room
+				previousRoom = null;
 			}
 
 		}

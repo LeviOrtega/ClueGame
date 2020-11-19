@@ -258,9 +258,20 @@ public class Board extends JPanel{
 			ClueGame.getInstance().displayErrorSplash("Please select valid target.");
 			return;
 		}
+		
+		// if the target selected by the human player was in a room, then set that room to their previous room
+		if (potentialRoom != null) {
+			currentPlayer.setPreviousRoom(potentialRoom);
+		}
+		// if not, then the player has moved onto a space and should set the last room to null
+		else {
+			currentPlayer.setPreviousRoom(null);
+		}
 		// after the player moved to a correct location, check if they should make a suggestion
 		currentPlayer.checkIfPlayerShouldHandleSuggestion();
 	}
+	
+	
 
 
 	public Card handleSuggestion(Player player) {
@@ -647,6 +658,11 @@ public class Board extends JPanel{
 					else if (targetBoardCell.isRoomCenter()){
 						targets.add(targetBoardCell);		// add secret passage room to targets 
 					}
+				}
+				if (testing == false && getRoom(startCell) != currentPlayer.getPreviousRoom()) {
+					// if the currentPlayers previous room is not the same as the room they are in, then 
+					// they were pulled into that room and can make a select the room as a target
+					targets.add(startCell);
 				}
 			}
 			else {
