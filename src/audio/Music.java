@@ -19,7 +19,7 @@ public class Music
 	// to store current position 
 	Long currentFrame; 
 	Clip clip; 
-	String[] songs = {"data/Song1.WAV", "data/Song2.WAV","data/Song3.WAV","data/Song4.WAV", "data/Song5.WAV"};
+	String[] songs = {"music/Song1.WAV", "music/Song2.WAV","music/Song3.WAV","music/Song4.WAV", "music/Song5.WAV"};
 	int songNumber;
 
 	AudioInputStream audioInputStream; 

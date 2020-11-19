@@ -92,7 +92,7 @@ public abstract class Player {
 		g.fillOval(x, y, width, height);
 		g.setColor(Color.BLACK);
 		Graphics2D g2 = (Graphics2D) g;
-		int thickness = 4;
+		int thickness = 2;
 	    g2.setStroke(new BasicStroke(thickness));
 		g2.drawOval(x+(thickness/2), y+(thickness/2), width-thickness, height-thickness);
 
