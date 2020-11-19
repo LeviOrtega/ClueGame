@@ -34,7 +34,7 @@ public class AccusationPrompt extends JDialog{
 	}
 	// called by the action preformed in accusation button
 	public void displayAccusationPrompt(Player player) {
-		setSize(400,200);
+		setSize(300,150);
 		setLocationRelativeTo(null);
 		//suggestion.setLayout(new GridLayout(4,2));
 

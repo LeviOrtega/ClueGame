@@ -31,7 +31,7 @@ public class SuggestionPrompt extends JDialog{
 	}
 	// called by human player to display the suggestion prompt to make suggestion
 	public void displaySuggestionPrompt(Player player) {
-		setSize(400,200);
+		setSize(300,150);
 		setLocationRelativeTo(null);
 		//suggestion.setLayout(new GridLayout(4,2));
 

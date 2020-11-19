@@ -85,12 +85,13 @@ public class ClueGame extends JFrame{
 				// only display disproved card if its the human
 				if (suggestionPlayer.getPlayerType() == PlayerType.HUMAN) {
 					// set the color of the result text field to be color of player disproving suggestion
-					gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
 					gameControlPanel.setResult(result.getCardName());
 				}
 				else {
 					gameControlPanel.setResult("A card has been disproven.");
 				}
+				// always show who disproved it
+				gameControlPanel.getResult().setBackground(disprovePlayer.getColor());
 			}
 			// if result IS null, then no player disproved any card in suggestion 
 			else {
