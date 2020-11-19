@@ -44,4 +44,15 @@ public class HumanPlayer extends Player {
 		return null;
 	}
 
+	@Override
+	public void checkIfPlayerShouldHandleSuggestion() {
+		// only check if currentPlayer is this player
+		// we do this because players can be pulled into rooms
+		if (Board.getInstance().getCurrentPlayer() == this && finishedTurn == false) {
+			// handle suggestion is called in event listeners
+			// createSuggestion returns null if player isn't in room
+			suggestion = createSuggestion();
+		}
+	}
+
 }

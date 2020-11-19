@@ -184,6 +184,7 @@ public class Board extends JPanel{
 		if (currentPlayer.getPlayerType() == PlayerType.COMPUTER) {
 			return true;
 		}
+		// if the players targets is zero, then they are stuck in a room and can move onto the next player
 		else if (targets.size() == 0) {
 			return true;
 		}
@@ -201,6 +202,7 @@ public class Board extends JPanel{
 		currentPlayer.selectTarget(roll);
 		ClueGame.getInstance().displayPlayerAndRoll(currentPlayer, roll);
 
+		// must repaint after changing values to allow for displaying
 		repaint();
 	}
 

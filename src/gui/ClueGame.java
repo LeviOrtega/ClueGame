@@ -98,8 +98,8 @@ public class ClueGame extends JFrame{
 			}
 		}
 	}
-	
-	
+
+
 	public void displayVictoryScreen(Player winner) {
 		JFrame victoryFrame = new JFrame();
 		victoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,7 +111,7 @@ public class ClueGame extends JFrame{
 		victoryFrame.getContentPane().setBackground(winner.getColor());
 		victoryFrame.setVisible(true);
 	}
-	
+
 	public void displayLoseScreen() {
 		JFrame loseFrame = new JFrame();
 		loseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -173,7 +173,7 @@ public class ClueGame extends JFrame{
 		// display a welcome splash
 		clueGame.welcomeSplash();
 		System.out.println(board.getAnswer().toString());
-		
+
 	}
 
 

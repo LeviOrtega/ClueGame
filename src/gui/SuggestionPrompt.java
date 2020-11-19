@@ -42,9 +42,9 @@ public class SuggestionPrompt extends JDialog{
 		JPanel panel2 = makePanel2();
 		JPanel panel3 = makePanel3();
 		JPanel panel4 = makePanel4(player);
-		
-		
-		
+
+
+
 		main.add(panel1);
 		main.add(panel2);
 		main.add(panel3);
@@ -57,10 +57,10 @@ public class SuggestionPrompt extends JDialog{
 
 	public JPanel makePanel4(Player player) {
 		JPanel panel4 = new JPanel();
-		
+
 		JButton doneButton = new JButton("Done");
 		JButton cancelButton = new JButton("Cancel");
-		
+
 		doneButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -71,9 +71,9 @@ public class SuggestionPrompt extends JDialog{
 				Board.getInstance().handleSuggestion(player);
 				dispose();
 			}
-			
+
 		});
-		
+
 		cancelButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -81,13 +81,13 @@ public class SuggestionPrompt extends JDialog{
 				player.setFinishedTurn(true);
 				dispose();
 			}
-			
+
 		});
-		
+
 		panel4.add(doneButton);
 		panel4.add(cancelButton);
 		return panel4;
-		
+
 	}
 
 	public JPanel makePanel3() {
@@ -108,7 +108,7 @@ public class SuggestionPrompt extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				//give suggestion the 
 				suggestion.setWeapon(weaponCards[weaponBox.getSelectedIndex()]);
-				
+
 			}
 		});
 
@@ -164,6 +164,6 @@ public class SuggestionPrompt extends JDialog{
 	public Suggestion getSuggestion() {
 		return this.suggestion;
 	}
-	
-	
+
+
 }

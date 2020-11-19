@@ -73,34 +73,7 @@ public abstract class Player {
 		Board.getInstance().repaint();
 	}
 
-	public void checkIfPlayerShouldHandleSuggestion() {
-		// only check if currentPlayer is this player
-		// we do this because players can be pulled into rooms
-		if (Board.getInstance().getCurrentPlayer() == this && finishedTurn == false) {
-
-			// these function calls are not event driven and should only be used for computers. 
-			// handle suggestion is called in event listeners
-
-			// createSuggestion returns null if player isn't in room
-			suggestion = createSuggestion();
-			if (playerType == PlayerType.COMPUTER && suggestion != null) {
-				Card disprovedCard = Board.getInstance().handleSuggestion(this);
-				if (disprovedCard == null) {
-					// we know that if the card is null, no one disproved it and that is the solution besides themselves
-					if (!(seen.contains(suggestion.getRoom()))){
-						// players must suggest room they are in, because of this, we don't check to see if its in seen/hand
-						// this means that when attempting to disprove suggestion, the player making the suggesting
-						// cannot disprove the room card they have in their hand and think they have found a solution
-						accusation = new Solution(
-								suggestion.getPeople(), 
-								suggestion.getRoom(), 
-								suggestion.getWeapon());
-					}
-				} 
-				// seen is added in handleSuggesiton
-			}
-		}
-	}
+	public abstract void checkIfPlayerShouldHandleSuggestion();
 
 	public void draw(Graphics g) {
 		Board board = Board.getInstance();
