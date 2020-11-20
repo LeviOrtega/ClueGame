@@ -35,7 +35,7 @@ public class BoardCell {
 		this.column = column;
 		this.initial = initial;
 		this.adjList = new HashSet<BoardCell>();
-		
+
 	}
 
 	public void draw(Graphics g) {
@@ -48,7 +48,7 @@ public class BoardCell {
 		// color is set by logic outside of the boardcell class
 		g.setColor(this.color);
 		g.fillRect(x, y, width, height);
-		
+
 
 		// if the cell is a doorway, we will display a rectangle for door direction
 		if (this.isDoorway) {
@@ -85,7 +85,9 @@ public class BoardCell {
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, width, height);
 		}
+		
 	}
+
 
 	public void drawRoomName(Graphics g, String roomName) {
 		Board board = Board.getInstance();
@@ -220,15 +222,4 @@ public class BoardCell {
 				+ doorDirection + ", roomLabel=" + roomLabel + ", color=" + color + "]";
 	}
 
-	
-	
-	
-	
-
-
-
-	
-	
-	
-	
 }

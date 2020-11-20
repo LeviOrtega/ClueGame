@@ -23,17 +23,18 @@ public class Music
 	Clip clip; 
 	String[] songs = {"music/Song1.WAV", "music/Song2.WAV","music/Song3.WAV","music/Song4.WAV", "music/Song5.WAV"};
 	int songNumber;
+	static boolean paused = false;
+
+
 
 	AudioInputStream audioInputStream; 
 	static String filePath; 
 
 	// constructor to initialize streams and clip 
-	public Music() 
-	{
-	} 
-	
+	public Music(){} 
+
 	public void initialize() {
-		
+
 		// create AudioInputStream object 
 		try {
 			audioInputStream =  
@@ -46,17 +47,10 @@ public class Music
 			clip.open(audioInputStream); 
 
 			clip.loop(Clip.LOOP_CONTINUOUSLY); 
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} 
-
+		catch (UnsupportedAudioFileException e) {e.printStackTrace();} 
+		catch (IOException e) {e.printStackTrace();}
+		catch (LineUnavailableException e) {e.printStackTrace();} 
 	}
 
 	public void pickRandomSong() {
@@ -79,8 +73,7 @@ public class Music
 	// Method to pause the audio 
 	public void pause()  
 	{ 
-		this.currentFrame =  
-				this.clip.getMicrosecondPosition(); 
+		this.currentFrame = this.clip.getMicrosecondPosition(); 
 		clip.stop(); 
 	} 
 
@@ -103,7 +96,7 @@ public class Music
 		resetAudioStream(); 
 		currentFrame = 0L; 
 		clip.setMicrosecondPosition(0); 
-		this.play(); 
+		
 	} 
 
 	// Method to stop the audio 
@@ -123,6 +116,9 @@ public class Music
 					new File(filePath).getAbsoluteFile());
 			clip.open(audioInputStream); 
 			clip.loop(Clip.LOOP_CONTINUOUSLY); 
+			if (paused) {
+				pause();
+			}
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,6 +130,14 @@ public class Music
 			e.printStackTrace();
 		} 
 
+	}
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void setPaused(boolean paused) {
+		this.paused = paused;
 	}
 
 	public void nextSong() {

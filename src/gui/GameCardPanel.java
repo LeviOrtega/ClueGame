@@ -125,6 +125,7 @@ public class GameCardPanel extends JPanel {
 	
 	public void addHand(Card card, Player mainPlayer) {
 		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setHorizontalAlignment(JTextField.CENTER);
 		cardText.setEditable(false);
 		// set the color of the card, eventually will be set to color of players
 		cardText.setBackground(mainPlayer.getColor());
@@ -146,6 +147,7 @@ public class GameCardPanel extends JPanel {
 	
 	public void addSeen(Card card, Player disprovePlayer) {
 		JTextField cardText = new JTextField(card.getCardName());
+		cardText.setHorizontalAlignment(JTextField.CENTER);
 		cardText.setEditable(false);
 		// set the color of the card, eventually will be set to color of players
 		cardText.setBackground(disprovePlayer.getColor());

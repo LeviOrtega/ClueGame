@@ -151,11 +151,15 @@ public class Board extends JPanel{
 			else {
 				boardCell.setColor(new Color(50,50,50));
 			}
+			
+			
 		}
 		else if (boardCell.isUnused()) {
 			boardCell.setColor(Color.BLACK);
 		}
 	}
+	
+	
 
 	/*
 	 *------------------------------------------------------------------------------
@@ -294,7 +298,7 @@ public class Board extends JPanel{
 		// making the suggestion
 
 		if (playerSuggestion != null && player.testing == false) {
-			handleSuggestionMovePlayers(playerSuggestion.getPeople(), player);
+			moveSuggestedPlayer(playerSuggestion.getPeople(), player);
 		}
 
 		// we don't want to give a null card
@@ -306,7 +310,7 @@ public class Board extends JPanel{
 		return card;
 	}
 
-	public void handleSuggestionMovePlayers(Card playerCard, Player suggestingPlayer) {
+	public void moveSuggestedPlayer(Card playerCard, Player suggestingPlayer) {
 		Player suggestedPlayer = null;
 		for (Player player: players) {
 			if (player.getName().equals(playerCard.getCardName())) {

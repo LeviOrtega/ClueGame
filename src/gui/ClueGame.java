@@ -9,10 +9,14 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Scanner;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -49,7 +53,7 @@ public class ClueGame extends JFrame{
 
 
 	public void initialize() {
-		setSize(800, 850);
+		setSize(820, 870);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +62,7 @@ public class ClueGame extends JFrame{
 		gameCardPanel = new GameCardPanel();
 		music = new Music();
 		gameControlPanel = new GameControlPanel();
+		gameControlPanel.setPreferredSize(new Dimension(getWidth(), getHeight()/6));
 		music.pickRandomSong();
 		music.initialize();
 		gameCardPanel.setPreferredSize(new Dimension(getWidth()/6, getHeight()));
@@ -67,26 +72,24 @@ public class ClueGame extends JFrame{
 		// the first player in the arrayList is the cowboy, the human player
 		add(gameControlPanel, BorderLayout.SOUTH);
 		add(gameCardPanel, BorderLayout.EAST);
-		
+
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 		// after all players are init and added, we want to set their colors and positions
 		// we do this last as the players use boardcells to know where they are
 		board.setPlayerInfo();
 		board.deal();
-		
 
-		add(board, BorderLayout.CENTER);
+		add(board);
 		setVisible(true);
 
 		board.updateCurrentPlayer();
-		
-		
+
 
 	}
 
-	
-	
+
+
 	public void updateGuessAndResult(Suggestion guess, Card result, Player suggestionPlayer, Player disprovePlayer) {
 		// for JUnit tests we see check if its not null
 		if (gameControlPanel != null) {
@@ -192,7 +195,7 @@ public class ClueGame extends JFrame{
 	}
 
 
-	
+
 
 
 	public GameControlPanel getGameControlPanel() {

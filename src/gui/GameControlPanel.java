@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -77,6 +78,7 @@ public class GameControlPanel extends JPanel {
 		JLabel label = new JLabel("Whos turn?", SwingConstants.CENTER);
 		leftSubPan.add(label);
 		turn = new JTextField(15);
+		turn.setHorizontalAlignment(JTextField.CENTER);
 		// this makes it so players cannot type in text field
 		turn.setEditable(false);
 		leftSubPan.add(turn);
@@ -91,6 +93,7 @@ public class GameControlPanel extends JPanel {
 		label = new JLabel("Roll", SwingConstants.RIGHT);
 		rightSubPan.add(label);
 		roll = new JTextField(5);
+		roll.setHorizontalAlignment(JTextField.CENTER);
 		roll.setEditable(false);
 		rightSubPan.add(roll);
 		return rightSubPan;
@@ -125,31 +128,41 @@ public class GameControlPanel extends JPanel {
 		musicSubPan.setLayout(new GridLayout(0,1));
 		musicSubPan.setBorder(new TitledBorder (new EtchedBorder(), "Music"));
 		
-		JPanel muteAndSongPanel = new JPanel();
-		JCheckBox mute = new JCheckBox("Mute");
-		mute.addItemListener(new ItemListener() {
-
+		JPanel pauseAndSongPanel = new JPanel();
+		pauseAndSongPanel.setLayout(new GridLayout(0,2));
+		JButton pause = new JButton("Mute");
+		pause.addActionListener(new ActionListener() {
 			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == 1) {
-					// mute is selected
-					clueGame.getMusic().pause();
+			public void actionPerformed(ActionEvent e) {
+				boolean paused = clueGame.getMusic().isPaused();
+				if(paused) {
+					// if music was paused, play resume it
+					clueGame.getMusic().setPaused(false);
+					clueGame.getMusic().resumeAudio();
+					// set the button to display pause for player
+					pause.setText("Pause");
 				}
 				else {
-					clueGame.getMusic().resumeAudio();
+					clueGame.getMusic().setPaused(true);
+					clueGame.getMusic().pause();
+					pause.setText("Resume");
 				}
 				
 			}
-			
+
 		});
-		muteAndSongPanel.add(mute);
+		
+		pause.setText("Pause");
+		
+		pauseAndSongPanel.add(pause);
 		
 		song = new JTextField(5);
 		song.setEditable(false);
+		//set 
 		song.setBackground(new Color(220,220,220));
-		muteAndSongPanel.add(song);
+		pauseAndSongPanel.add(song);
 		
-		musicSubPan.add(muteAndSongPanel);
+		musicSubPan.add(pauseAndSongPanel);
 		
 		JButton nextSong = new JButton("Next Song");
 		nextSong.addActionListener(new ActionListener() {
@@ -173,9 +186,11 @@ public class GameControlPanel extends JPanel {
 		bottom.setLayout(new GridLayout(0,2));  // Dimensions make room for a left (guess) and right (result) panel
 		guess = new JTextField(20);   // maximum length of 20 characters for guess message
 		guess.setEditable(false);     // user is not allowed to change text in guess message
+		guess.setHorizontalAlignment(JTextField.CENTER);
 		left.add(guess);
 		result = new JTextField(20);  // maximum length of 20 characters for result message
 		result.setEditable(false);    // user is not allowed to change text in result message
+		result.setHorizontalAlignment(JTextField.CENTER);
 		right.add(result);
 
 		// both guess and result panels added to "bottom" as sort of sub-panels
