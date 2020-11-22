@@ -136,7 +136,15 @@ public class ClueGame extends JFrame{
 
 		victoryFrame.add(wLabel);
 		victoryFrame.add(solution);
+		
+		if (winner.getPlayerType() == PlayerType.HUMAN) {
 		victoryFrame.setTitle("Congrats!");
+		}
+		else {
+			victoryFrame.setTitle("Aw Shucks");
+		}
+		
+		
 		victoryFrame.getContentPane().setBackground(winner.getColor());
 		victoryFrame.setVisible(true);
 	}
@@ -144,7 +152,7 @@ public class ClueGame extends JFrame{
 	public void displayLoseScreen() {
 		JFrame loseFrame = new JFrame();
 		loseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loseFrame.setSize(400, 200);
+		loseFrame.setSize(400, 100);
 		loseFrame.setLocationRelativeTo(null);
 		JLabel lLabel = new JLabel("You've lost. Maybe next time, partner.", SwingConstants.CENTER);
 		loseFrame.add(lLabel);

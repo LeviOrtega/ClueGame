@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import clueGame.Board;
 import clueGame.BoardCell;
@@ -36,6 +37,7 @@ public class AccusationPrompt extends JDialog{
 	public void displayAccusationPrompt(Player player) {
 		setSize(300,150);
 		setLocationRelativeTo(null);
+		setTitle("Make Accusation");
 		//suggestion.setLayout(new GridLayout(4,2));
 
 		JPanel main = new JPanel();
@@ -152,7 +154,7 @@ public class AccusationPrompt extends JDialog{
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(0,2));
 
-		JLabel label1 = new JLabel("Person:");
+		JLabel label1 = new JLabel("Room:");
 		panel1.add(label1);
 
 		Card[] roomCards = board.getTypeCards(CardType.ROOM);

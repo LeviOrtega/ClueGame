@@ -33,6 +33,7 @@ public class SuggestionPrompt extends JDialog{
 	public void displaySuggestionPrompt(Player player) {
 		setSize(300,150);
 		setLocationRelativeTo(null);
+		setTitle("Make Suggestion");
 		//suggestion.setLayout(new GridLayout(4,2));
 
 		JPanel main = new JPanel();
