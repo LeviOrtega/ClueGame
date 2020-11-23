@@ -1,4 +1,163 @@
-// Pair programming, levi did commits to avoid problems with git
+// Pair programming
+commit cc5fd649a4c1e352610cdbf901761edd6612805f
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 22 13:01:46 2020 -0700
+
+    Games donejava -jar ClueGame.jar
+
+commit 00a1d13290c35d3e3488583e38cef5a40d62487a
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sun Nov 22 13:00:22 2020 -0700
+
+    Polishing
+
+commit 1c6b43b7337dcba863d57bc181e22541556e6e02
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Fri Nov 20 00:52:02 2020 -0700
+
+    made some style changes
+
+commit b6613840c3fd2cf62c4aac8ddf8d3acc95b99d41
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Thu Nov 19 10:58:51 2020 -0700
+
+    Added a textbox for song number
+
+commit 2f6d3d9e67011995fa0a4a85e2c02e34c6840f48
+Merge: 497cf7a f4c846e
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 21:50:25 2020 -0700
+
+    Merge branch 'main' of https://github.com/LeviOrtega/Clue into main
+
+commit 497cf7a98472dc2500b21770efda17df7aecbb98
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 21:48:11 2020 -0700
+
+    Made songs shorter
+
+commit f4c846e278910029661a74b88a749c83328e65b2
+Author: Levi Ortega <65995415+LeviOrtega@users.noreply.github.com>
+Date:   Wed Nov 18 21:40:35 2020 -0700
+
+    Update README.md
+    
+    Commit 150!!!
+
+commit b4094dd0b52fc6e3af5c37143dd1fcb507612a37
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 21:36:46 2020 -0700
+
+    Didn't get to say in last commit, but I added music and a music player. Moved music to its own folder, and changed the black cicle size around players
+
+commit ce02c014f473bcd03f0203a657e3fab54efea5dd
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 21:28:30 2020 -0700
+
+    Fix
+
+commit 4fd2391be4d829689c23108ae2db698c98e9954c
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 18:18:56 2020 -0700
+
+    Game is finished
+
+commit 5c56f931e28623965e55a552b71536b3065130ef
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 17:51:05 2020 -0700
+
+    Added lines around players to better define them on board
+
+commit 0c03967ce9e007d26080a643e9feb2dd39b732ea
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 17:42:53 2020 -0700
+
+    added error message for making accusation when not on turn
+
+commit cd0aa58d9e6236d18a143b2c3a067d75a7d80302
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 17:03:23 2020 -0700
+
+    refactoring
+
+commit c1ab89dd3309061167f8fb561fa88a2d864b4b69
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 16:47:10 2020 -0700
+
+    Added condition that if the targers size were 0, then the players turn is over
+
+commit 1e8b499a5a8285da4585b28ed84bb789cd20f95a
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 16:38:41 2020 -0700
+
+    Fixed stack overflow exception beign thrown because of update position loop in code. Moved currentPlayer.checkIfPlayerShouldHandleSuggestion(); to be conditional instead of being called in updatepositon
+
+commit f9ed6d26504c30c65867cff8c062558e46aa04d0
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 16:27:49 2020 -0700
+
+    added room highlights and the ability to click on any part of the room to move into it if its in the targets
+
+commit cf8abb99ffc20674e7d8076a4fd668f332e9544b
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 01:38:08 2020 -0700
+
+    Added make accusation prompt and losing
+
+commit 9a55d53ddfc626431f5c94734442a4b4a30467f3
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Wed Nov 18 00:46:49 2020 -0700
+
+    fixed some bugs with how we init the three solution cards, computer accusations and victory screen
+
+commit 3f484fd4914c47889ff5af0549c7c2db6bb34e16
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Nov 17 23:24:16 2020 -0700
+
+    players now move to rooms when suggested
+
+commit 063c1ded190b64641df94a1799cd31e7ff5fa15c
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Nov 17 23:02:52 2020 -0700
+
+    added suggestion prompt that takes human players suggestion and displays the disproven card in card panel
+
+commit fc9e9c4e9cf83f950a8e91c559ac3c66744c3415
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Tue Nov 17 17:36:23 2020 -0700
+
+    jar file
+
+commit df721535cdc743e707e807a59ed9b734e4a52c86
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Mon Nov 16 10:53:44 2020 -0700
+
+    Changed some strings
+
+commit 1ac14a76d15642c8f4292d452cbc538ecd3f3dae
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Mon Nov 16 10:44:43 2020 -0700
+
+    Changed player locations to better fit with the player rotation. Turns rotate in clockwise motion
+
+commit 626afdde7f99e0137c4d8c49b65eab21f6b73cb7
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Mon Nov 16 10:41:19 2020 -0700
+
+    Added debugging boolean to board so that JUnit tests dont call ClueGame as it will be null in tests
+
+commit 61945c01ccdb7ad4b470ab227caf06fa6e5373dd
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Mon Nov 16 10:18:37 2020 -0700
+
+    Show cards in hand for player and moved when we set the players turn finshed to true
+
+commit 777623f52095752089c1d765707dc65a125d63f1
+Author: LeviOrtega <leviortega@mymail.mines.edu>
+Date:   Sat Nov 14 19:39:53 2020 -0700
+
+    Refactoring
+
 commit 0b07c6775da844a7bf5afd02323eaaad46bee76e
 Author: LeviOrtega <leviortega@mymail.mines.edu>
 Date:   Sat Nov 14 19:05:21 2020 -0700

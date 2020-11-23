@@ -13,6 +13,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -700,8 +701,11 @@ public class Board extends JPanel{
 	public void loadSetupConfig() throws BadConfigFormatException {  // txt file loader
 
 		try {
-			File setup = new File(DIR + setupConfigFile);
-			Scanner sc = new Scanner(setup);
+			InputStream is = getClass().getClassLoader().getResourceAsStream(setupConfigFile);
+			if (is == null) {
+				throw new FileNotFoundException();
+			}
+			Scanner sc = new Scanner(is);
 
 			// this loop goes through each line of setup .txt, grabs data, and checks if file is formatted correctly
 			while (sc.hasNextLine()) {
@@ -712,6 +716,12 @@ public class Board extends JPanel{
 				}
 			}
 			sc.close();
+			try {
+				is.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("File, " + setupConfigFile + " could not be opened.");
@@ -783,9 +793,11 @@ public class Board extends JPanel{
 		int rowLen = 0;
 		try {
 			Scanner sc;
-			File layout;
-			layout = new File(DIR + layoutConfigFile);
-			sc = new Scanner(layout);
+			InputStream is = getClass().getClassLoader().getResourceAsStream(layoutConfigFile);
+			if (is == null) {
+				throw new FileNotFoundException();
+			}
+			sc = new Scanner(is);
 			String in = sc.nextLine();
 			String[] column = in.split(",");
 			colLen = column.length;
@@ -800,12 +812,20 @@ public class Board extends JPanel{
 			}
 
 			sc.close();
+			try {
+				is.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			board = new BoardCell[rowLen][colLen];
 			// we use a boardString later in generateBoardCellType() to check if a cell is a door, room. etc.
 			boardString = new String[rowLen][colLen];
+			
 
 			int b = 0;
-			sc = new Scanner(layout);
+			is = getClass().getClassLoader().getResourceAsStream(layoutConfigFile);
+			sc = new Scanner(is);
 			while (sc.hasNextLine()) {
 				boardString[b] = sc.nextLine().split(",");	 // .split returns our row of strings for boardString
 				b++;
@@ -1022,12 +1042,6 @@ public class Board extends JPanel{
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
-		board.deal();
-
-		for (Player player: board.getPlayers()) {
-			System.out.println(player.toString());
-			System.out.println(player.getHand());
-		}
 
 	}
 

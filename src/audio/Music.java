@@ -3,8 +3,10 @@
 package audio;
 //Java program to play an Audio 
 //file using Clip Object 
-import java.io.File; 
-import java.io.IOException; 
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Scanner; 
 
 import javax.sound.sampled.AudioInputStream; 
@@ -21,14 +23,11 @@ public class Music
 	// to store current position 
 	Long currentFrame; 
 	Clip clip; 
-	String[] songs = {"music/Song1.WAV", "music/Song2.WAV","music/Song3.WAV","music/Song4.WAV", "music/Song5.WAV"};
+	String[] songs = {"/Song1.wav", "/Song2.wav","/Song3.wav","/Song4.wav", "/Song5.wav"};
 	int songNumber;
 	static boolean paused = false;
-
-
-
 	AudioInputStream audioInputStream; 
-	static String filePath; 
+	String filePath; 
 
 	// constructor to initialize streams and clip 
 	public Music(){} 
@@ -37,8 +36,9 @@ public class Music
 
 		// create AudioInputStream object 
 		try {
-			audioInputStream =  
-					AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+			URL url = this.getClass().getResource(filePath);
+			
+			audioInputStream = AudioSystem.getAudioInputStream(url);
 
 			// create clip reference 
 			clip = AudioSystem.getClip(); 
@@ -48,7 +48,7 @@ public class Music
 
 			clip.loop(Clip.LOOP_CONTINUOUSLY); 
 		} 
-		catch (UnsupportedAudioFileException e) {e.printStackTrace();} 
+		catch (UnsupportedAudioFileException e) {System.out.println("Unsupported file:" + filePath);} 
 		catch (IOException e) {e.printStackTrace();}
 		catch (LineUnavailableException e) {e.printStackTrace();} 
 	}
@@ -112,8 +112,8 @@ public class Music
 	public void resetAudioStream() 
 	{ 
 		try {
-			audioInputStream = AudioSystem.getAudioInputStream( 
-					new File(filePath).getAbsoluteFile());
+			URL url = this.getClass().getResource(filePath);
+			audioInputStream = AudioSystem.getAudioInputStream(url);
 			clip.open(audioInputStream); 
 			clip.loop(Clip.LOOP_CONTINUOUSLY); 
 			if (paused) {
@@ -129,6 +129,7 @@ public class Music
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		
 
 	}
 
