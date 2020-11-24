@@ -21,7 +21,7 @@ public class Music
 { 
 
 	// to store current position 
-	Long currentFrame; 
+	static Long currentFrame; 
 	Clip clip; 
 	String[] songs = {"/Song1.wav", "/Song2.wav","/Song3.wav","/Song4.wav", "/Song5.wav"};
 	int songNumber;
@@ -32,25 +32,29 @@ public class Music
 	// constructor to initialize streams and clip 
 	public Music(){} 
 
-	public void initialize() {
+	public synchronized void initialize() {
 
-		// create AudioInputStream object 
-		try {
-			URL url = this.getClass().getResource(filePath);
-			
-			audioInputStream = AudioSystem.getAudioInputStream(url);
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					// create AudioInputStream object
+					URL url = this.getClass().getResource(filePath);
 
-			// create clip reference 
-			clip = AudioSystem.getClip(); 
+					audioInputStream = AudioSystem.getAudioInputStream(url);
 
-			// open audioInputStream to the clip 
-			clip.open(audioInputStream); 
+					// create clip reference 
+					clip = AudioSystem.getClip(); 
 
-			clip.loop(Clip.LOOP_CONTINUOUSLY); 
-		} 
-		catch (UnsupportedAudioFileException e) {System.out.println("Unsupported file:" + filePath);} 
-		catch (IOException e) {e.printStackTrace();}
-		catch (LineUnavailableException e) {e.printStackTrace();} 
+					// open audioInputStream to the clip 
+					clip.open(audioInputStream); 
+
+					clip.loop(Clip.LOOP_CONTINUOUSLY); 
+
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
 	}
 
 	public void pickRandomSong() {
@@ -64,28 +68,57 @@ public class Music
 	}
 
 	// Method to play the audio 
-	public void play()  
+	public synchronized void play()  
 	{ 
-		//start the clip 
-		clip.start(); 
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					// start the clip
+					clip.start();
+
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
 	} 
 
 	// Method to pause the audio 
-	public void pause()  
+	public synchronized void pause()  
 	{ 
-		this.currentFrame = this.clip.getMicrosecondPosition(); 
-		clip.stop(); 
+
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					currentFrame = clip.getMicrosecondPosition(); 
+					clip.stop(); 
+
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
 	} 
 
 	// Method to resume the audio 
-	public void resumeAudio() 
+	public synchronized void resumeAudio() 
 	{ 
-		clip.close(); 
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					clip.stop();
+					clip.setMicrosecondPosition(currentFrame); 
+					clip.start();
 
-		resetAudioStream();
 
-		clip.setMicrosecondPosition(currentFrame); 
-		this.play(); 
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
 	} 
 
 	// Method to restart the audio 
@@ -96,40 +129,57 @@ public class Music
 		resetAudioStream(); 
 		currentFrame = 0L; 
 		clip.setMicrosecondPosition(0); 
-		
+
 	} 
 
 	// Method to stop the audio 
-	public void stop() 
+	public synchronized void stop() 
 	{ 
-		currentFrame = 0L; 
-		clip.stop(); 
-		clip.close(); 
+
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					currentFrame = 0L; 
+					clip.stop(); 
+					clip.close(); 
+
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
+
 	} 
 
 
 	// Method to reset audio stream 
-	public void resetAudioStream() 
+	public synchronized void resetAudioStream() 
 	{ 
-		try {
-			URL url = this.getClass().getResource(filePath);
-			audioInputStream = AudioSystem.getAudioInputStream(url);
-			clip.open(audioInputStream); 
-			clip.loop(Clip.LOOP_CONTINUOUSLY); 
-			if (paused) {
-				pause();
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					URL url = this.getClass().getResource(filePath);
+					audioInputStream = AudioSystem.getAudioInputStream(url);
+					clip.open(audioInputStream); 
+					clip.loop(Clip.LOOP_CONTINUOUSLY); 
+					if (paused) {
+						pause();
+					}
+
+				} 
+				catch(IllegalStateException e) {
+					// this is thrown if the player clicks on the next button too fast and it plays the same soung
+					// do nothing with this exception
+				}
+				catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
 			}
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
+		}).start();
+
+
+
 
 	}
 
@@ -141,12 +191,24 @@ public class Music
 		this.paused = paused;
 	}
 
-	public void nextSong() {
-		songNumber++;
-		songNumber %= (songs.length);
-		filePath = songs[songNumber];
-		ClueGame.getInstance().getGameControlPanel().setSong();
-		restart();
+	public synchronized void nextSong() {
+
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+
+					songNumber++;
+					songNumber %= (songs.length);
+					filePath = songs[songNumber];
+					ClueGame.getInstance().getGameControlPanel().setSong();
+					restart();
+
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+
 	} 
 
 
